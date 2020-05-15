@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect,  } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Login from './scenes/login';
+import Home from './scenes/Home';
+import ShareThought from './scenes/ShareThought';
 import AppletList from './scenes/appletList';
 import Activities from './scenes/activities';
 import { userSelector } from './state/user/user.selectors';
@@ -25,10 +27,11 @@ const App = ({ user }) => {
       <NavBar/>
       <Router>
         <div>
-          <Route path="/login" component={isLoggedIn ? RedirectToApplets : Login} />
-          <Route path="/activities" component={isLoggedIn ? Activities : RedirectToLogin} />
-          <Route path="/applets" component={isLoggedIn ? AppletList : RedirectToLogin} />
-          <Route path="/" component={isLoggedIn ? RedirectToLogin : RedirectToLogin} />
+          <Route path="/login" component={ Login} />
+          <Route path="/activities" component={Activities} />
+          <Route path="/applets" component={AppletList} />
+          <Route path="/" component={Home} />
+          <Route path="/share-thought" component={ShareThought} />
         </div>
       </Router>
     </div>

@@ -1,55 +1,69 @@
 import React, { Component } from "react";
-import WebCam from 'react-webcam'
+import VideoRecorder from 'react-video-recorder'
 import { ReactMic } from 'react-mic'
 import { Row, Col, Button } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
+import Modal from 'react-bootstrap/Modal'
 import './style.css'
 const Record = ({ type, onFinished }) => {
     const [recordStarted, setRecordStated] = React.useState(false)
+    const [showModal, setShowModal] = React.useState(false)
+    const [recordFile, setRecordFile] = React.useState(null)
+    const [recordFileURL, setRecordFileURL] = React.useState(null)
     const webcamRef = React.useRef(null);
-    const onUserMediaOK = () => {
-
-    }
-    const onUserMediaError = () => {
-
-    }
     const startRecording = () => {
-        if(type === 'video')
-        {
-           console.log( webcamRef.current)
-        }
         setRecordStated(true)
     }
     const stopRecording = () => {
         setRecordStated(false)
     }
     const onAudioData = (recordedBlob) => {
-        
-    }
 
+    }
+    const videoRecordingFinished = (file) => {
+        let url = URL.createObjectURL(file)
+        setRecordFile(file)
+        setRecordFileURL(url)
+        stopRecording();
+        setShowModal(true)
+    }
     const onAudioStop = (recordedBlob) => {
-        console.log('recordedBlob is: ', recordedBlob);
+        if (recordedBlob.blob === undefined) {
+            return false;
+        }
+        let blob = recordedBlob.blob
+        let url = URL.createObjectURL(blob)
+        setRecordFile(recordedBlob)
+        setRecordFileURL(url)
+        stopRecording();
+        setShowModal(true)
+    }
+    const deleteRecord = () => {
+        setRecordFile(null)
+        setRecordFileURL(null)
+        setShowModal(false)
+    }
+    const uploadRecord = () => {
+        setShowModal(false)
     }
     const space = {
         marginTop: 15,
-        textAlign:'center',
+        textAlign: 'center',
     }
-    const videoConstraints = {
-        facingMode: "user"
-      };
     return (
         <div >
             <Row>
                 {
                     type === 'video' ?
-                        <WebCam
-                            ref={webcamRef}
-                            onUserMedia={onUserMediaOK}
-                            onUserMediaError={onUserMediaError}
-                            videoConstraints={videoConstraints}
-                        />
+                        <div style={{ width: 480, margin: '0 auto' }}>
+                            <VideoRecorder
+                                ref={webcamRef}
+                                onStartRecording={startRecording}
+                                onRecordingComplete={(videoBlob) => videoRecordingFinished(videoBlob)}
+                            />
+                        </div>
                         :
-                        <Row>
+                        <div style={{ margin: '0 auto' }}>
                             <ReactMic
                                 record={recordStarted}
                                 className="sound-wave"
@@ -66,30 +80,62 @@ const Record = ({ type, onFinished }) => {
                                 strokeColor="#fff"
                                 backgroundColor="#00b8ffc2"
                             />
-                        </Row>
+                            <Row style={space}>
+                                {
+                                    !recordStarted ?
+                                        <Button onClick={startRecording} type="button" style={{ margin: '0 auto' }}>
+                                            <FontAwesome
+                                                name={type === 'video' ? 'camera' : 'microphone'}
+                                                size="2x"
+                                            />
+                                        </Button>
+                                        :
+                                        <Button onClick={stopRecording} type="button" style={{ margin: '0 auto' }}>
+                                            <FontAwesome
+                                                name='stop'
+                                                size="2x"
+                                            />
+                                        </Button>
+                                }
+                            </Row>
+                        </div>
                 }
             </Row>
-            <Row style={space}>
-                {
-                    !recordStarted ?
-                        <Button onClick={startRecording} type="button" style={{margin: '0 auto'}}>
-                            <FontAwesome
-                                name={type === 'video' ?'camera':'microphone'}
-                                size="2x"
-                            />
-                        </Button>
-                        :
-                        <Button onClick={stopRecording} type="button" style={{margin: '0 auto'}}>
-                            <FontAwesome
-                                name='stop'
-                                size="2x"
-                            />
-                        </Button>
+            <CustomModal
+                visible={showModal}
+                body={
+                    type === 'video' ?
+                        <video style={{ width: '100%' }} controls={true} src={recordFileURL} />
+                        : <audio style={{ width: '100%' }} controls={true} src={recordFileURL} />
                 }
-
-
-            </Row>
+                buttons={
+                    [
+                        <Button variant={'secondary'} onClick={deleteRecord}>Delete Record</Button>,
+                        <Button variant={'primary'} onClick={uploadRecord}>Upload Record</Button>
+                    ]
+                }
+            />
         </div>
+    )
+}
+const CustomModal = ({ visible, body, header, buttons }) => {
+    return (
+        <Modal show={visible}>
+            <Modal.Header closeButton>
+                <Modal.Title>{header}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{body}</Modal.Body>
+            <Modal.Footer>
+                {buttons.map((button, index) => {
+                    return (
+                        <div key={index}>
+                            {button}
+                        </div>
+                    )
+                })
+                }
+            </Modal.Footer>
+        </Modal>
     )
 }
 export default Record

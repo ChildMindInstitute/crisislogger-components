@@ -9,20 +9,26 @@ const NavBar = ({ user, clearUser }) => {
   const isLoggedIn = (user && user !== '');
   if (isLoggedIn) {
     return (
-      <Navbar bg="primary" variant="dark" fixed="top">
-        <Navbar.Brand href="/">MindLogger</Navbar.Brand>
-        <Nav className="mr-auto">
+      <Navbar collapseOnSelect={true} expand="xl" bg="light" variant="light" style={{ display: 'flex' }}>
+        <Navbar.Brand href="/"><img alt="crisislogger" src="https://crisislogger.org/media/logos/CrisisLogger_logo_border.png" style={{maxHeight: 48}}/></Navbar.Brand>
+        <Nav >
           <Nav.Link onClick={clearUser} >Log Out</Nav.Link>
         </Nav>
       </Navbar>
     );
   } else {
     return (
-      <Navbar bg="primary" variant="dark" fixed="top">
-        <Navbar.Brand href="/">MindLogger</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/share-thought">Share your thought</Nav.Link>
-        </Nav>
+      <Navbar collapseOnSelect={true} expand="xl" bg="light" variant="light" >
+        <Navbar.Brand href="/" ><img alt="crisislogger" src="https://crisislogger.org/media/logos/CrisisLogger_logo_border.png" style={{maxHeight: 48}}/></Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbar-nav"/>
+        <Navbar.Collapse id="navbar-nav " style={{justifyContent: 'flex-end'}} >
+          <Nav>
+            <Nav.Link href="/share-thought">Share</Nav.Link>
+            <Nav.Link href="/explore">Explore</Nav.Link>
+            <Nav.Link href="/login">Login</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+
       </Navbar>
     );
   }

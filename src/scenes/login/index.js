@@ -6,10 +6,9 @@ const Login = () => {
     console.log('here');
   }
   return (
-    <header className="App-header">
+    <div className="sign-form">
       <LoginForm/>
-      <Record type='audio' onFinished={onRecordingFinished} />
-    </header>
+    </div>
   );
 }
 

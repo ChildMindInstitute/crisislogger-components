@@ -15,7 +15,8 @@ const Choice = (props) => {
     ]
     const space = {
         marginRight: 5,
-        marginLeft: 5
+        marginLeft: 5,
+        marginBottom: '1rem'
     }
 
     const choiceRole = (role) => () => {
@@ -34,8 +35,9 @@ const Choice = (props) => {
                 </div>
                 <Row className="choice-container" style={{ width: '100%' }}>
                     {blockNames.map((block, index) => (
-                        <Col xl={{ span: 3,  offset: 1 }} className="choice-block">
-                            <Row style={{ justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
+                        <Col sm={{ span: 12 }} key={index} md={{ span: 6 }} lg={{span: 4}} style={{marginBottom: '3rem'}} >
+                            <div className={'outline-primary'}>
+                                <div className={'text-center'}>
                                 <Button 
                                     onClick={choiceRole(block.role)} 
                                     title={t(`choice.${block.i18nName}.button`)} 
@@ -43,8 +45,9 @@ const Choice = (props) => {
                                     className="choice-button"
                                     style={space}
                                 >{t(`choice.${block.i18nName}.button`)}</Button>
-                            </Row>
+                                </div>
                             <p className="grey-text">{t(`choice.${block.i18nName}.text`)}</p>
+                            </div>
                         </Col>
                     ))}
                 </Row>

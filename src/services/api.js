@@ -81,7 +81,7 @@ const signIn = ({ apiHost, user, password }) => axios({
  *  {
  *    email: this.form.email,
  *    password: this.form.password,
- *    login: this.form.login,
+ *    Login: this.form.Login,
  *    firstName: this.form.firstName,
  *    lastName: this.form.lastName,
  *  }```

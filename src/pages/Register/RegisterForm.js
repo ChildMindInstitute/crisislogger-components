@@ -43,13 +43,12 @@ class RegisterForm extends React.Component {
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control type="password" name="confirmPassword" placeholder={t("register.passwordConfirmLabel")} onChange={this.changeValue} />
                 </Form.Group>
-                
                 <Form.Group>
-                    <Form.Check type="checkbox" label={t("login.rememberMe")} />
+                    <Form.Check type="checkbox" label={t("register.rememberMe")} />
                 </Form.Group>
                 <Row>
                 <Col xl={{ span:4, offset:4 }}>
-                    <Button type="submit" >{t("login.button")}</Button>
+                    <Button type="submit" >{t("register.button")}</Button>
                 </Col>
                 </Row>
             </Form>

@@ -6,7 +6,7 @@ import { clearUser } from '../state/user/user.actions';
 import { userSelector } from '../state/user/user.selectors';
 
 const NavBar = ({ user, clearUser }) => {
-  const isLoggedIn = (user && user !== '');
+  const isLoggedIn = false;
   if (isLoggedIn) {
     return (
       <Navbar collapseOnSelect={true} expand="xl" bg="light" variant="light" style={{ display: 'flex' }}>
@@ -23,9 +23,9 @@ const NavBar = ({ user, clearUser }) => {
         <Navbar.Toggle aria-controls="navbar-nav"/>
         <Navbar.Collapse id="navbar-nav " style={{justifyContent: 'flex-end'}} >
           <Nav>
-            <Nav.Link href="/share-thought">Share</Nav.Link>
-            <Nav.Link href="/explore">Explore</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
+            <Nav.Link href="/share-thought" className={'btn btn-wide btn-lg'}>Share</Nav.Link>
+            <Nav.Link href="/explore" className={'btn btn-wide btn-lg'}>Explore</Nav.Link>
+            <Nav.Link href="/login" className={'btn btn-wide btn-lg'}>Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
 

@@ -19,7 +19,7 @@ const Home = (props, context) => {
     }
   return (
     <div className="home-page-container">
-        <Row style={{justifyContent: 'center'}}>
+        <Row style={{justifyContent: 'center', margin:'unset'}}>
             <img src={homePageBanner} />
             <Link className="login-link" to="/signin">{t('home.login')}</Link>
             <div className="title-text">

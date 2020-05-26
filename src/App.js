@@ -10,17 +10,18 @@ import Home from './pages/Home';
 import Register from './pages/Register'
 import Choice from './pages/Choice'
 import RecordType from './pages/RecordType'
-import './App.scss'
+import SharedMessage from './pages/SharedMessage'
 import AppletList from './pages/appletList';
 import Activities from './pages/activities';
 import { userSelector } from './state/user/user.selectors';
+import './App.scss'
 
 const App = ({ user }) => {
   const isLoggedIn = (user && user !== '');
   return (
     <Container>
       <NavBar/>
-      <Container style={{marginTop: 100, justifyContent: 'center'}}>
+      <Container style={{justifyContent: 'center', margin: 'unset'}} className={'app-container'}>
         <ConnectedRouter history={history}>
           <Switch>
             <Route path="/activities" exact component={Activities} />
@@ -30,6 +31,7 @@ const App = ({ user }) => {
             <Route path="/register" exact component={Register} />
             <Route path="/share-thought" exact component={Choice} />
             <Route path="/record-type" exact component={RecordType} />
+            <Route path="" exact component={SharedMessage} />
           </Switch>
         </ConnectedRouter>
       </Container>

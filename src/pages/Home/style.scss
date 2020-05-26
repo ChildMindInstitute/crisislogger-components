@@ -1,0 +1,31 @@
+.home-page-container {
+    .login-link {
+        text-align: right;
+        margin-top: -50px;
+        color: #ffffff;
+        font-size: 22px;
+        text-decoration: none;
+        margin-left: 90%;
+    }
+    .button-container {
+        margin-top: 10px
+    }
+    .title-text {
+        text-align: center;
+        h1 {
+            font-size: 30px !important;
+            color: #6e6e6e;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    }
+    .text-cener {
+        margin-top: 40px;
+        text-align: center;
+        p {
+            text-align: left;
+            color: #6e6e6e;
+            font-size: 22px;
+        }
+    }
+}

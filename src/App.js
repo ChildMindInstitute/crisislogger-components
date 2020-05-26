@@ -1,25 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter , Switch, Route, Redirect,  } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router'
+import { history } from './redux/reducer'
+import {Switch, Route} from 'react-router-dom';
 import NavBar from './components/NavBar';
-import { Row, Col, Container, Button } from 'react-bootstrap'
-import Login from './scenes/login';
-import Home from './scenes/Home';
-import ShareThought from './scenes/ShareThought';
-import AppletList from './scenes/appletList';
-import Activities from './scenes/activities';
+import { Container } from 'react-bootstrap'
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Register from './pages/Register'
+import Choice from './pages/Choice'
+import RecordType from './pages/RecordType'
+import './App.scss'
+import AppletList from './pages/appletList';
+import Activities from './pages/activities';
 import { userSelector } from './state/user/user.selectors';
-import './App.css'
-const RedirectToLogin = () => {
-  return (
-    <Redirect to="/login"/>
-  )
-}
-const RedirectToApplets = () => {
-  return (
-    <Redirect to="/applets"/>
-  )
-}
 
 const App = ({ user }) => {
   const isLoggedIn = (user && user !== '');
@@ -27,15 +21,17 @@ const App = ({ user }) => {
     <Container>
       <NavBar/>
       <Container style={{marginTop: 100, justifyContent: 'center'}}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
           <Switch>
-            <Route path="/login" exact component={ Login} />
             <Route path="/activities" exact component={Activities} />
             <Route path="/applets" exact component={AppletList} />
             <Route path="/"  exact component={Home} />
-            <Route path="/share-thought" exact component={ShareThought} />
+            <Route path="/signin" exact component={ Login} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/share-thought" exact component={Choice} />
+            <Route path="/record-type" exact component={RecordType} />
           </Switch>
-        </BrowserRouter>
+        </ConnectedRouter>
       </Container>
     </Container>
   )

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Button } from 'react-bootstrap'
 import micro from '../../assets/mic-24px.svg'
+import Record from '../../components/Record'
 import photoCamera from '../../assets/photo_camera-24px.svg'
 import video from '../../assets/videocam-24px.svg'
 import Webcam from 'react-webcam'
@@ -11,8 +12,8 @@ import './style.scss'
 const SharedMessage = (props) => {
     const { t } = useTranslation()
     const [recordType, setRecordType] = useState(localStorage.getItem('recordType'))
-    const [cameraExist, setExistCamera] = useState(false)
-
+    const [recordedFile, setRecordedFile] = React.useState(null)
+    const [shareText, setShareText] = React.useState(null)
     let typeMessage = localStorage.getItem('recordType')
 
     if(!typeMessage) {
@@ -26,10 +27,6 @@ const SharedMessage = (props) => {
         setRecordType(type)
     }
 
-    const checkCamera = () => {
-        setExistCamera(true)
-    }
-
     return (
         <div className="shared-message-container">
             <Row style={{ justifyContent: 'center', marginTop: '110px' }}>
@@ -38,7 +35,7 @@ const SharedMessage = (props) => {
                     {recordType === 'text' && (
                         <div>
                             <h4 className="message-box">{t('sharedMessage.message')}</h4>
-                            <Form.Control as="textarea" row="2" />
+                            <Form.Control as="textarea" row="2" onChange={(e) => setShareText(e.targ)} />
                             <div className="grey-text" dangerouslySetInnerHTML={{ __html: t('sharedMessage.text')}}></div>
                             <div className="grey-text">
                                 {t('sharedMessage.text2')}
@@ -55,15 +52,8 @@ const SharedMessage = (props) => {
                     )}
                     {recordType === 'video' && (
                         <div>
-                            { !cameraExist && 
-                                (<Button className="camera-button" onClick={checkCamera} style={{ padding: '15px 50px' }}><img src={photoCamera}/>{t('sharedMessage.buttonText')}</Button>) 
-                            }
-                            { cameraExist && 
-                                (<div className="video-container">
-                                    <div className="video-block">
-                                        <img className="video" src={video}/>
-                                    </div>
-                                 </div>)
+                            {
+                                <Record type={'video'} onFinished={console.log('here')}/>
                             }
                             <div className="grey-text" dangerouslySetInnerHTML={{ __html: t('sharedMessage.videoText')}}></div>
                             <div className="grey-text">
@@ -81,11 +71,9 @@ const SharedMessage = (props) => {
                     )}
                     {recordType === 'audio' && (
                         <div>
-                            <div className="micro-container">
-                                <div className="micro-block">
-                                    <img className="micro" src={micro}/>
-                                </div>
-                            </div>
+                            {
+                                <Record type={'audio'} onFinished={console.log('here')}/>
+                            }
                             <div className="grey-text" dangerouslySetInnerHTML={{ __html: t('sharedMessage.audioText')}}></div>
                             <div className="grey-text">
                                 {t('sharedMessage.text2')}

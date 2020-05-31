@@ -9305,6 +9305,11 @@ react-scripts@3.1.1:
   optionalDependencies:
     fsevents "2.0.7"
 
+react-select-country-list@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-select-country-list/-/react-select-country-list-2.2.1.tgz#d87fd3d2f079c7d0165ec4ef7d38a2556d202d46"
+  integrity sha512-sH5/nV7J5QreB75iGSFFPjuSeHr0B1oDtSximzlZj/LXoVw47SsOv2WvzPhwYcHMwgXiLI+gvdXY9Cp0MGasjA==
+
 react-svg-inline@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-svg-inline/-/react-svg-inline-2.1.1.tgz#532664006bf5b4f9ca2879d185e546df9a7476ef"

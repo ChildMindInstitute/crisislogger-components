@@ -1,15 +1,18 @@
 import React from "react";
-import { Row,  Button, Alert } from 'react-bootstrap'
+import { Row,  Button, Alert, Spinner } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
+import UploadQuestionnaire from './uploadQuestionnaire'
 import micro from '../../assets/mic-24px.svg'
 import video from '../../assets/videocam-24px.svg'
 import stopIcon from '../../assets/stop.svg'
-import './style.css'
+import './style.scss'
+
+
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioContext = new AudioContext;
 let  recorder, audioInput, gumStream, timeoutRequest;
-const Record = ({ type, onFinished, seconds }) => {
-  
+const Record = ({ type, onFinished, seconds, loading }) => {
+
     let videoConstraints = {
         audio: true,
         video: {
@@ -25,8 +28,15 @@ const Record = ({ type, onFinished, seconds }) => {
     const [preview, setPreview] = React.useState(null)
     const [mediaStream, setMediaStream] = React.useState(undefined);
     const [chunks, setChunks] = React.useState([]);
-    // const [stream, setStream] = React.useState(null)
     const [recordStarted, setRecordStated] = React.useState(false)
+    const [formState, setFormState] = React.useState({
+        contribute_to_science: true,
+        publicly: null,
+        country: '',
+        checkAge: false,
+        errors: {}
+    })
+
     const handleDataAvailable = ({ data }) => {
         const newChunks = [...chunks, data];
         setChunks(newChunks);
@@ -38,17 +48,20 @@ const Record = ({ type, onFinished, seconds }) => {
         setRecordFileURL(url)
         setShowModal(true)
     }
+
     const [permissionGranted, setPermissionGranted] = React.useState(false)
     const [showModal, setShowModal] = React.useState(false)
+    const [secondModal, setShowSecondModal] = React.useState(false)
     const [recordFile, setRecordFile] = React.useState(null)
     const [error, setError] = React.useState(null)
     const [recordFileURL, setRecordFileURL] = React.useState(null)
+
     const startRecording = () => {
         if (navigator.vibrate) navigator.vibrate(150);
         try {
             if (type === 'video') {
                 recorder = new MediaRecorder(mediaStream, {
-                    mimeType: 'video/webm',
+                    mimeType: blobType,
                     ondataavailable: handleDataAvailable,
                     onstop: handleStop
                 });
@@ -58,14 +71,14 @@ const Record = ({ type, onFinished, seconds }) => {
                 recorder = new window.Recorder(audioInput, {
                     numChannels: 1,
                     onAnalysed: data => console.log(data),
-                }) 
+                })
                 navigator.mediaDevices.getUserMedia(audioConstraints).then(function(stream) {
                     /* assign to gumStream for later use */
                     gumStream = stream;
                     /* use the stream */
                     audioInput = audioContext.createMediaStreamSource(stream);
                     /* Create the Recorder object and configure to record mono sound (1 channel) Recording 2 channels will double the file size */
-                    
+
                     //start the recording process 
                     recorder.record()
                     if ( navigator.vibrate ) navigator.vibrate( 150 );
@@ -74,7 +87,7 @@ const Record = ({ type, onFinished, seconds }) => {
                     setError('Recording failed, please try again later.')
                 });
             }
-              //limit recording to 5 mins = 300,000 ms
+            //limit recording to 5 mins = 300,000 ms
             timeoutRequest = setTimeout(function() {
                 stopRecording();
             }, 300000);
@@ -90,16 +103,16 @@ const Record = ({ type, onFinished, seconds }) => {
         try {
             navigator.mediaDevices.getUserMedia(type === 'video' ?
                 videoConstraints : audioConstraints).then(stm => {
-                    setMediaStream(stm)
-                    if (type === 'video') {
-                        preview.srcObject = stm;
-                        preview.captureStream = preview.captureStream || preview.mozCaptureStream;
-                    }
-                    else {
-                        audioInput = audioContext.createMediaStreamSource(stm);
-                    }
-                    setPermissionGranted(true)
-                })
+                setMediaStream(stm)
+                if (type === 'video') {
+                    preview.srcObject = stm;
+                    preview.captureStream = preview.captureStream || preview.mozCaptureStream;
+                }
+                else {
+                    audioInput = audioContext.createMediaStreamSource(stm);
+                }
+                setPermissionGranted(true)
+            })
                 .catch((e) => {
                     setPermissionGranted(false)
                     setError('The Recording is not supported on this device')
@@ -118,7 +131,7 @@ const Record = ({ type, onFinished, seconds }) => {
             recorder.ondataavailable = e => {
                 chunks.push(e.data);
                 preview.src = URL.createObjectURL(e.data);
-                var blob = new Blob(chunks, {type: 'video/webm'});
+                let blob = new Blob(chunks, {type: blobType});
                 let url = URL.createObjectURL(blob)
                 setRecordFile(blob)
                 setRecordFileURL(url)
@@ -133,6 +146,7 @@ const Record = ({ type, onFinished, seconds }) => {
             //create the wav blob and pass it on to createDownloadLink 
             recorder.exportWAV(createDownloadLink);
         }
+        clearTimeout(timeoutRequest)
         setRecordStated(false)
     }
     const createDownloadLink = (blob) => {
@@ -146,9 +160,35 @@ const Record = ({ type, onFinished, seconds }) => {
         setRecordFile(null)
         setRecordFileURL(null)
         setShowModal(false)
+        setShowSecondModal(false)
     }
-    const uploadRecord = () => {
+
+    const showSecondPageModal = () => {
         setShowModal(false)
+        setShowSecondModal(true)
+    }
+
+    const uploadRecord = () => {
+        // setShowSecondModal(false)
+        let formItem  = formState;
+        let errors = []
+        if(formItem.publicly == null )
+        {
+            errors['publicly'] = "You need to click above checkbox before continue"
+            
+        }
+        if(formItem.checkAge == false)
+        {
+            errors['checkAge'] = "You need to click above checkbox before continue"
+        }
+        if(errors['checkAge'] || errors['publicly']) {
+            setFormState({...formState, errors: errors})
+            return false;
+        }
+        else {
+            setFormState({...formState, errors: []})
+        }
+        onFinished({ file: recordFile, formState: formState })
     }
     const space = {
         marginTop: 15,
@@ -156,8 +196,8 @@ const Record = ({ type, onFinished, seconds }) => {
     }
     return (
         <div >
-            {error && 
-             <Alert variant={'danger'} dismissible={true} onClose={() => setError(null)}>{error}</Alert>}
+            {error &&
+            <Alert variant={'danger'} dismissible={true} onClose={() => setError(null)}>{error}</Alert>}
             <Row>
                 {
                     type === 'video' ?
@@ -182,7 +222,7 @@ const Record = ({ type, onFinished, seconds }) => {
             <div style={{ margin: '0 auto' }}>
                 {
                     !permissionGranted ?
-                <Button variant={'primary'} onClick={() => askPermission()}>Request a { type ==='video' ? 'camera': 'microphone'}</Button>
+                        <Button variant={'primary'} onClick={() => askPermission()}>Request a { type ==='video' ? 'camera': 'microphone'}</Button>
                         :
                         <Row style={space}>
                             {
@@ -204,6 +244,7 @@ const Record = ({ type, onFinished, seconds }) => {
             </div>
             <CustomModal
                 visible={showModal}
+                header="Upload File"
                 body={
                     type === 'video' ?
                         <video style={{ width: '100%' }} controls={true} src={recordFileURL} />
@@ -211,8 +252,20 @@ const Record = ({ type, onFinished, seconds }) => {
                 }
                 buttons={
                     [
-                        <Button variant={'secondary'} onClick={deleteRecord}>Delete Record</Button>,
-                        <Button variant={'primary'} onClick={uploadRecord}>Upload Record</Button>
+                        <Button variant={'secondary'} onClick={() => deleteRecord()}>Delete Record</Button>,
+                        <Button variant={'primary'} onClick={() => showSecondPageModal()}>Upload Record</Button>
+                    ]
+                }
+            />
+            <CustomModal
+                visible={secondModal}
+                body = {<UploadQuestionnaire setFormState={setFormState} formState={formState}/>}
+                header="Upload File"
+                buttons={
+                    [
+                        <Button variant={'secondary'} onClick={() => deleteRecord()}>Cancel</Button>,
+                        <Button variant={'primary'} onClick={() =>  uploadRecord()}  disabled={loading}>
+                        {loading ? <Spinner animation="border" />: '' }Upload</Button>
                     ]
                 }
             />
@@ -227,7 +280,7 @@ const CustomModal = ({ visible, body, header, buttons }) => {
             </Modal.Header>
             <Modal.Body>{body}</Modal.Body>
             <Modal.Footer>
-                {buttons.map((button, index) => {
+                {buttons && buttons.map((button, index) => {
                     return (
                         <div key={index}>
                             {button}

@@ -11,6 +11,7 @@
     "i18next": "^19.4.4",
     "i18next-browser-languagedetector": "^4.2.0",
     "lodash": "^4.17.15",
+    "react-select-country-list": "^2.2.1",
     "mic-recorder-to-mp3": "^2.2.1",
     "node-sass": "^4.14.1",
     "object-to-formdata": "^1.6.4",

@@ -4,11 +4,11 @@ import {
     getData_error,
     getData_success
  } from '../action/data.action'
-
+ import config from '../../config'
 export const getRecordData = () => dispatch => {
     dispatch(getData())
     let token  = localStorage.getItem('token')
-    fetch('http://localhost:4242/users/getrecords', {
+    fetch(config.defaultApiHost+'/users/getrecords', {
         method: "GET",
         headers: {
             'Content-type': 'application/json',

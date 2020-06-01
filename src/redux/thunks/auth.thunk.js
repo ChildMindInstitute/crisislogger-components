@@ -8,10 +8,10 @@ import {
     register_error
 } from '../action/auth.action'
 import { history } from '../reducer/index'
-
+import config from '../../config'
 export const Login = (email, password) => dispatch => {
     dispatch(login())
-    fetch('http://localhost:4242/users/signin', {
+    fetch(config.defaultApiHost+'/users/signin', {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
@@ -38,7 +38,7 @@ export const Login = (email, password) => dispatch => {
 
 export const Register = (registerBody) =>  dispatch  => {
     dispatch(register())
-    fetch('http://localhost:4242/users/signup', {
+    fetch(config.defaultApiHost+'/users/signup', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

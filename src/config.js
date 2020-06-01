@@ -1,3 +1,4 @@
-export default {
-  defaultApiHost: 'https://api.mindlogger.org/api/v1'
-};
+const config = {
+  defaultApiHost: 'https://staging.crisislogger.org'
+}
+export default config

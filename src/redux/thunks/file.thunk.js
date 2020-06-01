@@ -7,7 +7,7 @@ import {
     textUploadSuccess,
     textUploadError
 } from '../action/file.action'
-
+import config from '../../config'
 export const uploadText = (data) => dispatch => {
     dispatch(textUpload())
     let formdata = new FormData()
@@ -17,7 +17,7 @@ export const uploadText = (data) => dispatch => {
     formdata.append('publicly', data.publicly)
     formdata.append('country', data.country)
     formdata.append('checkAge', data.checkAge)
-    fetch('http://localhost:4242/file/text', {
+    fetch(config.defaultApiHost+'/file/text', {
         method: "POST",
         headers: {
             'Authorization' : 'Bearer ' + token
@@ -49,7 +49,7 @@ export const fileUploadThunk = (file, formData) => dispatch => {
     data.append('country', formData.country)
     data.append('checkAge', formData.checkAge)
 
-    fetch('http://localhost:4242/file/upload', {
+    fetch(config.defaultApiHost+'/file/upload', {
         method: "POST",
         headers: {
             'Authorization' : 'Bearer ' + token

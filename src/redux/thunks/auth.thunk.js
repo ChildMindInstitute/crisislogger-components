@@ -51,10 +51,11 @@ export const Register = (registerBody) =>  dispatch  => {
     })
         .then(res => res.json())
         .then((data) => {
+            console.log(data)
             if(data.user !== undefined)
             {
-                localStorage.setItem('token', data.token)
-                dispatch(register_success(data.token))
+                localStorage.setItem('token', data.user.token)
+                dispatch(register_success(data.user.token))
                 window.location.href ='/'
             }
             else {

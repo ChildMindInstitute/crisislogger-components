@@ -13,7 +13,6 @@ import FontAwesome from 'react-fontawesome';
 
 const Dashboard = (props) => {
     const [dataLoading, setDataLoading] = React.useState(false)
-    console.log(props)
     React.useEffect(() => {
         props.loadData()
         setDataLoading(true)

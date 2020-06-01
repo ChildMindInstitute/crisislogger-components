@@ -19,11 +19,12 @@
         "button": "Sign In"
     },
     "register": {
-        "title": "Register for Pandemic Logger",
+        "title": "Thank you!  Please sign up to come back and record more",
+        "notes" : "You can create an optional account to save your recordings and view them. Think of it as your personal diary.",
         "usernameLabel": "Username",
         "emailLabel": "Email Address",
         "passwordLabel": "Password",
-        "passwordConfirmLabel": "Password Confirmation",
+        "passwordConfirmLabel": "Confirm Password",
         "rememberMe": "Remember me",
         "button": "Register"
     },

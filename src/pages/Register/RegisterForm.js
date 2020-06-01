@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Form, Row, Button, Col } from 'react-bootstrap';
+import { Form, Row, Button, Alert, Col } from 'react-bootstrap';
 import { Register } from '../../redux/thunks/auth.thunk'
 
 
@@ -26,30 +26,46 @@ class RegisterForm extends React.Component {
             this.props.register({ name:username, password, email, role: 1 })
         }
     }
-
+    gotoSkip= () => {
+        this.props.history.push('/')
+    }
     render() {
         const { t } = this.props
         return (
             <Form onSubmit={this.onSubmit}>
+                 { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
+                <Form.Group controlId="formBasicEmail">
+                <Form.Label>{t("register.emailLabel")}</Form.Label>
+                    <Form.Control required type="email" name="email" placeholder={t("register.emailLabel")} onChange={this.changeValue} />
+                </Form.Group>
                  <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="text" name="username" placeholder={t("register.usernameLabel")} onChange={this.changeValue} />
+                    <Form.Label>{t("register.usernameLabel")}</Form.Label>
+                    <Form.Control required type="text" name="username" placeholder={t("register.usernameLabel")} onChange={this.changeValue} />
+                </Form.Group>
+               
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>{t("register.passwordLabel")}</Form.Label>
+                    <Form.Control required type="password" name="password" placeholder={t("register.passwordLabel")} onChange={this.changeValue} />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="email" name="email" placeholder={t("register.emailLabel")} onChange={this.changeValue} />
+                    <Form.Label >{t("register.passwordConfirmLabel")}</Form.Label>
+                    <Form.Control required type="password" name="confirmPassword" placeholder={t("register.passwordConfirmLabel")} onChange={this.changeValue} />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="password" name="password" placeholder={t("register.passwordLabel")} onChange={this.changeValue} />
-                </Form.Group>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Control type="password" name="confirmPassword" placeholder={t("register.passwordConfirmLabel")} onChange={this.changeValue} />
+                    <Form.Label >{'Referral Code (if you were given one)'}</Form.Label>
+                    <Form.Control  type="text" name="referral_code" placeholder={'Referral code'} onChange={this.changeValue} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Check type="checkbox" label={t("register.rememberMe")} />
                 </Form.Group>
                 <Row>
-                <Col xl={{ span:4, offset:4 }}>
-                    <Button type="submit" >{t("register.button")}</Button>
-                </Col>
+                    <Col >
+                        <Button type="submit" variant={'success'} >{t("register.button")}</Button>
+                     
+                    </Col >
+                    <Col >
+                        <Button  variant={'outline-primary'} onClick={this.gotoSkip}>{'Skip'}</Button>
+                    </Col>
                 </Row>
             </Form>
         )
@@ -59,5 +75,13 @@ class RegisterForm extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
     register: bindActionCreators(Register, dispatch)
 })
-
-export default connect(null, mapDispatchToProps)(withTranslation()(RegisterForm))
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+      user: state.user.user,
+      loading: state.user.loading,
+      loaded: state.user.loaded,
+      error: state.user.error
+    }
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(RegisterForm))

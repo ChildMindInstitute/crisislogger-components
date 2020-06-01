@@ -2,6 +2,7 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import { useTranslation } from 'react-i18next'
 import { Row, Col } from 'react-bootstrap'
+import {Redirect  } from 'react-router-dom'
 import './style.scss'
 
 const Login = () => {
@@ -9,7 +10,10 @@ const Login = () => {
   const onRecordingFinished = () => {
     console.log('here');
   }
-
+  if(localStorage.getItem('token'))
+  {
+      return (<Redirect to={"/dashboard"}/>)
+  }
   return (
     <div className="sign-form-page">
       <h3 className="sign-form-title">{t('login.title')}</h3>

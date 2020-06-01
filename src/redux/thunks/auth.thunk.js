@@ -21,9 +21,19 @@ export const Login = (email, password) => dispatch => {
             password
         })
     })
-    .then(res => login_success(res.token))
-    .then(() => dispatch(push('/dashboard')))
-    .catch(err => login_error(err))
+    .then(response => response.json())
+    .then((data) => {
+        if(data.user !== undefined)
+        {
+            localStorage.setItem('token', data.user.token)
+            dispatch(login_success( data.user))
+            // push('/dashboard')
+        }
+        else {
+            dispatch(login_error('Email or Password is invalid'))
+        }
+    })
+    .catch(err => dispatch(login_error()))
 }
 
 export const Register = (registerBody) =>  dispatch  => {
@@ -35,8 +45,25 @@ export const Register = (registerBody) =>  dispatch  => {
         },
         body: JSON.stringify(registerBody)
     })
-        .then(res => dispatch(register_success(res.token)))
-        .then(() => dispatch(push('/dashboard')))
-        .catch(err => dispatch(register_error(err)))
+        .then(res => res.json())
+        .then((data) => {
+            if(data.user !== undefined)
+            {
+                localStorage.setItem('token', data.token)
+                dispatch(register_success(data.token))
+                window.location.href ='/'
+            }
+            else {
+                if(data.message !== undefined)
+                {
+                    dispatch(register_error(data.message))
+                }
+                else {
+                    dispatch(register_error('Something went wrong, please try again'))
+                }
+            }
+            
+        })
+        .catch(err => console.log(err))
     
 } 

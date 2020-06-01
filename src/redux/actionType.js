@@ -13,3 +13,7 @@ export const FILE_UPLOAD_ERROR = '[File] File upload error'
 export const TEXT_UPLOAD = '[Text] Text upload'
 export const TEXT_UPLOAD_SUCCESS = '[Text] Text upload success'
 export const TEXT_UPLOAD_ERROR = '[Text] Text upload error'
+
+export const GET_DATA = '[Dashboard] get data'
+export const GET_DATA_SUCCESS = '[Dashboard] get data success'
+export const GET_DATA_FAILED = '[Dashboard] get data error'

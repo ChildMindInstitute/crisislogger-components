@@ -21,7 +21,7 @@ const Home = (props, context) => {
     <div className="home-page-container">
         <Row style={{justifyContent: 'center', margin:'unset'}}>
             <img src={homePageBanner} />
-            <Link className="login-link" to="/signin">{t('home.login')}</Link>
+            <Link className="login-link" to="/login">{t('home.login')}</Link>
             <div className="title-text">
                <h1>{t('home.title')}</h1> 
             </div>

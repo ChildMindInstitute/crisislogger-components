@@ -18,45 +18,47 @@ export default (state = initialState, action) => {
     switch(action.type){
         case LOGIN: 
             return {
+                ...state,
                 loading: true,
                 loaded: false,
                 error: '',
-                ...state
             }
         case LOGIN_SUCCESS: 
             return {
+                ...state,
                 loading: false,
                 loaded: true,
                 user: action.payload,
-                ...state
+          
             }
         case LOGIN_ERROR: 
             return {
+                ...state,
                 loading: false,
                 loaded: false,
                 error: action.payload,
-                ...state
+                
             }
         case REGISTER: 
             return {
+                ...state,
                 loading: true,
                 loaded: false,
                 error: '',
-                ...state
             }
         case REGISTER_SUCCESS: 
             return {
+                ...state,
                 loading: false,
                 loaded: true,
                 user: action.payload,
-                ...state
             }
         case REGISTER_ERROR: 
             return {
+                ...state,
                 loading: false,
                 loaded: false,
                 error: action.payload,
-                ...state
             }
         default: return { ...state }
     }

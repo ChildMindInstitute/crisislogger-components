@@ -11,22 +11,26 @@ export const login = () => ({
     type: LOGIN
 })
 
-export const login_success = () => ({
-    type: LOGIN_SUCCESS
+export const login_success = (payload) => ({
+    type: LOGIN_SUCCESS,
+    payload
 })
 
-export const login_error = () => ({
-    type: LOGIN_ERROR
+export const login_error = (payload) => ({
+    type: LOGIN_ERROR,
+    payload
 }) 
 
 export const register = () => ({
     type: REGISTER
 })
 
-export const register_success = () => ({
-    type: REGISTER_SUCCESS
+export const register_success = (payload) => ({
+    type: REGISTER_SUCCESS,
+    payload
 })
 
-export const register_error = () => ({
-    type: REGISTER_ERROR
+export const register_error = (payload) => ({
+    type: REGISTER_ERROR,
+    payload
 })

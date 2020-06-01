@@ -76,7 +76,6 @@ const mapDispatchToProps = (dispatch) => ({
     register: bindActionCreators(Register, dispatch)
 })
 const mapStateToProps = state => {
-    console.log(state)
     return {
       user: state.user.user,
       loading: state.user.loading,

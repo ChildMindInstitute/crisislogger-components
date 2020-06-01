@@ -23,7 +23,6 @@ const ShareThought = (props) => {
         nextStep();
     }
     const onRecordFinished = (file) => {
-        console.log(file)
     }
     const prevStep = () => {
         setStep(step - 1)

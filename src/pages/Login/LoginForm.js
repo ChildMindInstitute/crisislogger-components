@@ -27,7 +27,6 @@ class LoginForm extends React.Component {
   }
   render() {
     const { t } = this.props
-    console.log( this.props)
     return (
       <Form onSubmit={this.onSubmit}>
         { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
@@ -50,7 +49,6 @@ class LoginForm extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state)
   return {
     user: state.user.user,
     loading: state.user.loading,

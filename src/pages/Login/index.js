@@ -7,9 +7,6 @@ import './style.scss'
 
 const Login = () => {
   const { t } = useTranslation()
-  const onRecordingFinished = () => {
-    console.log('here');
-  }
   if(localStorage.getItem('token'))
   {
       return (<Redirect to={"/dashboard"}/>)

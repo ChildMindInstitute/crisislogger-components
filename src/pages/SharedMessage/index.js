@@ -66,7 +66,6 @@ const SharedMessage = (props) => {
     }
 
     const fileUpload = data => {
-        console.log(data)
         props.uploadFile(data.file, data.formState)
     }
 
@@ -78,7 +77,6 @@ const SharedMessage = (props) => {
         setSecondModal(true)
     }
     const handleGoNext = (result) => {
-        console.log(result)
     }
     if(props.success )
     {

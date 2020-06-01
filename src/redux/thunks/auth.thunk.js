@@ -27,6 +27,10 @@ export const Login = (email, password) => dispatch => {
         {
             localStorage.setItem('token', data.user.token)
             dispatch(login_success( data.user))
+            if(localStorage.getItem('upload_id'))
+            {
+                localStorage.removeItem('upload_id')
+            }
             // push('/dashboard')
         }
         else {

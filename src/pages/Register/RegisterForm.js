@@ -22,8 +22,9 @@ class RegisterForm extends React.Component {
     onSubmit = (e) => {
         e.preventDefault();
         let { username, password, confirmPassword, email } = this.state
+        let upload_id = localStorage.getItem('upload_id')
         if(password == confirmPassword) {
-            this.props.register({ name:username, password, email, role: 1 })
+            this.props.register({ name:username, password, email, role: 1, upload_id: upload_id })
         }
     }
     gotoSkip= () => {

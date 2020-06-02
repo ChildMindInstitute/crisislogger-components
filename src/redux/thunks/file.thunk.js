@@ -17,7 +17,7 @@ export const uploadText = (data) => dispatch => {
     formdata.append('publicly', data.publicly)
     formdata.append('country', data.country)
     formdata.append('checkAge', data.checkAge)
-    fetch(config.defaultApiHost+'/file/text', {
+    fetch(config.crisisloggerAPIHost+'/file/text', {
         method: "POST",
         headers: {
             'Authorization' : 'Bearer ' + token
@@ -49,7 +49,7 @@ export const fileUploadThunk = (file, formData) => dispatch => {
     data.append('country', formData.country)
     data.append('checkAge', formData.checkAge)
 
-    fetch(config.defaultApiHost+'/file/upload', {
+    fetch(config.crisisloggerAPIHost+'/file/upload', {
         method: "POST",
         headers: {
             'Authorization' : 'Bearer ' + token

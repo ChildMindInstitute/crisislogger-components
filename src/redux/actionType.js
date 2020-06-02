@@ -17,3 +17,7 @@ export const TEXT_UPLOAD_ERROR = '[Text] Text upload error'
 export const GET_DATA = '[Dashboard] get data'
 export const GET_DATA_SUCCESS = '[Dashboard] get data success'
 export const GET_DATA_FAILED = '[Dashboard] get data error'
+
+export const UPDATE_DATA = '[Update] data'
+export const UPDATE_DATA_SUCCESS = '[Update] data success'
+export const UPDATE_DATA_FAILED = '[Dashboard] data error'

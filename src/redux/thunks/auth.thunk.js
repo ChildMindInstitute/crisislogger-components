@@ -11,7 +11,7 @@ import { history } from '../reducer/index'
 import config from '../../config'
 export const Login = (email, password) => dispatch => {
     dispatch(login())
-    fetch(config.defaultApiHost+'/users/signin', {
+    fetch(config.crisisloggerAPIHost+'/users/signin', {
         method: "POST",
         headers: {
             'Content-type': 'application/json'
@@ -42,7 +42,7 @@ export const Login = (email, password) => dispatch => {
 
 export const Register = (registerBody) =>  dispatch  => {
     dispatch(register())
-    fetch(config.defaultApiHost+'/users/signup', {
+    fetch(config.crisisloggerAPIHost+'/users/signup', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',

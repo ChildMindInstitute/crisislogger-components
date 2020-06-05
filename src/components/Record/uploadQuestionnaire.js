@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Button, Container } from 'react-bootstrap'
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import contryList from 'react-select-country-list'
 
 const UploadQuestionnaire = ({ setFormState, formState }) => {
     const { t } = useTranslation()
+    const [showAgree, setShowAgree] = useState(false)
     let option = contryList().getData()
     const handleChange = (value) => {
         setFormState({
@@ -128,6 +131,14 @@ const UploadQuestionnaire = ({ setFormState, formState }) => {
             <Form.Control.Feedback type="invalid" style={{display: (formState.errors['checkAge'] ? 'block': 'none')}}>
                 {formState.errors['checkAge']}
             </Form.Control.Feedback>
+            <span style={{ fontSize: 14, cursor: 'pointer', display: 'flex', justifyContent: 'space-between'}} onClick={() => setShowAgree(!showAgree)}>By clicking the Upload button, you agree to the terms below: 
+                {showAgree ?  <ExpandLessIcon style={{marginTop: -3}}/>: <ExpandMoreIcon style={{marginTop: -3}}/>}
+            </span>
+            { showAgree && (
+                <div style={{ fontSize: 15, marginTop: 15, fontStyle: 'italic', textAlign:'justify' }}>
+                    Child Mind Institute, Inc., Child Mind Medical Practice, PLLC, Child Mind Medical Practice, PC, and partners (together, “CMI”) does not directly or indirectly practice medicine or dispense medical advice as part of this tool. CMI assumes no liability for any diagnosis, treatment, decision made, or action taken in reliance upon this tool, and assumes no responsibility for your use of this tool. If you do need immediate help, please contact a local care provider. If you have opted to share your data publicly, you release CMI from any claims arising out of the use of your story. You have the right to agree to these terms in your own name or, if applicable, on behalf of your child.
+                </div>
+            )}
         </Form>
     )
 }

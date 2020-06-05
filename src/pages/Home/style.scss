@@ -1,11 +1,17 @@
+
 .home-page-container {
     .login-link {
+        a {
+            color: #ffffff;
+            font-size: 22px;
+        }
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -35px;
+        margin-right: 35px;
+        width: 100%;
         text-align: right;
-        margin-top: -50px;
-        color: #ffffff;
-        font-size: 22px;
         text-decoration: none;
-        margin-left: 90%;
     }
     img {
         width: 100%;
@@ -31,5 +37,16 @@
             color: #6e6e6e;
             font-size: 22px;
         }
+    }
+}
+
+@media screen and (max-device-width: 480px) {
+    .button-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .login-link {
+        margin-top: -35px;
+        margin-right: 0px;  
     }
 }

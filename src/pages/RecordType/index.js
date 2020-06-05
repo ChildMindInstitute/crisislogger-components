@@ -22,10 +22,10 @@ const RecordType = (props) => {
                 <div className="title-container" style={{ width: '100%', marginTop: '100px', marginBottom: '50px' }}>
                     <h1 className="text-align-center grey-title">{t('recordType.title')}</h1>
                 </div>
-                <Row  style={{ width: '100%', justifyContent: 'space-around' }}>
+                <Row className="button-container"  style={{ width: '100%', justifyContent: 'space-around' }}>
                     <Col className="button-col">
                         <Button 
-                            onClick={selectType('audio')} 
+                            onClick={selectType('audio')}
                             size={'lg'} 
                             style={space}
                         >{t('recordType.audioButton')}</Button>

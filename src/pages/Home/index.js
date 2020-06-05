@@ -15,13 +15,16 @@ const Home = (props, context) => {
     }
     const space = {
         marginRight: 5,
-        marginLeft: 5
+        marginLeft: 5,
+        marginBottom: 10
     }
   return (
     <div className="home-page-container">
         <Row style={{justifyContent: 'center', margin:'unset'}}>
             <img src={homePageBanner} />
-            <Link className="login-link" to="/login">{t('home.login')}</Link>
+            <div className="login-link">
+                <Link to="/login">{t('home.login')}</Link>
+            </div>
             <div className="title-text">
                <h1>{t('home.title')}</h1> 
             </div>

@@ -13,7 +13,9 @@ class RegisterForm extends React.Component {
            email: '',
            password: '',
            confirmPassword: '',
-           username: '' 
+           username: '',
+           passwordConfirmError: false,
+           passwordLength: false,
         }
     }
     changeValue = (e) => {
@@ -21,17 +23,36 @@ class RegisterForm extends React.Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        let { username, password, confirmPassword, email } = this.state
-        let upload_id = localStorage.getItem('upload_id')
-        if(password == confirmPassword) {
-            this.props.register({ name:username, password, email, role: 1, upload_id: upload_id })
+        let { username, password, confirmPassword, email, passwordConfirmError, passwordLength } = this.state
+        if(!passwordConfirmError && !passwordLength) {
+            this.props.register({ name:username, password, email, role: 1 })
         }
     }
+
+    onChangePassword  = (e) => {
+        if(e.target.value.length <= 6) {
+            this.setState({ passwordLength: true })
+        } else {
+            this.setState({ passwordLength: false })  
+        }
+
+        this.setState({ [e.target.name]: e.target.value})
+    }
+
+    validationConfirmPassword = (event) => {
+        if(this.state.password !== event.target.value) {
+            this.setState({ passwordConfirmError: true })
+        } else {
+            this.setState({ passwordConfirmError: false })
+        }
+    }
+
     gotoSkip= () => {
         this.props.history.push('/')
     }
     render() {
         const { t } = this.props
+        const { passwordConfirmError, passwordLength } = this.state 
         return (
             <Form onSubmit={this.onSubmit}>
                  { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
@@ -46,11 +67,32 @@ class RegisterForm extends React.Component {
                
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>{t("register.passwordLabel")}</Form.Label>
-                    <Form.Control required type="password" name="password" placeholder={t("register.passwordLabel")} onChange={this.changeValue} />
+                    <Form.Control 
+                        required 
+                        type="password" 
+                        name="password" 
+                        placeholder={t("register.passwordLabel")} 
+                        onChange={this.onChangePassword}
+                        isInvalid={this.state.passwordLength}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        Must be at least 6 characters
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label >{t("register.passwordConfirmLabel")}</Form.Label>
-                    <Form.Control required type="password" name="confirmPassword" placeholder={t("register.passwordConfirmLabel")} onChange={this.changeValue} />
+                    <Form.Control 
+                        required 
+                        type="password" 
+                        name="confirmPassword"
+                        onBlur={this.validationConfirmPassword}
+                        placeholder={t("register.passwordConfirmLabel")} 
+                        onChange={this.changeValue}
+                        isInvalid={!!this.state.passwordConfirmError}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        The password confirmation does not match
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label >{'Referral Code (if you were given one)'}</Form.Label>
@@ -61,7 +103,7 @@ class RegisterForm extends React.Component {
                 </Form.Group>
                 <Row>
                     <Col >
-                        <Button type="submit" variant={'success'} >{t("register.button")}</Button>
+                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t("register.button")}</Button>
                      
                     </Col >
                     <Col >

@@ -135,7 +135,7 @@ const Dashboard = (props) => {
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                     
                                     {
-                                      value.transcripts.text !== undefined? 
+                                      value.transcripts !== undefined &&  value.transcripts.text !== undefined? 
                                         <WordCloudComponent text={value.transcripts.text} words={Utils.getWords(value.transcripts.text)} type={'uploads'} />
                                       : <h4>No transcriptions</h4>
                                     }

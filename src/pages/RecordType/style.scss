@@ -8,3 +8,13 @@
     margin-top: 100px; 
     margin-bottom: 50px;
 }
+
+@media screen and (max-device-width: 480px) { 
+    .button-container {
+        flex-direction: column;
+    }
+    .button-col {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}

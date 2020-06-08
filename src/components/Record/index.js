@@ -36,7 +36,9 @@ const Record = ({ type, onFinished, seconds, loading }) => {
         checkAge: false,
         errors: {}
     })
-
+    const onClose = () => {
+        setShowModal(false)
+    }
     const handleDataAvailable = ({ data }) => {
         const newChunks = [...chunks, data];
         setChunks(newChunks);
@@ -167,7 +169,9 @@ const Record = ({ type, onFinished, seconds, loading }) => {
         setShowModal(false)
         setShowSecondModal(true)
     }
-
+    const onSecondModalClose = () => {
+        setShowSecondModal(false)
+    }
     const uploadRecord = () => {
         // setShowSecondModal(false)
         let formItem  = formState;
@@ -245,6 +249,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
             <CustomModal
                 visible={showModal}
                 header="Upload File"
+                onClose={onClose}
                 body={
                     type === 'video' ?
                         <video style={{ width: '100%' }} controls={true} src={recordFileURL} />
@@ -259,6 +264,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
             />
             <CustomModal
                 visible={secondModal}
+                onClose={onSecondModalClose}
                 body = {<UploadQuestionnaire setFormState={setFormState} formState={formState}/>}
                 header="Upload File"
                 buttons={
@@ -272,9 +278,10 @@ const Record = ({ type, onFinished, seconds, loading }) => {
         </div>
     )
 }
-const CustomModal = ({ visible, body, header, buttons }) => {
+
+const CustomModal = ({ visible, body, header, buttons, onClose }) => {
     return (
-        <Modal show={visible} onHide={() => console.log('')}>
+        <Modal show={visible} onHide={() => onClose()}>
             <Modal.Header closeButton>
                 <Modal.Title>{header}</Modal.Title>
             </Modal.Header>

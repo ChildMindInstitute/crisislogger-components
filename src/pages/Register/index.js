@@ -2,8 +2,7 @@ import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import RegisterForm from'./RegisterForm'
-
-const Register = () => {
+const Register = (props) => {
     const { t } = useTranslation()
     return (
         <div className="sign-form-page">
@@ -11,7 +10,7 @@ const Register = () => {
             <p>{t('register.notes')}</p>
             <Row className="sign-form-container" style={{marginTop: '20px !important'}}>
                 <Col xl={{span: 4}}>
-                    <RegisterForm />
+                    <RegisterForm {...props}/>
                 </Col>
             </Row>
         </div>

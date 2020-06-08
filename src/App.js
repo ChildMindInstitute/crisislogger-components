@@ -15,6 +15,7 @@ import Dashboard from './pages/Dashboard'
 import AppletList from './pages/appletList';
 import Activities from './pages/activities';
 import PrivateRoute from './components/PrivateRouter'
+import Questionnaire from './pages/Questionnaire'
 import { userSelector } from './state/user/user.selectors';
 import {Redirect  } from 'react-router-dom'
 import './App.scss'
@@ -35,6 +36,7 @@ const App = ({ user }) => {
             <Route path="/register" exact component={Register} />
             <PrivateRoute path="/dashboard" exact component={Dashboard} />
             <Route path="/share-thought" exact component={Choice} />
+            <Route path="/questionnaire" exact component={Questionnaire} />
             <Route path="/record-type" exact component={RecordType} />
             <Route path="" exact component={SharedMessage} />
           </Switch>

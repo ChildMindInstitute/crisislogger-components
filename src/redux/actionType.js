@@ -20,4 +20,11 @@ export const GET_DATA_FAILED = '[Dashboard] get data error'
 
 export const UPDATE_DATA = '[Update] data'
 export const UPDATE_DATA_SUCCESS = '[Update] data success'
-export const UPDATE_DATA_FAILED = '[Dashboard] data error'
+export const UPDATE_DATA_FAILED = '[Update] data error'
+
+export const CHANGE_INPUT = '[Questionnary] Change input'
+export const CHANGE_INPUT_MULTISELECT = '[Questionnary] Change input multiselect'
+
+export const SUBMIT_QUESTONNARY_DATA = '[Questionnary] Submit questionnary data'
+export const SUBMIT_QUESTONNARY_DATA_SUCCESS = '[Questionnary] Submit questionnary data success'
+export const SUBMIT_QUESTONNARY_DATA_ERROR = '[Questionnary] Submit questionnary data error'

@@ -23,7 +23,7 @@ const SharedMessage = (props) => {
         publicly: null,
         country: '',
         checkAge: false,
-        errors: {}
+        errors: {},
     })
     let typeMessage = localStorage.getItem('recordType')
     const [cameraExist, setExistCamera] = React.useState(true)
@@ -72,7 +72,9 @@ const SharedMessage = (props) => {
     const handleTextChange = (event) => {
         setShareText(event.target.value)
     }
-
+    const closeTextModal = () => {
+        setSecondModal(false)
+    }
     const submitText = () => {
         setSecondModal(true)
     }
@@ -185,7 +187,8 @@ const SharedMessage = (props) => {
             </Row>
             <CustomModal
                 visible={secondModal}
-                body={<UploadQuestionnaire setFormState={setFormState} formState={formState} />}
+                onClose={closeTextModal}
+                body={<UploadQuestionnaire setFormState={setFormState} formState={formState} type={'text'} />}
                 header="Upload File"
                 buttons={
                     [

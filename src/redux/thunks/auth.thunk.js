@@ -51,9 +51,12 @@ export const Register = (registerBody) =>  dispatch  => {
     })
         .then(res => res.json())
         .then((data) => {
-            console.log(data)
             if(data.user !== undefined)
             {
+                if(localStorage.getItem('upload_id'))
+                {
+                    localStorage.removeItem('upload_id')
+                }
                 localStorage.setItem('token', data.user.token)
                 dispatch(register_success(data.user.token))
                 window.location.href ='/'

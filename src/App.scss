@@ -175,12 +175,17 @@ p {
 
 .text-align-center {
   text-align: center;
+  width: 100%;
 }
 
 .App-link {
   color: #61dafb;
 }
-
+.modal-content {
+  height: 700px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

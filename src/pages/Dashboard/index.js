@@ -92,8 +92,7 @@ const Dashboard = (props) => {
             }
         }
     }
-    const handleDelete = async (type, id) => {
-        
+    const handleDelete = async (type, id, index) => {
         Swal.fire({
             text: 'Are you sure you want to delete this?',
             confirmButtonText: 'Yes',

@@ -12,6 +12,7 @@ import Choice from './pages/Choice'
 import RecordType from './pages/RecordType'
 import SharedMessage from './pages/SharedMessage'
 import Dashboard from './pages/Dashboard'
+import Profile from './pages/Profile'
 import AppletList from './pages/appletList';
 import Activities from './pages/activities';
 import PrivateRoute from './components/PrivateRouter'
@@ -35,6 +36,7 @@ const App = ({ user }) => {
             <Route path="/login" exact component={ Login} />
             <Route path="/register" exact component={Register} />
             <PrivateRoute path="/dashboard" exact component={Dashboard} />
+            <PrivateRoute path="/profile" exact component={Profile} />
             <Route path="/share-thought" exact component={Choice} />
             <Route path="/questionnaire" exact component={Questionnaire} />
             <Route path="/record-type" exact component={RecordType} />

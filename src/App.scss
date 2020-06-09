@@ -177,14 +177,19 @@ p {
   text-align: center;
   width: 100%;
 }
-
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #0067a0;
+}
 .App-link {
   color: #61dafb;
 }
-.modal-content {
-  height: 700px;
-    overflow: hidden;
-    overflow-y: scroll;
+.dropdown-menu {
+  left: -64px;
+}
+.nav-dropdown-menu button {
+  background-color: #e9e9f0 !important;
+    border-color: #e9e9f0 !important;
+    color: #0067a0;
 }
 @keyframes App-logo-spin {
   from {

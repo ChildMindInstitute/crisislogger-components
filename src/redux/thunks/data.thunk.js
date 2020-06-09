@@ -122,11 +122,13 @@ export const updateProfile = (data) => dispatch => {
     .catch(err => dispatch(updateDataFailed('Network connection error')))
 }
 export const changePassword = (data) => dispatch => {
+    let token  = localStorage.getItem('token')
     dispatch(updateData())
     fetch(config.crisisloggerAPIHost + '/users/change-password', {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json',
+            'Authorization' : 'Bearer ' + token
         },
         body: JSON.stringify(data)
     })

@@ -69,30 +69,3 @@ export const Register = (registerBody) => dispatch => {
         })
         .catch(err => console.log(err))
 } 
-export const changePassword = (data) => dispatch => {
-    dispatch(register())
-    fetch(config.crisisloggerAPIHost + '/users/change-password', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-        .then(res => res.json())
-        .then((data) => {
-            if (data.result !== undefined) {
-                localStorage.setItem('token', data.result.token)
-                dispatch(register_success(data.result.token))
-            }
-            else {
-                if (data.message !== undefined) {
-                    dispatch(register_error(data.message))
-                }
-                else {
-                    dispatch(register_error('Something went wrong, please try again'))
-                }
-            }
-
-        })
-        .catch(err => console.log(err))
-} 

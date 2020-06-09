@@ -1,5 +1,5 @@
 const config = {
   defaultApiHost: '',
-  crisisloggerAPIHost: 'http://localhost:4242'
+  crisisloggerAPIHost: 'https://staging.crisislogger.org/api'
 }
 export default config

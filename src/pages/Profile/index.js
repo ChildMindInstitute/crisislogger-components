@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col,Spinner } from 'react-bootstrap';
 import { getProfile, updateProfile, changePassword } from '../../redux/thunks/data.thunk'
+import Swal from 'sweetalert2'
 import './style.scss'
 
 const Profile = (props) => {
@@ -36,6 +37,21 @@ const Profile = (props) => {
     const onUpdatePassword = async () => {
         await props.changePassword({new_password: formState.new_password, old_password: formState.old_password})
         setLoaded(false)
+    }
+    const onCloseMyAccount = async () => {
+        // await props.changePassword({new_password: formState.new_password, old_password: formState.old_password})
+        Swal.fire({
+            text: 'Are you sure you want to close this account?',
+            confirmButtonText: 'Yes',
+            showCancelButton: true,
+            cancelButtonText:  'Cancel',
+        })
+        .then(async (result) => {
+            if (result.value) {
+                // await props.removeUserRecords({type: type, upload_id: id})
+                setLoaded(false)
+            }
+        })
     }
     const changeValue = (e) => {
         setFormState({ ...formState, [e.target.name]: e.target.value})
@@ -129,14 +145,14 @@ const Profile = (props) => {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Col >
-                        <Button  onSubmit={onUpdatePassword} variant={'primary'} disabled={passwordConfirmError || passwordLength} >
+                        <Button  onClick={onUpdatePassword} variant={'primary'} disabled={passwordConfirmError || passwordLength} >
                             {( props.loading? <Spinner animation="border" />: '') }{ t("Update Password")}
                             </Button>
                     </Col >
                 </Form>
             </Col>
             <Col style={{marginTop: 30, textAlign: 'center'}} >
-                <Button variant={'primary'} >{t("Close My account")}</Button>
+                <Button variant={'primary'} onClick={onCloseMyAccount}>{t("Close My account")}</Button>
             </Col >
             </Row>
         </div>

@@ -70,6 +70,12 @@ const Record = ({ type, onFinished, seconds, loading }) => {
                 recorder.start()
             }
             else {
+                if(audioContext.state === 'suspended') {
+                    audioContext.resume().then(function() {
+                       startRecording();
+                   });
+                   return true;
+               }
                 recorder = new window.Recorder(audioInput, {
                     numChannels: 1,
                     onAnalysed: data => console.log(data),

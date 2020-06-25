@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 import "./style.scss"
 
 const Dashboard = (props) => {
-    const [dataLoading, setDataLoading] = React.useState(false)
+    const [dataLoading, setDataLoading] = React.useState(true)
     React.useEffect(() => {
         props.loadData()
         setDataLoading(true)
@@ -21,7 +21,8 @@ const Dashboard = (props) => {
     const { uploads, texts } = data
     const bottomBtnStyle = {
         display: 'flex',
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: '0px 5px'
     }
     const handleContributeShare = async (type, contentType,  e, id, index) => {
         let status = e.currentTarget.checked
@@ -47,6 +48,9 @@ const Dashboard = (props) => {
                     await props.changeStatus(data)
                     setDataLoading(false)
                 }
+                else {
+                    setDataLoading(false)
+                }
             })
         }
         else {
@@ -68,6 +72,9 @@ const Dashboard = (props) => {
                         status: status * 2
                     }
                     await props.changeStatus(data)
+                    setDataLoading(false)
+                }
+                else {
                     setDataLoading(false)
                 }
             })
@@ -104,6 +111,9 @@ const Dashboard = (props) => {
                 await props.removeUserRecords({type: type, upload_id: id})
                 setDataLoading(false)
             }
+            else {
+                setDataLoading(false)
+            }
         })
     }
     return (
@@ -130,7 +140,7 @@ const Dashboard = (props) => {
                         let isVideo = value.name.split(".")[1] === 'webm' || value.name.split(".")[1] === 'mkv' || value.name.split(".")[1] === 'mp4';
                         let videoExtension = value.name.split(".")[1];
                         return (
-                            <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20 }} key={index}>
+                            <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px' }} key={index}>
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                     
                                     {
@@ -161,7 +171,7 @@ const Dashboard = (props) => {
                                     <div style={bottomBtnStyle}>
                                         <Form.Check
                                             style={{ flex: 1 }}
-                                            checked={value.contribute_to_science}
+                                            checked={value.contribute_to_science > 0}
                                             name="contribute"
                                             label="Contribute"
                                             onChange={(e) => handleContributeShare('upload', 'contribute', e, value._id, index)}
@@ -169,7 +179,7 @@ const Dashboard = (props) => {
                                         />
                                         <Form.Check
                                             style={{ flex: 1 }}
-                                            checked={value.share}
+                                            checked={value.share > 0}
                                             name="share"
                                             label="Share"
                                             onChange={(e) => handleContributeShare('upload', 'share', e, value._id, index)}
@@ -178,6 +188,7 @@ const Dashboard = (props) => {
                                         <Form.Check
                                             style={{ flex: 1 }}
                                             name="delete"
+                                            checked={false}
                                             label="Delete"
                                             onChange={() => handleDelete('upload', value._id, index)}
                                             id="check-delete"
@@ -193,6 +204,7 @@ const Dashboard = (props) => {
                     </Alert>
                 }
             </Row>
+            <br></br>
             <h3>Texts</h3>
             <br></br>
             <Row>
@@ -200,7 +212,7 @@ const Dashboard = (props) => {
                     texts.length > 0 ?
                         texts.map((value, index) => {
                             return (
-                                <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20 }} key={index}>
+                                <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px'}} key={index}>
                                     <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                         <WordCloudComponent text={value.text} words={[]} type={'text'} />
                                     </div>
@@ -210,7 +222,7 @@ const Dashboard = (props) => {
                                     <div style={bottomBtnStyle}>
                                         <Form.Check
                                             style={{ flex: 1 }}
-                                            checked={value.contribute_to_science}
+                                            checked={value.contribute_to_science > 0}
                                             name="contribute"
                                             label="Contribute"
                                             onChange={(e) => handleContributeShare('text','contribute', e, value._id, index)}
@@ -218,7 +230,7 @@ const Dashboard = (props) => {
                                         />
                                         <Form.Check
                                             style={{ flex: 1 }}
-                                            checked={value.share}
+                                            checked={value.share > 0}
                                             name="share"
                                             label="Share"
                                             onChange={(e) => handleContributeShare('text', 'share' ,e, value._id, index)}
@@ -228,6 +240,7 @@ const Dashboard = (props) => {
                                             style={{ flex: 1 }}
                                             name="delete"
                                             label="Delete"
+                                            checked={false}
                                             onChange={() => handleDelete('text', value._id, index)}
                                             id="check-delete"
                                         />

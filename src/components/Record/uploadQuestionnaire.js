@@ -13,10 +13,10 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
         setShowAgree(!showAgree)
     }
     let option = contryList().getData()
-    let usa = option.filter(item => item.value === 'US')
-    let usIndex = _.findIndex(option, {'value': 'US'})
-    delete option[usIndex]
-    option.unshift(usa[0])
+    // let usa = option.filter(item => item.value === 'US')
+    // let usIndex = _.findIndex(option, {'value': 'US'})
+    // delete option[usIndex]
+    // option.unshift(usa[0])
     const handleChange = (value) => {
         setFormState({
             ...formState,
@@ -37,6 +37,7 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
     }
 
     const handleCountry = event => {
+        console.log(event.target.value)
         setFormState({
             ...formState,
             country: event.target.value

@@ -84,12 +84,12 @@
             "firstQuestionTitle": "Would you like to contribute to science?",
             "answer1_1": "Yes",
             "answer1_2": "No",
-            "firstQuestionNote": "If you decide to contribute your recording/text to science, you are only giving permissionn for our data to be stored by our team, and to be contracted before ites use in future research (use in research is limited to those 18 years older)",
+            "firstQuestionNote": "If you decide to contribute your recording/text to science, you are only giving permission for our data to be stored by our team, and to be contracted before its use in future research (use in research is limited to those 18 years older)",
             "secondQuestionTitle": "Would you like to share publicly?",
             "answer2_1": "Yes -- recording + transcript",
             "answer2_2": "transcript only",
             "answer2_3": "No",
-            "secondQuestionNote": "If Yes, the Child Mind Institute and its partners may share your text or recording through their websites and social media channels. If No, yor story will not be publicly shared in any from",
+            "secondQuestionNote": "If Yes, the Child Mind Institute and its partners may share your text or recording through their websites and social media channels. If No, your story will not be publicly shared in any form",
             "thirdQuestionTitle": "What country and state do you live in?",
             "fourthQuestionTitle": "I am at least 16 years old"
         }

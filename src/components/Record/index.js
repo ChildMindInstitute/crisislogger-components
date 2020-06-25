@@ -29,6 +29,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
     const [mediaStream, setMediaStream] = React.useState(undefined);
     const [chunks, setChunks] = React.useState([]);
     const [recordStarted, setRecordStated] = React.useState(false)
+    const [askingPermission, setAskingPermission] = React.useState(false)
     const [formState, setFormState] = React.useState({
         contribute_to_science: true,
         publicly: null,
@@ -108,6 +109,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
 
     }
     const askPermission = () => {
+        setAskingPermission(true)
         try {
             navigator.mediaDevices.getUserMedia(type === 'video' ?
                 videoConstraints : audioConstraints).then(stm => {
@@ -120,14 +122,17 @@ const Record = ({ type, onFinished, seconds, loading }) => {
                     audioInput = audioContext.createMediaStreamSource(stm);
                 }
                 setPermissionGranted(true)
+                setAskingPermission(false)
             })
                 .catch((e) => {
                     setPermissionGranted(false)
+                    setAskingPermission(false)
                     setError('The Recording is not supported on this device')
                 })
         }
         catch (e) {
             setPermissionGranted(false)
+            setAskingPermission(false)
             setError('The Recording is not supported on this device')
         }
     }
@@ -219,6 +224,10 @@ const Record = ({ type, onFinished, seconds, loading }) => {
                                 autoPlay={true}
                             >
                             </video>
+                            <br></br>
+                            {askingPermission && 
+                                <Spinner animation="border" />
+                            }
                         </div>
                         :
                         <div >
@@ -226,8 +235,13 @@ const Record = ({ type, onFinished, seconds, loading }) => {
                                 ref={el => setPreview(el)}
                             >
                             </audio>
+                            <br></br>
+                            {askingPermission && 
+                                <Spinner animation="border" />
+                            }
                         </div>
                 }
+                
             </Row>
             <div style={{ margin: '0 auto' }}>
                 {

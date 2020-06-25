@@ -19,6 +19,13 @@ body {
   padding-left: 10px;
   padding-right: 10px;
 }
+@media (max-width: 768px)
+{
+  .container {
+    max-width: 100% !important;
+  }
+}
+
 .outline-primary {
   border: 1px solid #0067a0;
   padding: 20px;

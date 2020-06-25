@@ -11,7 +11,15 @@ class Utils {
 
 		return false;
 	}
-
+	static forceLogout(status)
+	{
+		if(status === 401)
+		{
+			localStorage.clear();
+			window.location.href = '/login'
+		}
+		return true;
+	}
 	static getWords(str) {
 		if (str === null) {
 			return [];

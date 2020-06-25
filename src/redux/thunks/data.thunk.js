@@ -6,6 +6,7 @@ import {
  } from '../action/data.action'
  import config from '../../config'
 import { updateData, updateDataSuccess, updateDataFailed } from '../action/update.action'
+import Utils from '../../util/Utils'
 export const getRecordData = () => dispatch => {
     dispatch(getData())
     let token  = localStorage.getItem('token')
@@ -16,7 +17,10 @@ export const getRecordData = () => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        Utils.forceLogout(response.status)
+        return response.json()
+    })
     .then((data) => {
         if(data.records !== undefined) 
         {
@@ -26,7 +30,7 @@ export const getRecordData = () => dispatch => {
             dispatch(getData_error('Something went wrong, please try to refresh the page'))
         }
     })
-    .catch(err => dispatch(getData_error('Network connection error')))
+    .catch(err => console.log(err))
 }
 export const changeContributeShare = (data) => dispatch => {
     console.log(data)
@@ -40,7 +44,10 @@ export const changeContributeShare = (data) => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log(response)
+        return response.json()
+    })
     .then((data) => {
         if(data.result !== undefined) 
         {
@@ -63,7 +70,10 @@ export const removeRecords = (data) => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        Utils.forceLogout(response.status)
+        return response.json()
+    })
     .then((data) => {
         if(data.result !== undefined) 
         {
@@ -85,7 +95,10 @@ export const getProfile = () => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        Utils.forceLogout(response.status)
+        return response.json()
+    })
     .then((data) => {
         if(data.result !== undefined) 
         {
@@ -108,7 +121,10 @@ export const updateProfile = (data) => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        Utils.forceLogout(  response.status)
+        return response.json()
+    })
     .then((data) => {
         if(data.result !== undefined) 
         {
@@ -132,7 +148,10 @@ export const changePassword = (data) => dispatch => {
         },
         body: JSON.stringify(data)
     })
-        .then(res => res.json())
+        .then(res => {
+            Utils.forceLogout(res.status)
+            return res.json()
+        })
         .then((data) => {
             if (data.result !== undefined) {
                 localStorage.setItem('token', data.result.token)

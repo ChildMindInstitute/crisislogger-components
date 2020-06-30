@@ -8,6 +8,7 @@ import TabPanel from './TabPanel'
 import questionnaire from './questionnaire'
 import { sumbitQuestionnaryDataThunk } from '../../redux/thunks/questionnary.thunk'
 import { changeInput, changeInputMultiselect } from '../../redux/action/questionnary.action'
+import Utils from '../../util/Utils'
 import './style.scss'
 
 
@@ -15,7 +16,7 @@ class Questionnaire extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDomain: "domain1",
+      currentDomain: new Utils().getsubDomain(),
       tabValue: 0,
       countries: csc.getAllCountries(),
       states: [],
@@ -258,7 +259,12 @@ class Questionnaire extends React.Component {
 
   render() {
     const { tabValue, currentDomain } = this.state;
-    const domainQuestions = questionnaire[currentDomain];
+    let domainQuestions = []
+    if(!currentDomain) {
+       domainQuestions = questionnaire['default']; 
+    } else {
+       domainQuestions = questionnaire[currentDomain];
+    }
     return (
       <Container>
         <Tabs

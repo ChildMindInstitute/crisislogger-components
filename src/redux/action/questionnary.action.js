@@ -15,7 +15,7 @@ export const changeInput = (sectionName, inputName, value ) => ({
     }
 })
 
-export const changeInputMultiselect = (sectionName, inputName, name) => ({
+export const changeInputMultiselect = (sectionName, inputName, name) =>console.log(sectionName, '========>', inputName, '============>', name, '+++========') || ({
     type: CHANGE_INPUT_MULTISELECT,
     payload: {
         sectionName,

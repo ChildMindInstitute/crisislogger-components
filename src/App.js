@@ -47,6 +47,7 @@ const App = (props) => {
             <PrivateRoute path="/profile" exact component={Profile} />
             <Route path="/share-thought" exact component={Choice} />
             <Route path="/questionnaire" exact component={Questionnaire} />
+            {/* <Route path="/questionnaire" exact render={() => <Questionnaire />} /> */}
             <Route path="/record-type" exact component={RecordType} />
             <Route path="/privacy" exact component={Privacy} />
             <Route path="" exact component={SharedMessage} />

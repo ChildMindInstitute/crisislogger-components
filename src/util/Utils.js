@@ -66,7 +66,20 @@ class Utils {
 		return words;
 	}
 
+	getsubDomain() {
+		let host = window.location.host;
+		let protocol = window.location.protocol;
+		let parts = host.split(".");
+		let subdomain = "";
 
+		if (parts.length >= 3) {
+			subdomain = parts[0];
+			return subdomain
+		}
+		return false
+	}
 }
+
+
 
 export default Utils;

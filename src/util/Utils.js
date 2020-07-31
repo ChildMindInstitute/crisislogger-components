@@ -78,6 +78,10 @@ class Utils {
 		}
 		return false
 	}
+	getCurrentDomain()
+	{
+		return window.location.host
+	}
 }
 
 

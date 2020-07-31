@@ -5,6 +5,7 @@ import UploadQuestionnaire from './uploadQuestionnaire'
 import micro from '../../assets/mic-24px.svg'
 import video from '../../assets/videocam-24px.svg'
 import stopIcon from '../../assets/stop.svg'
+import Utils from '../../util/Utils'
 import './style.scss'
 
 
@@ -35,6 +36,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
         publicly: null,
         country: '',
         checkAge: false,
+        where_from:  new Utils().getCurrentDomain(),
         errors: {}
     })
     const onClose = () => {

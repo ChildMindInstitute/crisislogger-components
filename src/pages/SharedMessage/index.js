@@ -9,8 +9,9 @@ import Record from '../../components/Record'
 import CustomModal from '../../components/CustomModal'
 import Swal from 'sweetalert2'
 import UploadQuestionnaire from '../../components/Record/uploadQuestionnaire'
-import "./style.scss"
+import Utils from '../../util/Utils'
 
+import "./style.scss"
 const SharedMessage = (props) => {
     const { t } = useTranslation()
     const [recordType, setRecordType] = useState(localStorage.getItem('recordType'))
@@ -22,6 +23,7 @@ const SharedMessage = (props) => {
         contribute_to_science: true,
         publicly: null,
         country: '',
+        where_from:  new Utils().getCurrentDomain(),
         checkAge: false,
         errors: {},
     })

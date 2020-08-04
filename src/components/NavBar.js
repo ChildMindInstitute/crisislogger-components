@@ -16,7 +16,9 @@ const NavBar = ({ isLoggedIn, clearUser }) => {
     }
     return window.location.href = path
   }
-  const [username, setUsername] = React.useState('unamed')
+  const getUserName = () => {
+    return localStorage.getItem('user_name')
+  }
   if (isLoggedIn) {
     return (
        <Navbar collapseOnSelect={true} expand="xl" bg="light" variant="light" >
@@ -27,7 +29,7 @@ const NavBar = ({ isLoggedIn, clearUser }) => {
            <Nav.Link href="/share-thought" className={'btn btn-wide btn-lg'}>Share</Nav.Link>
            <Nav.Link href="https://explore.crisislogger.org" className={'btn btn-wide btn-lg'}>Explore</Nav.Link>
            <Nav.Link className={'btn btn-wide btn-lg'}>
-            <DropdownButton id="dropdown-basic-button" className={'nav-dropdown-menu'} title={username}>
+            <DropdownButton id="dropdown-basic-button" className={'nav-dropdown-menu'} title={getUserName()}>
               <Dropdown.Item onClick={() => gotoPath('/dashboard')}><FontAwesome name={'home'} ></FontAwesome>&nbsp;&nbsp;Dashboard</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={() => gotoPath('/profile')}><FontAwesome name={'user-circle'} ></FontAwesome>&nbsp;&nbsp;My Account</Dropdown.Item>

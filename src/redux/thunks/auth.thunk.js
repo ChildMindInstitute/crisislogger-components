@@ -25,6 +25,7 @@ export const Login = (email, password) => dispatch => {
         .then((data) => {
             if (data.user !== undefined) {
                 localStorage.setItem('token', data.user.token)
+                localStorage.setItem('user_name', data.user.name);
                 dispatch(login_success(data.user))
                 if (localStorage.getItem('upload_id')) {
                     localStorage.removeItem('upload_id')
@@ -54,6 +55,7 @@ export const Register = (registerBody) => dispatch => {
                     localStorage.removeItem('upload_id')
                 }
                 localStorage.setItem('token', data.user.token)
+                localStorage.setItem('user_name', data.user.name)
                 dispatch(register_success(data.user.token))
                 window.location.href = '/'
             }

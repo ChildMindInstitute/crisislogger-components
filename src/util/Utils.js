@@ -82,6 +82,18 @@ class Utils {
 	{
 		return window.location.host
 	}
+	getDate(value)
+	{
+		let date;
+		if (typeof value =='string')
+		{
+			date = new Date(value.replace(/-/g, '/'));
+		}
+		else {
+			date = new Date();
+		}
+		return date.toDateString();
+	}
 }
 
 

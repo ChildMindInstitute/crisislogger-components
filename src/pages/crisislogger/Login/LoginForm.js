@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import { Login } from '../../redux/thunks/auth.thunk'
+import { Login } from '../../../redux/thunks/auth.thunk'
 import './style.scss'
 
 class LoginForm extends React.Component {

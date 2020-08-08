@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col,Spinner } from 'react-bootstrap';
-import { getProfile, updateProfile, changePassword } from '../../redux/thunks/data.thunk'
+import { getProfile, updateProfile, changePassword } from '../../../redux/thunks/data.thunk'
 import Swal from 'sweetalert2'
 import './style.scss'
 

@@ -4,12 +4,12 @@ import { Row, Col, Form, Button, Spinner } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fileUploadThunk, uploadText } from '../../redux/thunks/file.thunk'
-import Record from '../../components/Record'
-import CustomModal from '../../components/CustomModal'
+import { fileUploadThunk, uploadText } from '../../../redux/thunks/file.thunk'
+import Record from '../../../components/Record'
+import CustomModal from '../../../components/CustomModal'
 import Swal from 'sweetalert2'
-import UploadQuestionnaire from '../../components/Record/uploadQuestionnaire'
-import Utils from '../../util/Utils'
+import UploadQuestionnaire from '../../../components/Record/uploadQuestionnaire'
+import Utils from '../../../util/Utils'
 
 import "./style.scss"
 const SharedMessage = (props) => {

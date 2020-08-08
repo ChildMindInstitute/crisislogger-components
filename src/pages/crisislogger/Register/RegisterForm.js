@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Form, Row, Button, Alert, Col } from 'react-bootstrap';
-import { Register } from '../../redux/thunks/auth.thunk'
+import { Register } from '../../../redux/thunks/auth.thunk'
 
 
 class RegisterForm extends React.Component {

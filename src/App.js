@@ -5,19 +5,20 @@ import { history } from './redux/reducer'
 import {Switch, Route} from 'react-router-dom';
 import NavBar from './components/NavBar';
 import { Container } from 'react-bootstrap'
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Register from './pages/Register'
-import Choice from './pages/Choice'
-import RecordType from './pages/RecordType'
-import SharedMessage from './pages/SharedMessage'
-import Dashboard from './pages/Dashboard'
-import Profile from './pages/Profile'
-import Privacy from './pages/Privacy'
+import Login from './pages/crisislogger/Login';
+import Home from './pages/crisislogger/Home';
+import Register from './pages/crisislogger/Register'
+import Choice from './pages/crisislogger/Choice'
+import RecordType from './pages/crisislogger/RecordType'
+import SharedMessage from './pages/crisislogger/SharedMessage'
+import Dashboard from './pages/crisislogger/Dashboard'
+import Profile from './pages/crisislogger/Profile'
+import Privacy from './pages/crisislogger/Privacy'
 import AppletList from './pages/appletList';
 import Activities from './pages/activities';
 import PrivateRoute from './components/PrivateRouter'
-import Questionnaire from './pages/Questionnaire'
+import Questionnaire from './pages/crisislogger/Questionnaire'
+import Explore from './pages/crisislogger/Explore';
 import { userSelector } from './state/user/user.selectors';
 import {Redirect  } from 'react-router-dom'
 import CMILogo from './assets/CMI_spot_logo.jpg'
@@ -31,7 +32,6 @@ import './App.scss'
 const App = (props) => {
   const token = localStorage.getItem('token')
   const isLoggedIn = (token && token !== '');
-  console.log(props)
   return (
     <Container className={'main-container'}>
       <NavBar isLoggedIn={isLoggedIn}/>
@@ -47,9 +47,9 @@ const App = (props) => {
             <PrivateRoute path="/profile" exact component={Profile} />
             <Route path="/share-thought" exact component={Choice} />
             <Route path="/questionnaire" exact component={Questionnaire} />
-            {/* <Route path="/questionnaire" exact render={() => <Questionnaire />} /> */}
             <Route path="/record-type" exact component={RecordType} />
             <Route path="/privacy" exact component={Privacy} />
+            <Route path="/explore" exact component={Explore} />
             <Route path="" exact component={SharedMessage} />
           </Switch>
         </ConnectedRouter>

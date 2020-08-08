@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
-import WordCloudComponent from "../../components/wordCloudComponent";
+import WordCloudComponent from '../../../components/wordCloudComponent';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getRecordData, changeContributeShare, removeRecords } from '../../redux/thunks/data.thunk'
-import Utils from '../../util/Utils'
+import { getRecordData, changeContributeShare, removeRecords } from '../../../redux/thunks/data.thunk'
+import Utils from '../../../util/Utils'
 import Swal from 'sweetalert2'
+import config from '../../../config'
 import "./style.scss"
 
 const Dashboard = (props) => {
@@ -157,12 +158,12 @@ const Dashboard = (props) => {
                                             controls={true}
                                             muted={false}
                                             url={[
-                                                { src: "https://storage.googleapis.com/crisislogger_uploads_dev/" + value.name, type: 'video/' + videoExtension },
+                                                { src: config.googleBucketURL + value.name, type: 'video/' + videoExtension },
                                             ]}
                                         />
                                         :
                                         value.name != 'null'  && <div>
-                                            <ReactPlayer height={50} width={'100%'} url={"https://storage.googleapis.com/crisislogger_uploads_dev/" + value.name} controls={true} />
+                                            <ReactPlayer height={50} width={'100%'} url={config.googleBucketURL + value.name} controls={true} />
                                         </div>
                                     }
                                     <div style={{ flex: 1, marginTop: 10, textAlign: 'center' }}>

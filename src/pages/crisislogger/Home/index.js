@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next'
 import { Row,  Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import homePageBanner from '../../assets/homePageBanner.png'
+import homePageBanner from '../../../assets/homePageBanner.png'
 import './style.scss'
 
 const Home = (props, context) => {
@@ -11,7 +11,7 @@ const Home = (props, context) => {
         props.history.push('/share-thought')
     }
     const gotoExplore = () => {
-        window.location.href = 'https://explore.crisislogger.org/'
+        props.history.push('/explore')
     }
     const space = {
         marginRight: 5,

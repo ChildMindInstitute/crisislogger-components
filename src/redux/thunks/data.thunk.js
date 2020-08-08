@@ -2,7 +2,10 @@ import { push } from 'connected-react-router'
 import { 
     getData,
     getData_error,
-    getData_success
+    getData_success,
+    getGalleryData_Success,
+    getGalleryData_Error,
+    getGalleryData
  } from '../action/data.action'
  import config from '../../config'
 import { updateData, updateDataSuccess, updateDataFailed } from '../action/update.action'
@@ -32,8 +35,31 @@ export const getRecordData = () => dispatch => {
     })
     .catch(err => console.log(err))
 }
+export const getGalleries = (page, searchText) => dispatch => {
+    dispatch(getGalleryData())
+    fetch(`https://crisislogger.org/api/transcriptions?page=${page}&searchTxt=${searchText}`, {
+        method: "GET",
+        headers: {
+            'Content-type': 'application/json',
+        }
+    })
+    .then(response => {
+        return response.json()
+    })
+    .then((data) => {
+        console.log(data)
+
+        if(data !== undefined) 
+        {
+            dispatch(getGalleryData_Success(data))
+        }
+        else {
+            dispatch(getGalleryData_Error('Something went wrong, please try to refresh the page'))
+        }
+    })
+    .catch(err => dispatch(getGalleryData_Error('Network connection error')))
+}
 export const changeContributeShare = (data) => dispatch => {
-    console.log(data)
     dispatch(updateData())
     let token  = localStorage.getItem('token')
     fetch(config.crisisloggerAPIHost+'/users/changeRecordStatus', {

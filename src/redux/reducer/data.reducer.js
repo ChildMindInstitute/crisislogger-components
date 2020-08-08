@@ -2,6 +2,9 @@ import {
     GET_DATA_SUCCESS,
     GET_DATA_FAILED,
     GET_DATA,
+    GET_GALLERY_DATA,
+    GET_GALLERY_DATA_SUCCESS,
+    GET_GALLERY_DATA_FAILED,
 } from '../actionType'
 
 const initialState = {
@@ -11,7 +14,10 @@ const initialState = {
     data: {
         uploads: [],
         texts: []
-    }
+    },
+    galleries: [],
+    current_page: 0,
+    total: 1,
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -36,6 +42,29 @@ export default (state = initialState, { type, payload }) => {
                 loaded: true,
                 error: payload
             }
+        case GET_GALLERY_DATA:
+            return {
+                ...state,
+                loading: true,
+                loaded: false,
+            }
+        case GET_GALLERY_DATA_SUCCESS:    
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                galleries: payload.data,
+                current_page: payload.current_page,
+                total: payload.last_page
+            }
+        case GET_GALLERY_DATA_FAILED:
+            return {
+                ...state,
+                loading: false,
+                loaded: true,
+                error: payload
+            }
+            
         default: 
             return {
                 ...state

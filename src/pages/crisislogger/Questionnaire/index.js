@@ -6,9 +6,9 @@ import csc from 'country-state-city'
 import { Button } from 'react-bootstrap'
 import TabPanel from './TabPanel'
 import questionnaire from './questionnaire'
-import { sumbitQuestionnaryDataThunk } from '../../redux/thunks/questionnary.thunk'
-import { changeInput, changeInputMultiselect } from '../../redux/action/questionnary.action'
-import Utils from '../../util/Utils'
+import { sumbitQuestionnaryDataThunk } from '../../../redux/thunks/questionnary.thunk'
+import { changeInput, changeInputMultiselect } from '../../../redux/action/questionnary.action'
+import Utils from '../../../util/Utils'
 import './style.scss'
 
 

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Row, Col } from 'react-bootstrap'
 import {Redirect  } from 'react-router-dom'
 import './style.scss'
+import Utils from "../../../util/Utils";
 
 const Login = () => {
   const { t } = useTranslation()
@@ -13,7 +14,7 @@ const Login = () => {
   }
   return (
     <div className="sign-form-page">
-      <h3 className="sign-form-title">{t('login.title')}</h3>
+      <h3 className="sign-form-title">{t(new Utils().getCurrentDomain()+'.login.title')}</h3>
       <Row className="sign-form-container">
         <Col xl={{span: 4, offset: 0}}>
           <LoginForm/>

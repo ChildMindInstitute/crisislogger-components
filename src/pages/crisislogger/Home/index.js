@@ -4,7 +4,7 @@ import { Row,  Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import homePageBanner from '../../../assets/homePageBanner.png'
 import './style.scss'
-
+import Utils from "../../../util/Utils";
 const Home = (props, context) => {
     const { t } = useTranslation();
     const gotoShare = () => {
@@ -23,10 +23,10 @@ const Home = (props, context) => {
         <Row style={{justifyContent: 'center', margin:'unset'}}>
             <img src={homePageBanner} />
             <div className="login-link">
-                <Link to="/login">{t('home.login')}</Link>
+                <Link to="/login">{t(new Utils().getCurrentDomain()+'.home.login')}</Link>
             </div>
             <div className="title-text">
-               <h1>{t('home.title')}</h1> 
+               <h1>{t(new Utils().getCurrentDomain()+'.home.title')}</h1>
             </div>
             <div className="button-container">
                 <Button 
@@ -34,7 +34,7 @@ const Home = (props, context) => {
                     title={'Share your thought'} 
                     size={'lg'}
                     style={space}
-                >{t('home.shareButton')}</Button>
+                >{t(new Utils().getCurrentDomain()+'.home.shareButton')}</Button>
                 <Button
                     onClick={gotoExplore}
                     size={'lg'}
@@ -42,14 +42,14 @@ const Home = (props, context) => {
                     title={'Listen to Others\'s thought '} 
                     variant={'outline-primary'}
                     type={'default'} >
-                    {t('home.exploreButton')}
+                    {t(new Utils().getCurrentDomain()+'.home.exploreButton')}
                 </Button>
             </div>
             <div className="text-cener">
-                <p>{t('home.text.p1')}</p>
-                <p>{t('home.text.p2')}</p>
-                <p>{t('home.text.p3')}</p>
-                <p>{t('home.text.p4')}</p>
+                <p>{t(new Utils().getCurrentDomain()+'.home.text.p1')}</p>
+                <p>{t(new Utils().getCurrentDomain()+'.home.text.p2')}</p>
+                <p>{t(new Utils().getCurrentDomain()+'.home.text.p3')}</p>
+                <p>{t(new Utils().getCurrentDomain()+'.home.text.p4')}</p>
             </div>    
         </Row>
     </div>

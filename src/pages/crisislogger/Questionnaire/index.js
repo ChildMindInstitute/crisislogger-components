@@ -16,7 +16,7 @@ class Questionnaire extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDomain: new Utils().getsubDomain(),
+      currentDomain: new Utils().getCurrentDomain(),
       tabValue: 0,
       countries: csc.getAllCountries(),
       states: [],

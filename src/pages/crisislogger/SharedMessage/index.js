@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Button, Spinner } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
@@ -14,9 +14,6 @@ import Utils from '../../../util/Utils'
 import "./style.scss"
 const SharedMessage = (props) => {
     const { t } = useTranslation()
-    const [recordType, setRecordType] = useState(localStorage.getItem('recordType'))
-    const [recordedFile, setRecordedFile] = React.useState(null)
-    const [loading, setLoading] = React.useState(false)
     const [shareText, setShareText] = React.useState('')
     const [secondModal, setSecondModal] = React.useState(false)
     const [formState, setFormState] = React.useState({
@@ -27,21 +24,14 @@ const SharedMessage = (props) => {
         checkAge: false,
         errors: {},
     })
-    let typeMessage = localStorage.getItem('recordType')
-    const [cameraExist, setExistCamera] = React.useState(true)
-    if (!typeMessage) {
-        localStorage.removeItem('recordType')
-        localStorage.removeItem('role')
-        props.history.push('/')
-    }
-    const continueSubmite = () => {
+    const continueSubmit = () => {
         let formItem = formState;
         let errors = []
         if (formItem.publicly == null) {
             errors['publicly'] = "You need to click above checkbox before continue"
 
         }
-        if (formItem.checkAge == false) {
+        if (formItem.checkAge === false) {
             errors['checkAge'] = "You need to click above checkbox before continue"
         }
         if (errors['checkAge'] || errors['publicly']) {
@@ -51,9 +41,7 @@ const SharedMessage = (props) => {
         else {
             setFormState({ ...formState, errors: [] })
         }
-        setLoading(true)
         props.uploadText({ text: shareText, ...formState })
-        setLoading(false)
     }
     const cancelSubmit = () => {
         setShareText('')
@@ -61,12 +49,7 @@ const SharedMessage = (props) => {
     }
     const changeType = (type) => () => {
         localStorage.setItem('recordType', type)
-        setRecordType(type)
     }
-    const checkCamera = () => {
-        setExistCamera(true)
-    }
-
     const fileUpload = data => {
         props.uploadFile(data.file, data.formState)
     }
@@ -78,113 +61,77 @@ const SharedMessage = (props) => {
         setSecondModal(false)
     }
     const submitText = () => {
+        changeType('text')
         setSecondModal(true)
     }
-    const handleGoNext = (result) => {
-    }
-    if(props.success )
-    {
-        Swal.fire({
-            title: "",
-            text: "Saved, Thank you",
-            type: "Success",
-            // showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            // cancelButtonColor: "#d33",
-            confirmButtonText: "OK"
-        }).then(({isConfirmed}) => {
-            if(isConfirmed)
-            {
-                let isLoggedin = localStorage.getItem('token')
-                if(isLoggedin)
+    useEffect( () => {
+        if(props.success )
+        {
+            Swal.fire({
+                title: "",
+                text: "Saved, Thank you",
+                type: "Success",
+                // showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                // cancelButtonColor: "#d33",
+                confirmButtonText: "OK"
+            }).then(({isConfirmed}) => {
+                if(isConfirmed)
                 {
-                    props.history.push('/dashboard')
+                    let isLoggedin = localStorage.getItem('token')
+                    if(isLoggedin)
+                    {
+                        props.history.push('/dashboard')
+                    }
+                    else {
+                        props.history.push('/register')
+                    }
                 }
                 else {
-                    props.history.push('/register')
+                    setSecondModal(false)
                 }
-            }
-            else {
+            })
+        }
+        if(props.error)
+        {
+            Swal.fire({
+                title: "",
+                text: props.error,
+                type: "Warning",
+                // showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                // cancelButtonColor: "#d33",
+                confirmButtonText: "OK"
+            }).then(({isConfirmed}) => {
                 setSecondModal(false)
-            }
-        })
-    }
-    if(props.error) 
-    {
-        Swal.fire({
-            title: "",
-            text: props.error,
-            type: "Warning",
-            // showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            // cancelButtonColor: "#d33",
-            confirmButtonText: "OK"
-        }).then(({isConfirmed}) => {
-            setSecondModal(false)
-        })
+            })
+        }
+    }, [props.error, props.success]);
+
+
+    const setRecordingType  = (type) => {
+        changeType(type);
     }
     return (
         <div className="shared-message-container">
             <Row style={{ justifyContent: 'center', marginTop: '110px' }}>
                 <div className="text-align-center">
-                    <h1 className="grey-title">{t('sharedMessage.title')}</h1>
-                    {recordType === 'text' && (
-                        <div>
-                            <h4 className="message-box">{t('sharedMessage.message')}</h4>
-                            <Form.Control as="textarea" row="2" onChange={handleTextChange} />
+                    <h1 className="grey-title">{t(new Utils().getCurrentDomain()+'.sharedMessage.title')}</h1>
+                    <div className={'row'}>
+                        <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
+                            <Record type={'video'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
+                        </div>
+                        <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
+                            <Record type={'audio'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
+                        </div>
+                        <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
+                            <Form.Control as="textarea" style={{height: '100%'}} row="10" cols={20} onChange={handleTextChange} placeholder={t(new Utils().getCurrentDomain()+'.sharedMessage.message')} />
                             {shareText.length > 1 && <Button style={{ marginTop: 10 }} onClick={submitText}>Submit</Button>}
-                            <div className="grey-text" dangerouslySetInnerHTML={{ __html: t('sharedMessage.text') }}></div>
-                            <div className="grey-text">
-                                {t('sharedMessage.text2')}
-                                <div className="link-block" style={{ display: 'inline' }} onClick={changeType('video')}>
-                                    {t('sharedMessage.recordVideo')}
-                                </div>
-                                {t('sharedMessage.or')}
-                                <div className="link-block" style={{ display: 'inline' }} onClick={changeType('audio')}>
-                                    {t('sharedMessage.recordAudio')}
-                                </div>
-                                {t('sharedMessage.instead')}
-                            </div>
                         </div>
-                    )}
-                    {recordType === 'video' && (
-                        <div>
-                            {
-                                <Record type={'video'} onFinished={fileUpload} loading={props.loading} />
-                            }
-                            <div className="grey-text" dangerouslySetInnerHTML={{ __html: t('sharedMessage.videoText') }}></div>
-                            <div className="grey-text">
-                                {t('sharedMessage.text2')}
-                                <div className="link-block" style={{ display: 'inline' }} onClick={changeType('audio')}>
-                                    {t('sharedMessage.recordAudio')}
-                                </div>
-                                {t('sharedMessage.or')}
-                                <div className="link-block" style={{ display: 'inline' }} onClick={changeType('text')}>
-                                    {t('sharedMessage.typeText')}
-                                </div>
-                                {t('sharedMessage.instead')}
-                            </div>
-                        </div>
-                    )}
-                    {recordType === 'audio' && (
-                        <div>
-                            {
-                                <Record type={'audio'} onFinished={fileUpload} loading={props.loading} />
-                            }
-                            <div className="grey-text" dangerouslySetInnerHTML={{ __html: t('sharedMessage.audioText') }}></div>
-                            <div className="grey-text">
-                                {t('sharedMessage.text2')}
-                                <div className="link-block" style={{ display: 'inline' }} onClick={changeType('video')}>
-                                    {t('sharedMessage.recordVideo')}
-                                </div>
-                                {t('sharedMessage.or')}
-                                <div className="link-block" style={{ display: 'inline' }} onClick={changeType('text')}>
-                                    {t('sharedMessage.typeText')}
-                                </div>
-                                {t('sharedMessage.instead')}
-                            </div>
-                        </div>
-                    )}
+                    </div>
+                    <div className={'row'}>
+                        <div className="grey-text" dangerouslySetInnerHTML={{ __html: t(new Utils().getCurrentDomain()+'.sharedMessage.text') }}></div>
+                    </div>
                 </div>
             </Row>
             <CustomModal
@@ -195,7 +142,7 @@ const SharedMessage = (props) => {
                 buttons={
                     [
                         <Button variant={'secondary'} onClick={cancelSubmit}>Cancel</Button>,
-                        <Button variant={'primary'} onClick={continueSubmite} disabled={props.loading}>
+                        <Button variant={'primary'} onClick={continueSubmit} disabled={props.loading}>
                             {props.loading ? <Spinner animation="border" /> : ''}
                         Continue</Button>
                     ]

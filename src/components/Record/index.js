@@ -12,7 +12,7 @@ import './style.scss'
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioContext = new AudioContext;
 let  recorder, audioInput, gumStream, timeoutRequest;
-const Record = ({ type, onFinished, seconds, loading }) => {
+const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
 
     let videoConstraints = {
         audio: true,
@@ -62,6 +62,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
     const [recordFileURL, setRecordFileURL] = React.useState(null)
 
     const startRecording = () => {
+        onStartRecording(type)
         if (navigator.vibrate) navigator.vibrate(150);
         try {
             if (type === 'video') {
@@ -232,7 +233,7 @@ const Record = ({ type, onFinished, seconds, loading }) => {
                             }
                         </div>
                         :
-                        <div >
+                        <div style={{width:270, height:200}}>
                             <audio
                                 ref={el => setPreview(el)}
                             >

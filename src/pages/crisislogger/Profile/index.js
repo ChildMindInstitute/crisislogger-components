@@ -7,6 +7,7 @@ import {  Form, Row, Button, Alert, Col,Spinner } from 'react-bootstrap';
 import { getProfile, updateProfile, changePassword } from '../../../redux/thunks/data.thunk'
 import Swal from 'sweetalert2'
 import './style.scss'
+import Utils from "../../../util/Utils";
 
 const Profile = (props) => {
     const { t } = useTranslation()
@@ -83,15 +84,15 @@ const Profile = (props) => {
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                     <Form.Label>{t("register.emailLabel")}</Form.Label>
-                        <Form.Control required type="email" name="email" placeholder={t("register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
+                        <Form.Control required type="email" name="email" placeholder={t(new Utils().getCurrentDomain()+".register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>{t("register.usernameLabel")}</Form.Label>
-                        <Form.Control required type="text" name="name" placeholder={t("register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
+                        <Form.Control required type="text" name="name" placeholder={t(new Utils().getCurrentDomain()+".register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Col >
                         <Button onClick={onSubmitProfile} variant={'primary'}  > 
-                        {( props.loading? <Spinner animation="border" />: '') } { t("Update Profile")}
+                        {( props.loading? <Spinner animation="border" />: '') } { t(new Utils().getCurrentDomain()+".Update Profile")}
                         </Button>
                     </Col >
                 </Form>

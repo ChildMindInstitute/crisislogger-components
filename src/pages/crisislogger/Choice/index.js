@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Button } from 'react-bootstrap'
+import Utils from "../../../util/Utils";
 import './style.scss'
 
 const Choice = (props) => {
@@ -21,17 +22,16 @@ const Choice = (props) => {
 
     const choiceRole = (role) => () => {
         localStorage.setItem('role', role)
-        props.history.push('/record-type')
+        props.history.push('/record')
     }
-
     return (
         <div className="select-choice-container">
             <Row>
                 <div className="text-align-center" style={{ marginTop: '100px' }}>
-                    <h1 className="grey-title">{t('choice.title')}</h1>
+                    <h1 className="grey-title">{t(new Utils().getCurrentDomain()+'.choice.title')}</h1>
                 </div>
                 <div className="text-align-center" style={{ width: '100%' }}>
-                    <h4 className="grey-text" >{t('choice.text')}</h4>
+                    <h4 className="grey-text" >{t(new Utils().getCurrentDomain()+'.choice.text')}</h4>
                 </div>
                 <Row className="choice-container" style={{ width: '100%' }}>
                     {blockNames.map((block, index) => (
@@ -40,13 +40,13 @@ const Choice = (props) => {
                                 <div className={'text-center'}>
                                 <Button 
                                     onClick={choiceRole(block.role)} 
-                                    title={t(`choice.${block.i18nName}.button`)} 
+                                    title={t(`${new Utils().getCurrentDomain()}.choice.${block.i18nName}.button`)}
                                     size={'lg'}
                                     className="choice-button"
                                     style={space}
-                                >{t(`choice.${block.i18nName}.button`)}</Button>
+                                >{t(`${new Utils().getCurrentDomain()}.choice.${block.i18nName}.button`)}</Button>
                                 </div>
-                            <p className="grey-text">{t(`choice.${block.i18nName}.text`)}</p>
+                            <p className="grey-text">{t(`${new Utils().getCurrentDomain()}.choice.${block.i18nName}.text`)}</p>
                             </div>
                         </Col>
                     ))}

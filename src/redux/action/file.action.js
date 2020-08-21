@@ -15,8 +15,9 @@ export const fileUploadSuccess = () => ({
     type: FILE_UPLOAD_SUCCESS
 })
 
-export const fileUploadError = () => ({
-    type: FILE_UPLOAD_ERROR
+export const fileUploadError = (payload) => ({
+    type: FILE_UPLOAD_ERROR,
+    payload
 })
 
 export const textUpload = () => ({
@@ -27,6 +28,7 @@ export const textUploadSuccess = () => ({
     type: TEXT_UPLOAD_SUCCESS
 })
 
-export const textUploadError = () => ({
-    type: TEXT_UPLOAD_ERROR
+export const textUploadError = (payload) => ({
+    type: TEXT_UPLOAD_ERROR,
+    payload
 })

@@ -47,9 +47,7 @@ export const getGalleries = (page, searchText) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        console.log(data)
-
-        if(data !== undefined) 
+        if(data !== undefined)
         {
             dispatch(getGalleryData_Success(data))
         }

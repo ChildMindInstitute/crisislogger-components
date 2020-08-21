@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Button } from 'react-bootstrap'
 import './style.scss'
+import Utils from "../../../util/Utils";
 
 const RecordType = (props) => {
     const { t } = useTranslation()
@@ -20,7 +21,7 @@ const RecordType = (props) => {
         <div className="record-type-container">
             <Row>
                 <div className="title-container" style={{ width: '100%', marginTop: '100px', marginBottom: '50px' }}>
-                    <h1 className="text-align-center grey-title">{t('recordType.title')}</h1>
+                    <h1 className="text-align-center grey-title">{t(new Utils().getCurrentDomain()+'.recordType.title')}</h1>
                 </div>
                 <Row className="button-container"  style={{ width: '100%', justifyContent: 'space-around' }}>
                     <Col className="button-col">
@@ -28,21 +29,21 @@ const RecordType = (props) => {
                             onClick={selectType('audio')}
                             size={'lg'} 
                             style={space}
-                        >{t('recordType.audioButton')}</Button>
+                        >{t(new Utils().getCurrentDomain()+'.recordType.audioButton')}</Button>
                     </Col>
                     <Col className="button-col">
                         <Button 
                             onClick={selectType('video')} 
                             size={'lg'} 
                             style={space}
-                        >{t('recordType.videoButton')}</Button>
+                        >{t(new Utils().getCurrentDomain()+'.recordType.videoButton')}</Button>
                     </Col>
                     <Col className="button-col">
                         <Button 
                             onClick={selectType('text')} 
                             size={'lg'} 
                             style={space}
-                        >{t('recordType.textButton')}</Button>
+                        >{t(new Utils().getCurrentDomain()+'.recordType.textButton')}</Button>
                     </Col>
                 </Row>
             </Row>

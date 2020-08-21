@@ -50,7 +50,7 @@ const App = (props) => {
             <Route path="/record-type" exact component={RecordType} />
             <Route path="/privacy" exact component={Privacy} />
             <Route path="/explore" exact component={Explore} />
-            <Route path="" exact component={SharedMessage} />
+            <Route path="/record" exact component={SharedMessage} />
           </Switch>
         </ConnectedRouter>
       </Container>

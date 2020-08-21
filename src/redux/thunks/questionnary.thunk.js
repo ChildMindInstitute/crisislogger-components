@@ -11,7 +11,7 @@ export const sumbitQuestionnaryDataThunk = (data) => dispatch => {
 
     let token  = localStorage.getItem('token')
 
-    fetch(config.defaultApiHost+ '/users/questionnary', {
+    fetch(config.crisisloggerAPIHost+ '/users/questionnaire', {
         method: "POST",
         headers: {
             'Content-type': 'application/json', 
@@ -22,6 +22,8 @@ export const sumbitQuestionnaryDataThunk = (data) => dispatch => {
         })
     })
         .then(res => res.json())
-        .then(res => dispatch(sumbitQuestionnaryDataSuccess()))
+        .then(res => {
+            window.location.href = '/dashboard'
+        })
         .catch(err => dispatch(sumbitQuestionnaryDataError()))
 }

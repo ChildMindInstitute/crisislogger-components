@@ -30,7 +30,7 @@ export default (state = initialState, { type, payload }) => {
                 loaded: true,
             }
         case FILE_UPLOAD_ERROR:
-        case TEXT_UPLOAD_ERROR:    
+        case TEXT_UPLOAD_ERROR:
             return {
                 ...state,
                 loading: false,

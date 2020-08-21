@@ -20,6 +20,7 @@ i18n
     .init({
        resources,
        fallbackLng: 'en',
+       nsSeparator: '~',
        interpolation: {
            escapeValue: false,
        } 

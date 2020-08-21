@@ -7,7 +7,6 @@ import {
     register_success,
     register_error,
 } from '../action/auth.action'
-import { history } from '../reducer/index'
 import config from '../../config'
 export const Login = (email, password) => dispatch => {
     dispatch(login())
@@ -57,11 +56,17 @@ export const Register = (registerBody) => dispatch => {
                 localStorage.setItem('token', data.user.token)
                 localStorage.setItem('user_name', data.user.name)
                 dispatch(register_success(data.user.token))
-                window.location.href = '/'
+                if (data.questionnaireRequired)
+                {
+                    window.location.href = '/questionnaire'
+                }
+                else {
+                    window.location.href = '/'
+                }
             }
             else {
                 if (data.message !== undefined) {
-                    dispatch(register_error(data.message))
+                    dispatch(register_error(typeof data.message === 'object' ? 'Something went wrong, please try again': data.message))
                 }
                 else {
                     dispatch(register_error('Something went wrong, please try again'))

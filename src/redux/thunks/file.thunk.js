@@ -8,6 +8,7 @@ import {
     textUploadError
 } from '../action/file.action'
 import config from '../../config'
+import Utils from "../../util/Utils";
 export const uploadText = (data) => dispatch => {
     dispatch(textUpload())
     let formdata = new FormData()
@@ -17,6 +18,7 @@ export const uploadText = (data) => dispatch => {
     formdata.append('publicly', data.publicly)
     formdata.append('country', data.country)
     formdata.append('checkAge', data.checkAge)
+    formdata.append('where_from', new Utils().getCurrentDomain())
     fetch(config.crisisloggerAPIHost+'/file/text', {
         method: "POST",
         headers: {
@@ -48,7 +50,7 @@ export const fileUploadThunk = (file, formData) => dispatch => {
     data.append('publicly', formData.publicly)
     data.append('country', formData.country)
     data.append('checkAge', formData.checkAge)
-
+    data.append('where_from', new Utils().getCurrentDomain())
     fetch(config.crisisloggerAPIHost+'/file/upload', {
         method: "POST",
         headers: {
@@ -58,15 +60,14 @@ export const fileUploadThunk = (file, formData) => dispatch => {
     })
         .then(res => res.json())
         .then((data) => {
-            if(data.upload_id !== undefined)
+            if(data.upload_id)
             {
                 localStorage.setItem('upload_id', data.upload_id)
                 dispatch(fileUploadSuccess())
             }
             else {
-                localStorage.setItem('upload_id', data.upload_id)
                 dispatch(fileUploadError('Something went wrong,please try again'))
             }
         })
-        .catch(err => dispatch(fileUploadError(err)))
+        .catch(err => console.log(err))
 }

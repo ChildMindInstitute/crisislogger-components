@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Form, Row, Button, Alert, Col } from 'react-bootstrap';
 import { Register } from '../../../redux/thunks/auth.thunk'
+import Utils from "../../../util/Utils";
 
 
 class RegisterForm extends React.Component {
@@ -16,6 +17,7 @@ class RegisterForm extends React.Component {
            username: '',
            passwordConfirmError: false,
            passwordLength: false,
+           referral_code: '',
         }
     }
     changeValue = (e) => {
@@ -23,14 +25,19 @@ class RegisterForm extends React.Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        let { username, password, confirmPassword, email, passwordConfirmError, passwordLength } = this.state
+        let { username, password, confirmPassword, email, passwordConfirmError, passwordLength, referral_code } = this.state
         if(!passwordConfirmError && !passwordLength) {
             let upload_id = null;
             if(localStorage.getItem('upload_id'))
             {
                 upload_id = localStorage.getItem('upload_id')
             }
-            this.props.register({ name:username, password, email, role: 1, upload_id: upload_id })
+            this.props.register({ name:username, password,
+                email, role: 1,
+                upload_id: upload_id,
+                referral_code: referral_code,
+                where_from: new Utils().getCurrentDomain()
+            })
         }
     }
 
@@ -57,26 +64,27 @@ class RegisterForm extends React.Component {
     }
     render() {
         const { t } = this.props
+        console.log(this.props)
         const { passwordConfirmError, passwordLength } = this.state 
         return (
             <Form onSubmit={this.onSubmit}>
                  { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
                 <Form.Group controlId="formBasicEmail">
-                <Form.Label>{t("register.emailLabel")}</Form.Label>
-                    <Form.Control required type="email" name="email" placeholder={t("register.emailLabel")} onChange={this.changeValue} />
+                <Form.Label>{t(new Utils().getCurrentDomain()+".register.emailLabel")}</Form.Label>
+                    <Form.Control required type="email" name="email" placeholder={t(new Utils().getCurrentDomain()+".register.emailLabel")} onChange={this.changeValue} />
                 </Form.Group>
                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t("register.usernameLabel")}</Form.Label>
-                    <Form.Control required type="text" name="username" placeholder={t("register.usernameLabel")} onChange={this.changeValue} />
+                    <Form.Label>{t(new Utils().getCurrentDomain()+".register.usernameLabel")}</Form.Label>
+                    <Form.Control required type="text" name="username" placeholder={t(new Utils().getCurrentDomain()+".register.usernameLabel")} onChange={this.changeValue} />
                 </Form.Group>
                
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t("register.passwordLabel")}</Form.Label>
+                    <Form.Label>{t(new Utils().getCurrentDomain()+".register.passwordLabel")}</Form.Label>
                     <Form.Control 
                         required 
                         type="password" 
                         name="password" 
-                        placeholder={t("register.passwordLabel")} 
+                        placeholder={t(new Utils().getCurrentDomain()+".register.passwordLabel")}
                         onChange={this.onChangePassword}
                         isInvalid={this.state.passwordLength}
                     />
@@ -85,13 +93,13 @@ class RegisterForm extends React.Component {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label >{t("register.passwordConfirmLabel")}</Form.Label>
+                    <Form.Label >{t(new Utils().getCurrentDomain()+".register.passwordConfirmLabel")}</Form.Label>
                     <Form.Control 
                         required 
                         type="password" 
                         name="confirmPassword"
                         onBlur={this.validationConfirmPassword}
-                        placeholder={t("register.passwordConfirmLabel")} 
+                        placeholder={t(new Utils().getCurrentDomain()+".register.passwordConfirmLabel")}
                         onChange={this.changeValue}
                         isInvalid={!!this.state.passwordConfirmError}
                     />
@@ -104,11 +112,11 @@ class RegisterForm extends React.Component {
                     <Form.Control  type="text" name="referral_code" placeholder={'Referral code'} onChange={this.changeValue} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Check type="checkbox" label={t("register.rememberMe")} />
+                    <Form.Check type="checkbox" label={t(new Utils().getCurrentDomain()+".register.rememberMe")} />
                 </Form.Group>
                 <Row>
                     <Col >
-                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t("register.button")}</Button>
+                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t(new Utils().getCurrentDomain()+".register.button")}</Button>
                      
                     </Col >
                     <Col >

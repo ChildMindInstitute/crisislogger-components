@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+// import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col,Spinner } from 'react-bootstrap';

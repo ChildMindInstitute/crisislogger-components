@@ -1,7 +1,6 @@
 import config from '../../config'
 import { 
     sumbitQuestionnaryData,
-    sumbitQuestionnaryDataSuccess,
     sumbitQuestionnaryDataError
 } from '../action/questionnary.action'
 

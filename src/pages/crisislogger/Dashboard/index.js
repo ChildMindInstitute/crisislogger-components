@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Row, Col, Form, Button, Alert, Spinner } from 'react-bootstrap'
-import Modal from 'react-bootstrap/Modal'
+import React from 'react'
+// import { useTranslation } from 'react-i18next'
+import { Row, Col, Form, Alert, Spinner } from 'react-bootstrap'
 import WordCloudComponent from '../../../components/wordCloudComponent';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
@@ -151,7 +150,7 @@ const Dashboard = (props) => {
                                     }
                                     <div style={{ flexGrow: 1 }} />
                                     {isVideo ?
-                                        value.name != 'null'  && <ReactPlayer
+                                        value.name !== 'null'  && <ReactPlayer
                                             width={'100%'}
                                             height={205}
                                             style={{ margin: 0 }}
@@ -162,12 +161,12 @@ const Dashboard = (props) => {
                                             ]}
                                         />
                                         :
-                                        value.name != 'null'  && <div>
+                                        value.name !== 'null'  && <div>
                                             <ReactPlayer height={50} width={'100%'} url={config.googleBucketURL + value.name} controls={true} />
                                         </div>
                                     }
                                     <div style={{ flex: 1, marginTop: 10, textAlign: 'center' }}>
-                                        <p>{value.created_at}</p>
+                                        <p>{new Utils().getDate(value.created_at)}</p>
                                     </div>
                                     <div style={bottomBtnStyle}>
                                         <Form.Check
@@ -218,7 +217,7 @@ const Dashboard = (props) => {
                                         <WordCloudComponent text={value.text} words={[]} type={'text'} />
                                     </div>
                                     <div style={{ flex: 1, marginTop: 10, textAlign: 'center' }}>
-                                        <p>{value.created_at}</p>
+                                        <p>{new Utils().getDate(value.created_at)}</p>
                                     </div>
                                     <div style={bottomBtnStyle}>
                                         <Form.Check

@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Form, Row, Col, Button, Container } from 'react-bootstrap'
+import { Form, Row} from 'react-bootstrap'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import contryList from 'react-select-country-list'
-import _ from 'lodash'
 import Utils from "../../util/Utils";
 const UploadQuestionnaire = ({ setFormState, formState, type }) => {
     const { t } = useTranslation()
@@ -14,10 +13,6 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
         setShowAgree(!showAgree)
     }
     let option = contryList().getData()
-    // let usa = option.filter(item => item.value === 'US')
-    // let usIndex = _.findIndex(option, {'value': 'US'})
-    // delete option[usIndex]
-    // option.unshift(usa[0])
     const handleChange = (value) => {
         setFormState({
             ...formState,

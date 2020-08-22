@@ -6,9 +6,8 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { clearUser } from '../state/user/user.actions';
 import { userSelector } from '../state/user/user.selectors';
-import {Redirect  } from 'react-router-dom'
 import FontAwesome from 'react-fontawesome';
-const NavBar = ({ isLoggedIn, clearUser }) => {
+const NavBar = ({ isLoggedIn }) => {
   const gotoPath = (path) => {
     if(String(path).includes('login'))
     {

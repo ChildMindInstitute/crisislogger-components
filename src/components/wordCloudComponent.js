@@ -7,19 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
-const TEXT_COLLAPSE_OPTIONS = {
-	collapse: false, // default state when component rendered
-	collapseText: '... show more', // text to show when collapsed
-	expandText: 'show less', // text to show when expanded
-	minHeight: 195, // component height when closed
-	maxHeight: 340, // expanded to
-	textStyle: { // pass the css for the collapseText and expandText here
-		color: "#333",
-		fontSize: "14px",
-		marginLeft: "9px",
-	}
-};
-
 const options = {
 	colors: ['#6e6e6e'],
 	enableTooltip: false,

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
 import { Login } from '../../../redux/thunks/auth.thunk'
 import Utils from "../../../util/Utils";
 import './style.scss'

@@ -11,50 +11,45 @@ import {
 } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Modal from 'react-bootstrap/Modal'
 import WordCloudComponent from "../../../components/wordCloudComponent";
 import ReactPlayer from 'react-player'
 import config from '../../../config'
 import Utils from '../../../util/Utils'
 import LeftImage from '../../../assets/left-arrow.png'
 import RightImage from '../../../assets/next.png'
-import Swal from 'sweetalert2'
 import { getGalleries } from '../../../redux/thunks/data.thunk'
 import "./style.scss"
 
 const Explore = (props) => {
     const [dataLoading, setDataLoading] = React.useState(true)
     const [searchText, setSearchText] = React.useState('')
+    const [limit, setLimit] = useState(8);
+    const [skip, setSkip] = useState(1);
+
     const utils = new Utils();
     React.useEffect(() => {
-        props.loadData(props.current_page, searchText)
+        props.loadData(skip, searchText)
         setDataLoading(true)
-    }, [dataLoading]);
+    }, [skip, limit, dataLoading]);
     const search = () => {
         setDataLoading(false)
     }
     const nextPage = () => {
-        if (props.current_page < props.total) {
-            props.loadData(props.current_page + 1, searchText);
-        }
+        setSkip(skip + limit)
     }
 
     const previousPage = () => {
-        if (props.current_page > 1) {
-            props.loadData(props.current_page - 1, searchText);
-        }
+        setSkip(skip - limit)
     }
     const { loading, error, data } = props
     return (
         <div className={'user-dashboard-container'}>
             <div style={{ display: 'flex', flexDirection: 'row', flex: 1, marginTop: 30 }}>
-                {/*<span style={{width: 170, marginLeft: 50}}/>*/}
                 <span style={{ color: '#6e6e6e', fontSize: 30, flex: 1 }} className={'mobile-show'}>
                     CrisisLogger Gallery
                 </span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', flex: 1, marginBottom: 30 }}>
-                {/*<span style={{width: 170, marginLeft: 50}}/>*/}
 
                 <span style={{ color: '#6e6e6e', fontSize: 14, flex: 1 }}>
                     ---- A selection of recordings posted publicly ----
@@ -96,8 +91,8 @@ const Explore = (props) => {
             <Row>
                 {data.length > 0 ?
                     data.map((value, index) => {
-                        let isVideo = value.name.split(".")[1] === 'webm' || value.name.split(".")[1] === 'mkv' || value.name.split(".")[1] === 'mp4';
-                        let videoExtension = value.name.split(".")[1];
+                        let isVideo = value.name && (value.name.split(".")[1] === 'webm' || value.name.split(".")[1] === 'mkv' || value.name.split(".")[1] === 'mp4');
+                        let videoExtension = value.name && value.name.split(".")[1];
                         return (
                             <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px' }} key={index}>
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
@@ -109,7 +104,7 @@ const Explore = (props) => {
                                     <div style={{ flexGrow: 1 }} />
                                     {
                                         isVideo ?
-                                        value.name != 'null' && <ReactPlayer
+                                            value.name && value.name !== 'null' && <ReactPlayer
                                             width={'100%'}
                                             height={205}
                                             style={{ margin: 0 }}
@@ -120,7 +115,7 @@ const Explore = (props) => {
                                             ]}
                                         />
                                         :
-                                        value.name != 'null' && <div>
+                                            value.name && value.name !== 'null' && <div>
                                             <ReactPlayer height={50} width={'100%'} url={config.googleBucketURL + value.name} controls={true} />
                                         </div>
                                     }
@@ -142,13 +137,13 @@ const Explore = (props) => {
             </Row>
             {
                 !loading? <div style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
-                    <div onClick={() => previousPage()} style={{ backgroundColor: '#6e6e6e', width: 35, height: 35, borderRadius: 35, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                    <button onClick={() => previousPage()} disabled={skip === 1} style={{ backgroundColor: '#6e6e6e', margin: '0 10px', width: 35, height: 35, borderRadius: 35, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                         <img style={{ width: 12, height: 12 }} src={LeftImage} />
-                    </div>
-                    <div style={{ marginRight: 30, marginLeft: 30 }}>{props.current_page} of {props.total}</div>
-                    <div onClick={() => nextPage()} style={{ backgroundColor: '#6e6e6e', width: 35, height: 35, borderRadius: 35, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                    </button>
+                    -
+                    <button onClick={() => nextPage()} style={{ backgroundColor: '#6e6e6e', margin: '0 10px', width: 35, height: 35, borderRadius: 35, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
                         <img style={{ width: 12, height: 12 }} src={RightImage} />
-                    </div>
+                    </button>
                 </div> : null
             }
         </div>
@@ -163,8 +158,6 @@ const mapStateToProps = state => {
         loading: state.recordData.loading,
         loaded: state.recordData.loaded,
         error: state.recordData.error,
-        current_page: state.recordData.current_page,
-        total: state.recordData.total,
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Explore)

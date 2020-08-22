@@ -16,8 +16,8 @@ const initialState = {
         texts: []
     },
     galleries: [],
-    current_page: 0,
-    total: 1,
+    skip: 1,
+    limit: 1,
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -54,8 +54,7 @@ export default (state = initialState, { type, payload }) => {
                 loading: false,
                 loaded: true,
                 galleries: payload.data,
-                current_page: payload.current_page,
-                total: payload.last_page
+                skip: payload.skip + state.limit
             }
         case GET_GALLERY_DATA_FAILED:
             return {

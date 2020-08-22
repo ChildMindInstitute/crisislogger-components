@@ -1,5 +1,5 @@
 import React from "react";
-import { Row,  Button, Alert, Spinner } from 'react-bootstrap'
+import {Row, Button, Alert, Spinner} from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
 import UploadQuestionnaire from './uploadQuestionnaire'
 import micro from '../../assets/mic-24px.svg'
@@ -10,15 +10,15 @@ import './style.scss'
 
 
 let AudioContext = window.AudioContext || window.webkitAudioContext;
-let audioContext = new AudioContext;
-let  recorder, audioInput, gumStream, timeoutRequest;
-const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
+let audioContext = new AudioContext();
+let recorder, audioInput, gumStream, timeoutRequest;
+const Record = ({type, onFinished, loading, onStartRecording}) => {
 
     let videoConstraints = {
         audio: true,
         video: {
-            width: { min: '100%', ideal: 320 },
-            height: { min: 240, ideal: 240 },
+            width: {min: '100%', ideal: 320},
+            height: {min: 240, ideal: 240},
         }
     }
     let audioConstraints = {
@@ -36,18 +36,18 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
         publicly: null,
         country: '',
         checkAge: false,
-        where_from:  new Utils().getCurrentDomain(),
+        where_from: new Utils().getCurrentDomain(),
         errors: {}
     })
     const onClose = () => {
         setShowModal(false)
     }
-    const handleDataAvailable = ({ data }) => {
+    const handleDataAvailable = ({data}) => {
         const newChunks = [...chunks, data];
         setChunks(newChunks);
     }
     const handleStop = () => {
-        const blob = new Blob(chunks, { blobType });
+        const blob = new Blob(chunks, {blobType});
         let url = URL.createObjectURL(blob)
         setRecordFile(blob)
         setRecordFileURL(url)
@@ -72,19 +72,18 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
                     onstop: handleStop
                 });
                 recorder.start()
-            }
-            else {
-                if(audioContext.state === 'suspended') {
-                    audioContext.resume().then(function() {
-                       startRecording();
-                   });
-                   return true;
-               }
+            } else {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume().then(function () {
+                        startRecording();
+                    });
+                    return true;
+                }
                 recorder = new window.Recorder(audioInput, {
                     numChannels: 1,
                     onAnalysed: data => console.log(data),
                 })
-                navigator.mediaDevices.getUserMedia(audioConstraints).then(function(stream) {
+                navigator.mediaDevices.getUserMedia(audioConstraints).then(function (stream) {
                     /* assign to gumStream for later use */
                     gumStream = stream;
                     /* use the stream */
@@ -93,19 +92,18 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
 
                     //start the recording process 
                     recorder.record()
-                    if ( navigator.vibrate ) navigator.vibrate( 150 );
-                }).catch(function(err) {
+                    if (navigator.vibrate) navigator.vibrate(150);
+                }).catch(function (err) {
                     setRecordStated(false)
                     setError('Recording failed, please try again later.')
                 });
             }
             //limit recording to 5 mins = 300,000 ms
-            timeoutRequest = setTimeout(function() {
+            timeoutRequest = setTimeout(function () {
                 stopRecording();
             }, 300000);
             setRecordStated(true)
-        }
-        catch (e) {
+        } catch (e) {
             setRecordStated(false)
             setError('Recording failed, please try again later.')
         }
@@ -120,8 +118,7 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
                 if (type === 'video') {
                     preview.srcObject = stm;
                     preview.captureStream = preview.captureStream || preview.mozCaptureStream;
-                }
-                else {
+                } else {
                     audioInput = audioContext.createMediaStreamSource(stm);
                 }
                 setPermissionGranted(true)
@@ -132,8 +129,7 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
                     setAskingPermission(false)
                     setError('The Recording is not supported on this device')
                 })
-        }
-        catch (e) {
+        } catch (e) {
             setPermissionGranted(false)
             setAskingPermission(false)
             setError('The Recording is not supported on this device')
@@ -152,11 +148,9 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
                 setRecordFile(blob)
                 setRecordFileURL(url)
                 setShowModal(true)
-                let filename = new Date().toISOString() + ".webm";
             }
             recorder.stop();
-        }
-        else {
+        } else {
             recorder.stop();
             gumStream.getAudioTracks()[0].stop();
             //create the wav blob and pass it on to createDownloadLink 
@@ -188,81 +182,79 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
     }
     const uploadRecord = () => {
         // setShowSecondModal(false)
-        let formItem  = formState;
+        let formItem = formState;
         let errors = []
-        if(formItem.publicly == null )
-        {
+        if (formItem.publicly == null) {
             errors['publicly'] = "You need to click above checkbox before continue"
-            
+
         }
-        if(formItem.checkAge == false)
-        {
+        if (formItem.checkAge === false) {
             errors['checkAge'] = "You need to click above checkbox before continue"
         }
-        if(errors['checkAge'] || errors['publicly']) {
+        if (errors['checkAge'] || errors['publicly']) {
             setFormState({...formState, errors: errors})
             return false;
-        }
-        else {
+        } else {
             setFormState({...formState, errors: []})
         }
-        onFinished({ file: recordFile, formState: formState })
+        onFinished({file: recordFile, formState: formState})
     }
     const space = {
         marginTop: 15,
         textAlign: 'center',
     }
     return (
-        <div >
+        <div>
             {error &&
             <Alert variant={'danger'} dismissible={true} onClose={() => setError(null)}>{error}</Alert>}
             <Row>
                 {
                     type === 'video' ?
-                        <div style={{ width: 480, margin: '0 auto' }}>
+                        <div style={{width: 480, margin: '0 auto'}}>
                             <video
                                 ref={el => setPreview(el)}
-                                style={{ width: 270, height: 200 }}
+                                style={{width: 270, height: 200}}
                                 muted
                                 autoPlay={true}
                             >
                             </video>
                             <br></br>
-                            {askingPermission && 
-                                <Spinner animation="border" />
+                            {askingPermission &&
+                            <Spinner animation="border"/>
                             }
                         </div>
                         :
-                        <div style={{width:270, height:200}}>
+                        <div style={{width: 270, height: 200}}>
                             <audio
                                 ref={el => setPreview(el)}
                             >
                             </audio>
                             <br></br>
-                            {askingPermission && 
-                                <Spinner animation="border" />
+                            {askingPermission &&
+                            <Spinner animation="border"/>
                             }
                         </div>
                 }
-                
+
             </Row>
-            <div style={{ margin: '0 auto' }}>
+            <div style={{margin: '0 auto'}}>
                 {
                     !permissionGranted ?
-                        <Button variant={'primary'} onClick={() => askPermission()}>Request a { type ==='video' ? 'camera': 'microphone'}</Button>
+                        <Button variant={'primary'} onClick={() => askPermission()}>Request
+                            a {type === 'video' ? 'camera' : 'microphone'}</Button>
                         :
                         <Row style={space}>
                             {
                                 !recordStarted ?
-                                    <div  className={'video-camera-btn'}>
-                                        <div className={'camera-icon-block'} onClick={startRecording} >
-                                            <img src={type ==='video' ? video: micro} ></img>
+                                    <div className={'video-camera-btn'}>
+                                        <div className={'camera-icon-block'} onClick={startRecording}>
+                                            <img alt={'record'} src={type === 'video' ? video : micro}/>
                                         </div>
                                     </div>
                                     :
-                                    <div  className={'video-camera-stop-btn'}>
-                                        <div className={'camera-recording-block'} onClick={stopRecording} >
-                                            <img src={stopIcon} ></img>
+                                    <div className={'video-camera-stop-btn'}>
+                                        <div className={'camera-recording-block'} onClick={stopRecording}>
+                                            <img alt={'stop'} src={stopIcon}/>
                                         </div>
                                     </div>
                             }
@@ -275,8 +267,8 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
                 onClose={onClose}
                 body={
                     type === 'video' ?
-                        <video style={{ width: '100%' }} controls={true} src={recordFileURL} />
-                        : <audio style={{ width: '100%' }} controls={true} src={recordFileURL} />
+                        <video style={{width: '100%'}} controls={true} src={recordFileURL}/>
+                        : <audio style={{width: '100%'}} controls={true} src={recordFileURL}/>
                 }
                 buttons={
                     [
@@ -288,13 +280,13 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
             <CustomModal
                 visible={secondModal}
                 onClose={onSecondModalClose}
-                body = {<UploadQuestionnaire setFormState={setFormState} formState={formState}/>}
+                body={<UploadQuestionnaire setFormState={setFormState} formState={formState}/>}
                 header="Upload File"
                 buttons={
                     [
                         <Button variant={'secondary'} onClick={() => deleteRecord()}>Cancel</Button>,
-                        <Button variant={'primary'} onClick={() =>  uploadRecord()}  disabled={loading}>
-                        {loading ? <Spinner animation="border" />: '' }Upload</Button>
+                        <Button variant={'primary'} onClick={() => uploadRecord()} disabled={loading}>
+                            {loading ? <Spinner animation="border"/> : ''}Upload</Button>
                     ]
                 }
             />
@@ -302,7 +294,7 @@ const Record = ({ type, onFinished, seconds, loading,onStartRecording }) => {
     )
 }
 
-const CustomModal = ({ visible, body, header, buttons, onClose }) => {
+const CustomModal = ({visible, body, header, buttons, onClose}) => {
     return (
         <Modal show={visible} onHide={() => onClose()}>
             <Modal.Header closeButton>

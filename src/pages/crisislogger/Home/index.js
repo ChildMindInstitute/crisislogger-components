@@ -21,7 +21,7 @@ const Home = (props, context) => {
   return (
     <div className="home-page-container">
         <Row style={{justifyContent: 'center', margin:'unset'}}>
-            <img src={homePageBanner} />
+            <img src={homePageBanner} alt={'Home'} />
             <div className="login-link">
                 <Link to="/login">{t(new Utils().getCurrentDomain()+'.home.login')}</Link>
             </div>

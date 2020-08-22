@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { Row} from 'react-bootstrap'
+import React from 'react'
 import "./style.scss"
 
-const Privacy = (props) => {
+const Privacy = () => {
     return (
         <div>
             <h1>Privacy / Data Policy</h1>

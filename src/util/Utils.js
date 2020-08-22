@@ -47,7 +47,7 @@ class Utils {
 			let wordExists = false;
 
 			for (let j = 0; j < words.length; j++) {
-				if (str[i] == words[j].text) {
+				if (str[i] === words[j].text) {
 
 					//word exists in word so count one up
 					words[j].value += 1;
@@ -68,7 +68,7 @@ class Utils {
 
 	getsubDomain() {
 		let host = window.location.host;
-		let protocol = window.location.protocol;
+		// let protocol = window.location.protocol;
 		let parts = host.split(".");
 		let subdomain = "";
 
@@ -84,10 +84,14 @@ class Utils {
 	}
 	getDate(value)
 	{
-		let date;
-		if (typeof value =='string')
+		let date = value;
+		if (String(value).indexOf('T') !== false)
 		{
-			date = new Date(value.replace(/-/g, '/'));
+			date = date.split('T')[0]
+		}
+		if (typeof date ==='string')
+		{
+			date = new Date(date.replace(/-/g, '/'));
 		}
 		else {
 			date = new Date();

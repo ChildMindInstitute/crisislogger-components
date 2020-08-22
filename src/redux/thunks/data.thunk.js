@@ -1,5 +1,4 @@
-import { push } from 'connected-react-router'
-import { 
+import {
     getData,
     getData_error,
     getData_success,
@@ -25,7 +24,7 @@ export const getRecordData = () => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !== undefined) 
+        if(data.records !== undefined)
         {
             dispatch(getData_success(data.records))
         }
@@ -37,7 +36,7 @@ export const getRecordData = () => dispatch => {
 }
 export const getGalleries = (page, searchText) => dispatch => {
     dispatch(getGalleryData())
-    fetch(`https://crisislogger.org/api/transcriptions?page=${page}&searchTxt=${searchText}`, {
+    fetch(`${config.crisisloggerAPIHost}/file/transcriptions?page=${page}&searchTxt=${searchText}`, {
         method: "GET",
         headers: {
             'Content-type': 'application/json',
@@ -47,9 +46,9 @@ export const getGalleries = (page, searchText) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data !== undefined)
+        if(data.uploads !== undefined)
         {
-            dispatch(getGalleryData_Success(data))
+            dispatch(getGalleryData_Success({data: data.uploads, skip: page}))
         }
         else {
             dispatch(getGalleryData_Error('Something went wrong, please try to refresh the page'))

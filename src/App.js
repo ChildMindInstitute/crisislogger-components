@@ -20,7 +20,7 @@ import PrivateRoute from './components/PrivateRouter'
 import Questionnaire from './pages/crisislogger/Questionnaire'
 import Explore from './pages/crisislogger/Explore';
 import { userSelector } from './state/user/user.selectors';
-import {Redirect  } from 'react-router-dom'
+// import {Redirect  } from 'react-router-dom'
 import CMILogo from './assets/CMI_spot_logo.jpg'
 import ParentsLogo from './assets/parents_magazine_logo.png'
 import NMILogo from './assets/nimh-logo.png'
@@ -29,7 +29,7 @@ import CRILogo from './assets/CRI.png'
 import MCGovernLogo from './assets/mcgovern_logo.png'
 import './App.scss'
 
-const App = (props) => {
+const App = () => {
   const token = localStorage.getItem('token')
   const isLoggedIn = (token && token !== '');
   return (

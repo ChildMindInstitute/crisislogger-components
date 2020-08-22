@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Tabs, Tab, Container, Grid, RadioGroup, FormControl, FormControlLabel, Radio, FormGroup, TextField, TextareaAutosize, Checkbox  } from '@material-ui/core'
+import { Tabs, Tab, Container, Grid, RadioGroup, FormControl, FormControlLabel, Radio, FormGroup, TextField, TextareaAutosize, Checkbox  } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import csc from 'country-state-city'
@@ -315,7 +315,7 @@ class Questionnaire extends React.Component {
                     </Button>
                   ) : null}
 
-                  {index + 1 == Object.keys(domainQuestions).length ? (
+                  {index + 1 === Object.keys(domainQuestions).length ? (
                     <Button
                       variant="success"
                       onClick={this.submitQuestionaryData}

@@ -25,7 +25,7 @@ class RegisterForm extends React.Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        let { username, password, confirmPassword, email, passwordConfirmError, passwordLength, referral_code } = this.state
+        let { username, password,  email, passwordConfirmError, passwordLength, referral_code } = this.state
         if(!passwordConfirmError && !passwordLength) {
             let upload_id = null;
             if(localStorage.getItem('upload_id'))

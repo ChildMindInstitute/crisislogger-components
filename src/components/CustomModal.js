@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Row, Col, Form, Button, Spinner } from 'react-bootstrap'
+import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 const CustomModal = ({ visible, body, header, buttons, onClose }) => {
     return (

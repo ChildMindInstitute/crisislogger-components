@@ -1,4 +1,3 @@
-import { push } from 'connected-react-router'
 import {
     login,
     login_success,

@@ -14,7 +14,7 @@ const Login = () => {
   }
   return (
     <div className="sign-form-page">
-      <h3 className="sign-form-title">{t(new Utils().getCurrentDomain()+'.login.title')}</h3>
+      <h3 className="sign-form-title">{t(new Utils().getsubDomain()+'.login.title')}</h3>
       <Row className="sign-form-container">
         <Col xl={{span: 4, offset: 0}}>
           <LoginForm/>

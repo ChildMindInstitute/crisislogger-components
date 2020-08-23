@@ -115,7 +115,7 @@ const SharedMessage = (props) => {
         <div className="shared-message-container">
             <Row style={{ justifyContent: 'center', marginTop: '110px' }}>
                 <div className="text-align-center">
-                    <h1 className="grey-title">{t(new Utils().getCurrentDomain()+'.sharedMessage.title')}</h1>
+                    <h1 className="grey-title">{t(new Utils().getsubDomain()+'.sharedMessage.title')}</h1>
                     <div className={'row'}>
                         <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
                             <Record type={'video'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
@@ -124,12 +124,12 @@ const SharedMessage = (props) => {
                             <Record type={'audio'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
                         </div>
                         <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
-                            <Form.Control as="textarea" style={{height: '100%'}} row="10" cols={20} onChange={handleTextChange} placeholder={t(new Utils().getCurrentDomain()+'.sharedMessage.message')} />
+                            <Form.Control as="textarea" style={{height: '100%'}} row="10" cols={20} onChange={handleTextChange} placeholder={t(new Utils().getsubDomain()+'.sharedMessage.message')} />
                             {shareText.length > 1 && <Button style={{ marginTop: 10 }} onClick={submitText}>Submit</Button>}
                         </div>
                     </div>
                     <div className={'row'}>
-                        <div className="grey-text" dangerouslySetInnerHTML={{ __html: t(new Utils().getCurrentDomain()+'.sharedMessage.text') }}></div>
+                        <div className="grey-text" dangerouslySetInnerHTML={{ __html: t(new Utils().getsubDomain()+'.sharedMessage.text') }}></div>
                     </div>
                 </div>
             </Row>

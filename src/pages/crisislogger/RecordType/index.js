@@ -21,7 +21,7 @@ const RecordType = (props) => {
         <div className="record-type-container">
             <Row>
                 <div className="title-container" style={{ width: '100%', marginTop: '100px', marginBottom: '50px' }}>
-                    <h1 className="text-align-center grey-title">{t(new Utils().getCurrentDomain()+'.recordType.title')}</h1>
+                    <h1 className="text-align-center grey-title">{t(new Utils().getsubDomain()+'.recordType.title')}</h1>
                 </div>
                 <Row className="button-container"  style={{ width: '100%', justifyContent: 'space-around' }}>
                     <Col className="button-col">
@@ -29,21 +29,21 @@ const RecordType = (props) => {
                             onClick={selectType('audio')}
                             size={'lg'} 
                             style={space}
-                        >{t(new Utils().getCurrentDomain()+'.recordType.audioButton')}</Button>
+                        >{t(new Utils().getsubDomain()+'.recordType.audioButton')}</Button>
                     </Col>
                     <Col className="button-col">
                         <Button 
                             onClick={selectType('video')} 
                             size={'lg'} 
                             style={space}
-                        >{t(new Utils().getCurrentDomain()+'.recordType.videoButton')}</Button>
+                        >{t(new Utils().getsubDomain()+'.recordType.videoButton')}</Button>
                     </Col>
                     <Col className="button-col">
                         <Button 
                             onClick={selectType('text')} 
                             size={'lg'} 
                             style={space}
-                        >{t(new Utils().getCurrentDomain()+'.recordType.textButton')}</Button>
+                        >{t(new Utils().getsubDomain()+'.recordType.textButton')}</Button>
                     </Col>
                 </Row>
             </Row>

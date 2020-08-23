@@ -64,27 +64,26 @@ class RegisterForm extends React.Component {
     }
     render() {
         const { t } = this.props
-        console.log(this.props)
-        const { passwordConfirmError, passwordLength } = this.state 
+        const { passwordConfirmError, passwordLength } = this.state
         return (
             <Form onSubmit={this.onSubmit}>
                  { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
                 <Form.Group controlId="formBasicEmail">
-                <Form.Label>{t(new Utils().getCurrentDomain()+".register.emailLabel")}</Form.Label>
-                    <Form.Control required type="email" name="email" placeholder={t(new Utils().getCurrentDomain()+".register.emailLabel")} onChange={this.changeValue} />
+                <Form.Label>{t(new Utils().getsubDomain()+".register.emailLabel")}</Form.Label>
+                    <Form.Control required type="email" name="email" placeholder={t(new Utils().getsubDomain()+".register.emailLabel")} onChange={this.changeValue} />
                 </Form.Group>
                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t(new Utils().getCurrentDomain()+".register.usernameLabel")}</Form.Label>
-                    <Form.Control required type="text" name="username" placeholder={t(new Utils().getCurrentDomain()+".register.usernameLabel")} onChange={this.changeValue} />
+                    <Form.Label>{t(new Utils().getsubDomain()+".register.usernameLabel")}</Form.Label>
+                    <Form.Control required type="text" name="username" placeholder={t(new Utils().getsubDomain()+".register.usernameLabel")} onChange={this.changeValue} />
                 </Form.Group>
                
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t(new Utils().getCurrentDomain()+".register.passwordLabel")}</Form.Label>
+                    <Form.Label>{t(new Utils().getsubDomain()+".register.passwordLabel")}</Form.Label>
                     <Form.Control 
                         required 
                         type="password" 
                         name="password" 
-                        placeholder={t(new Utils().getCurrentDomain()+".register.passwordLabel")}
+                        placeholder={t(new Utils().getsubDomain()+".register.passwordLabel")}
                         onChange={this.onChangePassword}
                         isInvalid={this.state.passwordLength}
                     />
@@ -93,13 +92,13 @@ class RegisterForm extends React.Component {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label >{t(new Utils().getCurrentDomain()+".register.passwordConfirmLabel")}</Form.Label>
+                    <Form.Label >{t(new Utils().getsubDomain()+".register.passwordConfirmLabel")}</Form.Label>
                     <Form.Control 
                         required 
                         type="password" 
                         name="confirmPassword"
                         onBlur={this.validationConfirmPassword}
-                        placeholder={t(new Utils().getCurrentDomain()+".register.passwordConfirmLabel")}
+                        placeholder={t(new Utils().getsubDomain()+".register.passwordConfirmLabel")}
                         onChange={this.changeValue}
                         isInvalid={!!this.state.passwordConfirmError}
                     />
@@ -112,11 +111,11 @@ class RegisterForm extends React.Component {
                     <Form.Control  type="text" name="referral_code" placeholder={'Referral code'} onChange={this.changeValue} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Check type="checkbox" label={t(new Utils().getCurrentDomain()+".register.rememberMe")} />
+                    <Form.Check type="checkbox" label={t(new Utils().getsubDomain()+".register.rememberMe")} />
                 </Form.Group>
                 <Row>
                     <Col >
-                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t(new Utils().getCurrentDomain()+".register.button")}</Button>
+                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t(new Utils().getsubDomain()+".register.button")}</Button>
                      
                     </Col >
                     <Col >

@@ -7,8 +7,8 @@ const Register = (props) => {
     const { t } = useTranslation()
     return (
         <div className="sign-form-page">
-            <h1 className="sign-form-title">{t(new Utils().getCurrentDomain()+'.register.title')}</h1>
-            <p>{t(new Utils().getCurrentDomain()+'.register.notes')}</p>
+            <h1 className="sign-form-title">{t(new Utils().getsubDomain()+'.register.title')}</h1>
+            <p>{t(new Utils().getsubDomain()+'.register.notes')}</p>
             <Row className="sign-form-container" style={{marginTop: '20px !important'}}>
                 <Col xl={{span: 4}}>
                     <RegisterForm {...props}/>

@@ -1,5 +1,5 @@
 {
-    "localhost:3000" :
+    "main" :
     {
         "home": {
             "title": "Please tell us how you're feeling during this COVID-19 crisis",
@@ -10,7 +10,7 @@
                 "p4": "CrisisLogger comes out of the MATTER Lab at the Child Mind Institute."
             },
             "shareButton": "Share your Thoughts",
-            "exploreButton": "Listen to Others` Throughts",
+            "exploreButton": "Listen to Others` Thoughts",
             "login": "Login"
         },
         "login": {
@@ -81,7 +81,7 @@
             }
         }
     },
-    "racism-in-academia.crisislogger.org" :
+    "subdomain" :
     {
         "home": {
             "title": "Please share your thoughts on racism in academia",

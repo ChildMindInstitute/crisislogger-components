@@ -1,5 +1,5 @@
 {
-  "localhost:3000": {
+  "main.crisislogger.org": {
     "Background": [
       {
         "title": [
@@ -2723,8 +2723,8 @@
       }
     ]
   },
-  "us": {
-    "Testing": [
+  "subdomain-crisislogger.firebaseapp.com": {
+    "Subdomain background": [
       {
         "title": [
           "Please answer the following questions about your health or exposure to Coronavirus/COVID-19:",

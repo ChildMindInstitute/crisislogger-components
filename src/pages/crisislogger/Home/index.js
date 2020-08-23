@@ -23,10 +23,10 @@ const Home = (props, context) => {
         <Row style={{justifyContent: 'center', margin:'unset'}}>
             <img src={homePageBanner} alt={'Home'} />
             <div className="login-link">
-                <Link to="/login">{t(new Utils().getCurrentDomain()+'.home.login')}</Link>
+                <Link to="/login">{t(new Utils().getsubDomain()+'.home.login')}</Link>
             </div>
             <div className="title-text">
-               <h1>{t(new Utils().getCurrentDomain()+'.home.title')}</h1>
+               <h1>{t(new Utils().getsubDomain()+'.home.title')}</h1>
             </div>
             <div className="button-container">
                 <Button 
@@ -34,7 +34,7 @@ const Home = (props, context) => {
                     title={'Share your thought'} 
                     size={'lg'}
                     style={space}
-                >{t(new Utils().getCurrentDomain()+'.home.shareButton')}</Button>
+                >{t(new Utils().getsubDomain()+'.home.shareButton')}</Button>
                 <Button
                     onClick={gotoExplore}
                     size={'lg'}
@@ -42,14 +42,14 @@ const Home = (props, context) => {
                     title={'Listen to Others\'s thought '} 
                     variant={'outline-primary'}
                     type={'default'} >
-                    {t(new Utils().getCurrentDomain()+'.home.exploreButton')}
+                    {t(new Utils().getsubDomain()+'.home.exploreButton')}
                 </Button>
             </div>
             <div className="text-cener">
-                <p>{t(new Utils().getCurrentDomain()+'.home.text.p1')}</p>
-                <p>{t(new Utils().getCurrentDomain()+'.home.text.p2')}</p>
-                <p>{t(new Utils().getCurrentDomain()+'.home.text.p3')}</p>
-                <p>{t(new Utils().getCurrentDomain()+'.home.text.p4')}</p>
+                <p>{t(new Utils().getsubDomain()+'.home.text.p1')}</p>
+                <p>{t(new Utils().getsubDomain()+'.home.text.p2')}</p>
+                <p>{t(new Utils().getsubDomain()+'.home.text.p3')}</p>
+                <p>{t(new Utils().getsubDomain()+'.home.text.p4')}</p>
             </div>    
         </Row>
     </div>

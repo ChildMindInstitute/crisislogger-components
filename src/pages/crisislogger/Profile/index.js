@@ -84,15 +84,15 @@ const Profile = (props) => {
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                     <Form.Label>{t("register.emailLabel")}</Form.Label>
-                        <Form.Control required type="email" name="email" placeholder={t(new Utils().getCurrentDomain()+".register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
+                        <Form.Control required type="email" name="email" placeholder={t(new Utils().getsubDomain()+".register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>{t("register.usernameLabel")}</Form.Label>
-                        <Form.Control required type="text" name="name" placeholder={t(new Utils().getCurrentDomain()+".register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
+                        <Form.Control required type="text" name="name" placeholder={t(new Utils().getsubDomain()+".register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Col >
                         <Button onClick={onSubmitProfile} variant={'primary'}  > 
-                        {( props.loading? <Spinner animation="border" />: '') } { t(new Utils().getCurrentDomain()+".Update Profile")}
+                        {( props.loading? <Spinner animation="border" />: '') } { t(new Utils().getsubDomain()+".Update Profile")}
                         </Button>
                     </Col >
                 </Form>

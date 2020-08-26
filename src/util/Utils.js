@@ -76,7 +76,7 @@ class Utils {
 			subdomain = parts[0];
 			return subdomain
 		}
-		return false
+		return 'main' // if not subdomain, then it will show the default contents.
 	}
 	getCurrentDomain()
 	{
@@ -85,6 +85,10 @@ class Utils {
 	getDate(value)
 	{
 		let date = value;
+		if (!date)
+		{
+			return '';
+		}
 		if (String(value).indexOf('T') !== false)
 		{
 			date = date.split('T')[0]

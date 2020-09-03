@@ -28,7 +28,12 @@
             "passwordLabel": "Password",
             "passwordConfirmLabel": "Confirm Password",
             "rememberMe": "Remember me",
-            "button": "Register"
+            "button": "Register",
+            "update_profile": "Update Profile"
+        },
+        "explore": {
+            "header" : "CrisisLogger Gallery",
+            "description" : "A selection of recordings posted publicly"
         },
         "choice": {
             "title": "Would you like to share as a parent, teacher, student, health worker, patient, or as someone else?",

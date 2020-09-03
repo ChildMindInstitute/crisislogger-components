@@ -42,7 +42,7 @@ class RegisterForm extends React.Component {
     }
 
     onChangePassword  = (e) => {
-        if(e.target.value.length <= 6) {
+        if(e.target.value.length < 6) {
             this.setState({ passwordLength: true })
         } else {
             this.setState({ passwordLength: false })  

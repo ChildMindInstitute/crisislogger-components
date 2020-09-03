@@ -12,6 +12,7 @@ import './style.scss'
 let AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioContext = new AudioContext();
 let recorder, audioInput, gumStream, timeoutRequest;
+const isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof window.safari !== 'undefined' && window.safari.pushNotification));
 const Record = ({type, onFinished, loading, onStartRecording}) => {
 
     let videoConstraints = {
@@ -211,6 +212,13 @@ const Record = ({type, onFinished, loading, onStartRecording}) => {
                 {
                     type === 'video' ?
                         <div style={{width: 480, margin: '0 auto'}}>
+                            {
+                                isSafari?
+                                    <p style={{color:'red'}}>{'The Safari browser allows you to type text and record audio, but not video.\n' +
+                                    'cIf you want to record video, please use a different browser like Chrome or Firefox.'}
+                                    </p>
+                                    : null
+                            }
                             <video
                                 ref={el => setPreview(el)}
                                 style={{width: 270, height: 200}}
@@ -240,7 +248,7 @@ const Record = ({type, onFinished, loading, onStartRecording}) => {
             <div style={{margin: '0 auto'}}>
                 {
                     !permissionGranted ?
-                        <Button variant={'primary'} onClick={() => askPermission()}>Request
+                        <Button variant={'primary'} disabled={type ==='video' &&  isSafari} onClick={() => askPermission()}>Request
                             a {type === 'video' ? 'camera' : 'microphone'}</Button>
                         :
                         <Row style={space}>

@@ -80,6 +80,14 @@ body {
   footer {
     position: relative !important;
   }
+   .MuiTabs-flexContainer {
+     display: grid !important;
+     justify-content: space-between;
+   }
+   .MuiTab-wrapper {
+     justify-content: unset !important;
+     flex-direction: inherit !important;
+   }
 }
  footer {
   position: absolute;

@@ -111,6 +111,7 @@ export const removeRecords = (data) => dispatch => {
 export const getProfile = () => dispatch => {
     dispatch(getData())
     let token  = localStorage.getItem('token')
+    console.log(token)
     fetch(config.crisisloggerAPIHost+'/users/me', {
         method: "GET",
         headers: {
@@ -149,16 +150,36 @@ export const updateProfile = (data) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.result !== undefined) 
+        if(data.result !== undefined)
         {
             localStorage.setItem('token', data.result.token)
-            dispatch(updateDataSuccess(data.result.token))
+            window.location.reload();
         }
         else {
-            dispatch(updateDataFailed('Something went wrong, please try to refresh the page'))
+            dispatch(updateDataFailed(data.message? data.message: 'Something went wrong, please try to refresh the page'))
         }
     })
     .catch(err => dispatch(updateDataFailed('Network connection error')))
+}
+export const closeMyAccount = (data) => dispatch => {
+    dispatch(updateData())
+    let token  = localStorage.getItem('token')
+    fetch(config.crisisloggerAPIHost+'/users/removeAccount', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json',
+            'Authorization' : 'Bearer ' + token
+        }
+    })
+        .then(response => {
+            Utils.forceLogout(  response.status)
+            return response.json()
+        })
+        .then((data) => {
+            window.location.reload();
+        })
+        .catch(err => dispatch(updateDataFailed('Network connection error')))
 }
 export const changePassword = (data) => dispatch => {
     let token  = localStorage.getItem('token')
@@ -176,6 +197,7 @@ export const changePassword = (data) => dispatch => {
             return res.json()
         })
         .then((data) => {
+
             if (data.result !== undefined) {
                 localStorage.setItem('token', data.result.token)
                 dispatch(updateDataSuccess(data.result.token))

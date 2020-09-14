@@ -7,7 +7,7 @@ import {
     getGalleryData
  } from '../action/data.action'
  import config from '../../config'
-import { updateData, updateDataSuccess, updateDataFailed } from '../action/update.action'
+import { updateData, updateDataSuccess, updateDataFailed,successAlert,resetErrors} from '../action/update.action'
 import Utils from '../../util/Utils'
 export const getRecordData = () => dispatch => {
     dispatch(getData())
@@ -135,6 +135,7 @@ export const getProfile = () => dispatch => {
     .catch(err => dispatch(getData_error('Network connection error')))
 }
 export const updateProfile = (data) => dispatch => {
+    dispatch(resetErrors());
     dispatch(updateData())
     let token  = localStorage.getItem('token')
     fetch(config.crisisloggerAPIHost+'/users/update-profile', {
@@ -153,7 +154,9 @@ export const updateProfile = (data) => dispatch => {
         if(data.result !== undefined)
         {
             localStorage.setItem('token', data.result.token)
-            window.location.reload();
+            localStorage.setItem('user_name', data.result.name)
+            // window.location.reload();
+            dispatch(successAlert("Your profile has been successfully updated."));
         }
         else {
             dispatch(updateDataFailed(data.message? data.message: 'Something went wrong, please try to refresh the page'))
@@ -182,6 +185,7 @@ export const closeMyAccount = (data) => dispatch => {
         .catch(err => dispatch(updateDataFailed('Network connection error')))
 }
 export const changePassword = (data) => dispatch => {
+    dispatch(resetErrors());
     let token  = localStorage.getItem('token')
     dispatch(updateData())
     fetch(config.crisisloggerAPIHost + '/users/change-password', {
@@ -201,6 +205,7 @@ export const changePassword = (data) => dispatch => {
             if (data.result !== undefined) {
                 localStorage.setItem('token', data.result.token)
                 dispatch(updateDataSuccess(data.result.token))
+                dispatch(successAlert("Your password has been successfully changed."));
             }
             else {
                 if (data.message !== undefined) {

@@ -2,13 +2,16 @@ import {
     UPDATE_DATA,
     UPDATE_DATA_FAILED,
     UPDATE_DATA_SUCCESS,
+    SUCCESS_ALERT,
+    RESET_ERRORS,
 } from '../actionType'
 
 const initialState = {
     loading: false,
     loaded: false,
     error: '',
-    result: ''
+    result: "",
+    success: "",
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -33,6 +36,18 @@ export default (state = initialState, { type, payload }) => {
                 loaded: true,
                 error: payload
             }
+        case SUCCESS_ALERT:
+                return {
+                  ...state,
+                  success: payload,
+                };
+        case RESET_ERRORS:
+                return {
+                  ...state,
+                  error: "",
+                  result: "",
+                  success: "",
+                };
         default: 
             return {
                 ...state

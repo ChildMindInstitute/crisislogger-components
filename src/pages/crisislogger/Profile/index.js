@@ -57,7 +57,7 @@ const Profile = (props) => {
         setFormState({ ...formState, [e.target.name]: e.target.value})
     }
     const onChangePassword  = (e) => {
-        if(e.target.value.length <= 6) {
+        if(e.target.value.length < 6) {
             setPasswordLength(true)
         } else {
             setPasswordLength(false) 
@@ -77,6 +77,13 @@ const Profile = (props) => {
         <div>
             <Row style={{marginTop: 30, textAlign: 'center'}} >
             { props.error || props.updateError &&  <Alert variant={'danger'} style={{width: '100%'}}> {props.error ||  props.updateError}</Alert>}
+            </Row>
+            <Row style={{ marginTop: 30, textAlign: "center" }}>
+                {props.successAlert.length > 0 ? (
+                <Alert variant={"success"} style={{ width: "100%" }}>
+                    {props.successAlert}
+                </Alert>
+                ) : null}
             </Row>
             <Row>
             <Col  xs={12} sm={6} md={6} lg={6}>
@@ -165,7 +172,8 @@ const mapStateToProps = state => {
       loading: state.recordData.loading,
       loaded: state.recordData.loaded,
       error: state.recordData.error,
-      updateError: state.updateReducer.error
+      updateError: state.updateReducer.error,
+      successAlert: state.updateReducer.success,
     }
   }
   const mapDispatchToProps = dispatch => ({

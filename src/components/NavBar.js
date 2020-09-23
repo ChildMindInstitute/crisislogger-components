@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { clearUser } from '../state/user/user.actions';
 import { userSelector } from '../state/user/user.selectors';
 import FontAwesome from 'react-fontawesome';
+import { ROLES } from '../util/Constants';
 const NavBar = ({ isLoggedIn }) => {
   const gotoPath = (path) => {
     if(String(path).includes('login'))
@@ -25,11 +26,16 @@ const NavBar = ({ isLoggedIn }) => {
        <Navbar.Toggle aria-controls="navbar-nav"/>
        <Navbar.Collapse id="navbar-nav " style={{justifyContent: 'flex-end'}} >
          <Nav>
-           <Nav.Link href="/share-thought" className={'btn btn-wide btn-lg'}>Share</Nav.Link>
+           {
+             localStorage.getItem("role")===ROLES.admin?null:(
+              <Nav.Link href="/share-thought" className={'btn btn-wide btn-lg'}>Share</Nav.Link>
+             )
+           }
+           
            <Nav.Link href="/explore" className={'btn btn-wide btn-lg'}>Explore</Nav.Link>
            <Nav.Link className={'btn btn-wide btn-lg'}>
             <DropdownButton id="dropdown-basic-button" className={'nav-dropdown-menu'} title={getUserName()}>
-              <Dropdown.Item onClick={() => gotoPath('/dashboard')}><FontAwesome name={'home'} ></FontAwesome>&nbsp;&nbsp;Dashboard</Dropdown.Item>
+              <Dropdown.Item onClick={() => gotoPath(localStorage.getItem("role")===ROLES.user?'/dashboard':'/admin')}><FontAwesome name={'home'} ></FontAwesome>&nbsp;&nbsp;Dashboard</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={() => gotoPath('/profile')}><FontAwesome name={'user-circle'} ></FontAwesome>&nbsp;&nbsp;My Account</Dropdown.Item>
               <Dropdown.Divider />
@@ -60,6 +66,7 @@ const NavBar = ({ isLoggedIn }) => {
 
 const mapStateToProps = state => ({
   user: userSelector(state),
+  successAlert: state.updateReducer.success,
 });
 
 const mapDispatchToProps = {

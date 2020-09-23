@@ -19,6 +19,8 @@ import Activities from './pages/activities';
 import PrivateRoute from './components/PrivateRouter'
 import Questionnaire from './pages/crisislogger/Questionnaire'
 import Explore from './pages/crisislogger/Explore';
+import AdminDashboard from './pages/crisislogger/Admin/Dashboard'
+import RecordDetails from './pages/crisislogger/Admin/RecordDetail'
 import { userSelector } from './state/user/user.selectors';
 // import {Redirect  } from 'react-router-dom'
 import CMILogo from './assets/CMI_spot_logo.jpg'
@@ -28,6 +30,7 @@ import OpenHumansLogo from './assets/open-humans.png'
 import CRILogo from './assets/CRI.png'
 import MCGovernLogo from './assets/mcgovern_logo.png'
 import './App.scss'
+import { ROLES } from './util/Constants';
 
 const App = () => {
   const token = localStorage.getItem('token')
@@ -43,7 +46,9 @@ const App = () => {
             <Route path="/"  exact component={Home} />
             <Route path="/login" exact component={ Login} />
             <Route path="/register" exact component={Register} />
-            <PrivateRoute path="/dashboard" exact component={Dashboard} />
+            <PrivateRoute role={ROLES.user} path="/dashboard" exact component={Dashboard} />
+            <PrivateRoute role={ROLES.admin} path="/admin" exact component={AdminDashboard} />
+            <PrivateRoute role={ROLES.admin} path="/admin/record" exact  component={RecordDetails} />
             <PrivateRoute path="/profile" exact component={Profile} />
             <Route path="/share-thought" exact component={Choice} />
             <Route path="/questionnaire" exact component={Questionnaire} />

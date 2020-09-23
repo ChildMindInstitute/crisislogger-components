@@ -1,5 +1,5 @@
 {
-  "localhost:3000": {
+  "main.crisislogger.org": {
     "Background": [
       {
         "title": [
@@ -2724,6 +2724,47 @@
     ]
   },
   "subdomain.crisislogger.org": {
+    "Subdomain background": [
+      {
+        "title": [
+          "Please answer the following questions about your health or exposure to Coronavirus/COVID-19:",
+          "During the past 2 weeks, have you been exposed to someone likely to have Coronavirus (COVID-19)? (check all that apply)"
+        ],
+        "questions": [
+          {
+            "title": "",
+            "field": "Checkbox",
+            "value": "",
+            "part": "partTwo",
+            "number": "question1",
+            "options": [
+              {
+                "label": "Yes, with positive test",
+                "value": "",
+                "name": "Yes, with positive test"
+              },
+              {
+                "label": "Yes, with medical diagnosis",
+                "value": "",
+                "name": "Yes, with medical diagnosis"
+              },
+              {
+                "label": "Yes, but not diagnosed",
+                "value": "",
+                "name": "Yes, but not diagnosed"
+              },
+              {
+                "label": "No",
+                "value": "",
+                "name": "No"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "localhost:3000": {
     "Subdomain background": [
       {
         "title": [

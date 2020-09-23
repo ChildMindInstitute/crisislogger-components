@@ -5,12 +5,16 @@ import { Row, Col } from 'react-bootstrap'
 import {Redirect  } from 'react-router-dom'
 import './style.scss'
 import Utils from "../../../util/Utils";
+import { ROLES } from '../../../util/Constants';
 
 const Login = () => {
   const { t } = useTranslation()
-  if(localStorage.getItem('token'))
-  {
+  if(localStorage.getItem('token') && localStorage.getItem('role')){
+    if(localStorage.getItem('role') === ROLES.user){
       return (<Redirect to={"/dashboard"}/>)
+    }else if(localStorage.getItem('role') === ROLES.admin){
+      return (<Redirect to={"/admin"}/>)
+    }  
   }
   return (
     <div className="sign-form-page">

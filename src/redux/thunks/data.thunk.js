@@ -4,7 +4,7 @@ import {
     getData_success,
     getGalleryData_Success,
     getGalleryData_Error,
-    getGalleryData
+    getGalleryData,
  } from '../action/data.action'
  import config from '../../config'
 import { updateData, updateDataSuccess, updateDataFailed,successAlert,resetErrors} from '../action/update.action'

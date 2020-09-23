@@ -4,7 +4,7 @@ import {
     GET_DATA_SUCCESS,
     GET_GALLERY_DATA,
     GET_GALLERY_DATA_FAILED,
-    GET_GALLERY_DATA_SUCCESS
+    GET_GALLERY_DATA_SUCCESS,
 } from '../actionType'
 
 export const getData = () => ({
@@ -19,8 +19,7 @@ export const getData_success = (payload) => ({
 export const getData_error = (payload) => ({
     type: GET_DATA_FAILED,
     payload
-}) 
-
+})
 
 export const getGalleryData = () => ({
     type: GET_GALLERY_DATA

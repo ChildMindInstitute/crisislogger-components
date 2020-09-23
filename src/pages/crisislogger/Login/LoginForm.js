@@ -1,63 +1,83 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
-import { bindActionCreators } from 'redux';
-import {  Form, Row, Button, Alert, Col } from 'react-bootstrap';
-import { Login } from '../../../redux/thunks/auth.thunk'
+import React from "react";
+import { connect } from "react-redux";
+import { withTranslation } from "react-i18next";
+import { bindActionCreators } from "redux";
+import { Form, Row, Button, Alert, Col } from "react-bootstrap";
+import { Login } from "../../../redux/thunks/auth.thunk";
 import Utils from "../../../util/Utils";
-import './style.scss'
+import "./style.scss";
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       isLoading: false,
-      signInSuccessful: false
+      signInSuccessful: false,
     };
   }
   changeValue = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
   onSubmit = (e) => {
     e.preventDefault();
-      let { email, password } = this.state
-      this.props.login(email, password)
-  }
+    let { email, password } = this.state;
+    this.props.login(email, password);
+  };
   render() {
-    const { t } = this.props
+    const { t } = this.props;
     return (
       <Form onSubmit={this.onSubmit}>
-        { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
+        {this.props.error && (
+          <Alert variant={"danger"}> {this.props.error}</Alert>
+        )}
         <Form.Group controlId="formBasicEmail">
-          <Form.Control type="email" name="email" placeholder={t(new Utils().getsubDomain()+".login.emailLabel")} onChange={this.changeValue} />
+          <Form.Control
+            type="email"
+            name="email"
+            placeholder={t(new Utils().getsubDomain() + ".login.emailLabel")}
+            onChange={this.changeValue}
+          />
         </Form.Group>
         <Form.Group controlId="formBasicEmail">
-          <Form.Control type="password" name="password" placeholder={t(new Utils().getsubDomain()+".login.passwordLabel")} onChange={this.changeValue} />
+          <Form.Control
+            type="password"
+            name="password"
+            placeholder={t(new Utils().getsubDomain() + ".login.passwordLabel")}
+            onChange={this.changeValue}
+          />
         </Form.Group>
         <Form.Group>
-          <Form.Check type="checkbox" label={t(new Utils().getsubDomain()+".login.rememberMe")} />
+          <Form.Check
+            type="checkbox"
+            label={t(new Utils().getsubDomain() + ".login.rememberMe")}
+          />
         </Form.Group>
         <Row>
-          <Col xl={{ span:4, offset:4 }}>
-            <Button type="submit" >{t(new Utils().getsubDomain()+".login.button")}</Button>
+          <Col xl={{ span: 4, offset: 4 }}>
+            <Button type="submit">
+              {t(new Utils().getsubDomain() + ".login.button")}
+            </Button>
           </Col>
         </Row>
       </Form>
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.user.user,
     loading: state.user.loading,
     loaded: state.user.loaded,
-    error: state.user.error
-  }
-}
-const mapDispatchToProps = dispatch => ({
-  login: bindActionCreators(Login, dispatch)
+    error: state.user.error,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  login: bindActionCreators(Login, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(LoginForm));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(LoginForm));

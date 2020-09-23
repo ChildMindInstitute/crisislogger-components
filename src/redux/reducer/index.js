@@ -6,6 +6,7 @@ import updateReducer from './update.reducer'
 import fileReducer from './file.reducer'
 import dataReducer from './data.reducer' 
 import questionnaryReducer from './questionnare.reducer'
+import adminReducer from './admin.reducer';
 export const history = createHistory();
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
     file: fileReducer,
     recordData: dataReducer,
     updateReducer: updateReducer,
-    questionnary: questionnaryReducer
+    questionnary: questionnaryReducer,
+    adminData:adminReducer
 })

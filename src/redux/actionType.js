@@ -34,3 +34,19 @@ export const CHANGE_INPUT_MULTISELECT = '[Questionnary] Change input multiselect
 export const SUBMIT_QUESTONNARY_DATA = '[Questionnary] Submit questionnary data'
 export const SUBMIT_QUESTONNARY_DATA_SUCCESS = '[Questionnary] Submit questionnary data success'
 export const SUBMIT_QUESTONNARY_DATA_ERROR = '[Questionnary] Submit questionnary data error'
+
+export const GET_ALL_DATA = '[Admin] get data'
+export const GET_ALL_DATA_SUCCESS = '[Admin] get data success'
+export const GET_ALL_DATA_FAILED = '[Admin] get data error'
+
+export const GET_RECORD_BY_ID = "[Admin] get single record"
+export const GET_RECORD_BY_ID_SUCCESS = "[Admin] get single record success"
+export const GET_RECORD_BY_ID_FAILED = "[Admin] get single record error"
+
+export const UPDATE_APPROVE = "[Admin] update approve"
+export const UPDATE_APPROVE_SUCCESS = "[Admin] update approve success"
+export const UPDATE_APPROVE_FAILED = "[Admin] update approve error"
+
+export const UPDATE_PUBLISHED = '[Admin] update publish'
+export const UPDATE_PUBLISHED_SUCCESS = '[Admin] update publish success'
+export const UPDATE_PUBLISHED_FAILED = '[Admin] update publish error'

@@ -182,5 +182,5 @@ export default {
   getAppletFromURI,
   getAppletsForUser,
   getUserDataFromApplet,
-  addAppletToUser
+  addAppletToUser,
 };

@@ -84,6 +84,40 @@
                 "thirdQuestionTitle": "What country and state do you live in?",
                 "fourthQuestionTitle": "I am at least 16 years old"
             }
+        },
+        "adminDashboard":{
+            "form":{
+                "includeUserLabel":"Include Users",
+                "includeUserPlaceHodler":"Speify names seperated by ,",
+                "excludeUserLabel":"Exclude Users",
+                "excludeUserPlaceHolder":"Speify names seperated by ,",
+                "searchTextLabel":"Search Text",
+                "searchTextPlaceHolder":"Search text here",
+                "referralCodeText":"Refferal code here",
+                "referralCodePlaceholder":"Refferal code here",
+                "queryLabel":"Query used to collect the below data",
+                "dateRangeLabel":"Date Range",
+                "applyBtn":"Apply"
+            },
+            "table":{
+                "thead":{
+                    "date":"Date",
+                    "video":"Video",
+                    "audio":"Audio",
+                    "text":"Text"
+                }
+            }
+        },
+        "adminDetails":{
+            "body":{
+                "idLabel":"Id",
+                "dateLabel":"Date",
+                "uploadLabel":"Upload",
+                "textLabel":"Text",
+                "usernameLabel":"Username",
+                "emailLabel":"Email Address",
+                "domainLabel":"Domain"
+            }
         }
     },
     "subdomain" :
@@ -115,7 +149,12 @@
             "passwordLabel": "Password",
             "passwordConfirmLabel": "Confirm Password",
             "rememberMe": "Remember me",
-            "button": "Register"
+            "button": "Register",
+            "update_profile": "Update Profile"
+        },
+        "explore": {
+            "header" : "CrisisLogger Gallery",
+            "description" : "A selection of recordings posted publicly"
         },
         "choice": {
             "title": "Would you like to share as a parent, teacher, student, health worker, patient, or as someone else?",

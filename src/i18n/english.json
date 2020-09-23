@@ -85,16 +85,15 @@
                 "fourthQuestionTitle": "I am at least 16 years old"
             }
         },
-        "adminDashboard":{
             "form":{
                 "includeUserLabel":"Include Users",
-                "includeUserPlaceHodler":"Speify names seperated by ,",
+                "includeUserPlaceHodler":"Specify names separated by ,",
                 "excludeUserLabel":"Exclude Users",
-                "excludeUserPlaceHolder":"Speify names seperated by ,",
+                "excludeUserPlaceHolder":"Specify names separated by ,",
                 "searchTextLabel":"Search Text",
                 "searchTextPlaceHolder":"Search text here",
-                "referralCodeText":"Refferal code here",
-                "referralCodePlaceholder":"Refferal code here",
+                "referralCodeText":"Referral code here",
+                "referralCodePlaceholder":"Referral code here",
                 "queryLabel":"Query used to collect the below data",
                 "dateRangeLabel":"Date Range",
                 "applyBtn":"Apply"
@@ -204,6 +203,40 @@
                 "secondQuestionNote": "If Yes, the Child Mind Institute and its partners may share your text or recording through their websites and social media channels. If No, your story will not be publicly shared in any form",
                 "thirdQuestionTitle": "What country and state do you live in?",
                 "fourthQuestionTitle": "I am at least 16 years old"
+            }
+        },
+        "adminDashboard":{
+            "form":{
+                "includeUserLabel":"Include Users",
+                "includeUserPlaceHodler":"Specify names separated by ,",
+                "excludeUserLabel":"Exclude Users",
+                "excludeUserPlaceHolder":"Specify names separated by ,",
+                "searchTextLabel":"Search Text",
+                "searchTextPlaceHolder":"Search text here",
+                "referralCodeText":"Referral code here",
+                "referralCodePlaceholder":"Referral code here",
+                "queryLabel":"Query used to collect the below data",
+                "dateRangeLabel":"Date Range",
+                "applyBtn":"Apply"
+            },
+            "table":{
+                "thead":{
+                    "date":"Date",
+                    "video":"Video",
+                    "audio":"Audio",
+                    "text":"Text"
+                }
+            }
+        },
+        "adminDetails":{
+            "body":{
+                "idLabel":"Id",
+                "dateLabel":"Date",
+                "uploadLabel":"Upload",
+                "textLabel":"Text",
+                "usernameLabel":"Username",
+                "emailLabel":"Email Address",
+                "domainLabel":"Domain"
             }
         }
     }

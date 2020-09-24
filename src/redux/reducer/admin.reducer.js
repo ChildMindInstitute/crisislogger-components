@@ -67,7 +67,6 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 loading: true,
                 loaded: false,
-                singleRecord: payload
             }
         case UPDATE_APPROVE_FAILED:{
             return{
@@ -88,7 +87,6 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 loading: true,
                 loaded: false,
-                singleRecord: payload
             }
         case UPDATE_PUBLISHED_FAILED:
             return{

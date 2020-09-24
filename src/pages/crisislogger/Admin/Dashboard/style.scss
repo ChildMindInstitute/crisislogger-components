@@ -38,6 +38,6 @@
     margin-bottom: 20px;
     font-size: 14px;
 }
-.public-approve-color{color: green;}
-.public-rejected-color{color: red;}
-.share-color{color: gray;}
+.public-approve{color: green;cursor: pointer}
+.public-rejected{color: red;cursor: pointer}
+.private{color: gray;cursor: pointer}

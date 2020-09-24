@@ -1,16 +1,22 @@
 import React,{useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Alert, Spinner,InputGroup,FormControl,Button } from 'react-bootstrap'
+import WordCloudComponent from '../../../../components/wordCloudComponent';
+import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Utils from '../../../../util/Utils'
+import Swal from 'sweetalert2'
+import config from '../../../../config'
 import "./style.scss"
 import { Table } from 'react-bootstrap';
+import { prop } from 'ramda';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { getAllUploads,downloadCsv } from '../../../../redux/thunks/admin.thunk';
 import queryString from 'query-string'
+import api from '../../../../services/api';
 const AdminDashboard = (props) => {
     const { t } = useTranslation();
     const subDomainStr = new Utils().getsubDomain()+ '.adminDashboard'
@@ -96,24 +102,103 @@ const AdminDashboard = (props) => {
         return false
     }
     const mapRows=(object)=>{
+        let data = {
+            audio:{
+                publicApproved:[],
+                publicRejected:[],
+                private:[]
+            },
+            video:{
+                publicApproved:[],
+                publicRejected:[],
+                private:[]
+            },
+            text:{
+                publicApproved:[],
+                publicRejected:[],
+                private:[]
+            }
+        }
+        object.forEach(el=>{
+            if(isVideo(el)){
+                if(isPublicAndApproved(el)){
+                    data.video.publicApproved.push(el._id)
+                }else if (isPublicAndRejectApproved(el)){
+                    data.video.publicRejected.push(el._id)
+                }else if(el.hide){
+                    data.video.private.push((el._id))
+                }
+            }else if(isAudio(el)){
+                if(isPublicAndApproved(el)){
+                    data.audio.publicApproved.push(el._id)
+                }else if (isPublicAndRejectApproved(el)){
+                    data.audio.publicRejected.push(el._id)
+                }else if(el.hide){
+                    data.audio.private.push((el._id))
+                }
+            }else if(isText(el)){
+                if(isPublicAndApproved(el)){
+                    data.text.publicApproved.push(el._id)
+                }else if (isPublicAndRejectApproved(el)){
+                    data.text.publicRejected.push(el._id)
+                }else if(el.hide){
+                    data.text.private.push((el._id))
+                }
+            }
 
-        return(
-            <tr key={object._id}>
-        <td><Moment format="YYYY-MM-DD">{object.created_at}</Moment></td>        
-        <td>{isVideo(object)?(<div><span style={{color:'green'}}>{isPublicAndApproved(object)?1:0}</span> <span style={{color:'red'}}>{isPublicAndRejectApproved(object)?1:0}</span> <Link style={{color:'grey'}} to={{pathname:"admin/record",search: `?id=${object._id}`+'&type=media'}}><span>(<span>{object.share}</span>)</span></Link></div>) :""}</td>
-        <td>{isAudio(object)?(<div><span style={{color:'green'}}>{isPublicAndApproved(object)?1:0}</span> <span style={{color:'red'}}>{isPublicAndRejectApproved(object)?1:0}</span> <Link style={{color:'grey'}} to={{pathname:"admin/record",search: `?id=${object._id}`+'&type=media'}}><span>(<span>{object.share}</span>)</span></Link></div>) :""}</td>
-        <td>{isText(object)?(<div><span style={{color:'green'}}>{isPublicAndApproved(object)?1:0}</span> <span style={{color:'red'}}>{isPublicAndRejectApproved(object)?1:0}</span> <Link style={{color:'grey'}} to={{pathname:"admin/record",search: `?id=${object._id}`+'&type=text'}}><span>(<span>{object.share}</span>)</span></Link></div>) :""}</td>
-            </tr>
-        )
+        })
+        return (<tr key={object._id}>
+            <td><Moment format="YYYY-MM-DD">{object[0].created_at}</Moment></td>
+            <td>
+                <Link to={data.video.publicApproved.length>0?{pathname:"admin/record",search:`?ids=${data.video.publicApproved.join(",")}&type=media`}:null}>
+                    <span className={"public-approve"}>{data.video.publicApproved.length}</span>
+                </Link>
+                {" "}
+                <Link to={data.video.publicRejected.length>0?{pathname:"admin/record",search:`?ids=${data.video.publicRejected.join(",")}&type=media`}:null}>
+                    <span className={"public-rejected"}>{data.video.publicRejected.length}</span>
+                </Link>
+                {" "}
+                <Link to={data.video.private.length>0?{pathname:"admin/record",search:`?ids=${data.video.private.join(",")}&type=media`}:null}>
+                    <span className={"private"}>({data.video.private.length})</span>
+                </Link>
+            </td>
+            <td>
+                <Link to={data.audio.publicApproved.length>0?{pathname:"admin/record",search:`?ids=${data.audio.publicApproved.join(",")}&type=media`}:null}>
+                    <span className={"public-approve"}>{data.audio.publicApproved.length}</span>
+                </Link>
+                {" "}
+                <Link to={data.audio.publicRejected.length>0?{pathname:"admin/record",search:`?ids=${data.audio.publicRejected.join(",")}&type=media`}:null}>
+                    <span className={"public-rejected"}>{data.audio.publicRejected.length}</span>
+                </Link>
+                {" "}
+                <Link to={data.audio.private.length>0?{pathname:"admin/record",search:`?ids=${data.audio.private.join(",")}&type=media`}:null}>
+                    <span className={"private"}>({data.audio.private.length})</span>
+                </Link>
+            </td>
+            <td>
+                <Link to={data.text.publicApproved.length>0?{pathname:"admin/record",search:`?ids=${data.text.publicApproved.join(",")}&type=text`}:null}>
+                    <span className={"public-approve"}>{data.text.publicApproved.length}</span>
+                </Link>
+                {" "}
+                <Link to={data.text.publicRejected.length>0?{pathname:"admin/record",search:`?ids=${data.text.publicRejected.join(",")}&type=text`}:null}>
+                    <span className={"public-rejected"}>{data.text.publicRejected.length}</span>
+                </Link>
+                {" "}
+                <Link to={data.text.private.length>0?{pathname:"admin/record",search:`?ids=${data.text.private.join(",")}&type=text`}:null}>
+                    <span className={"private"}>({data.text.private.length})</span>
+                </Link>
+            </td>
+        </tr>)
+
     }
     const isPublicAndApproved=(object)=>{
-        if(object.hide && object.approved){
+        if(!object.hide && object.approved){
             return true
         }
         return false
     }
     const isPublicAndRejectApproved = (object)=>{
-        if(object.hide && !object.approved){
+        if(!object.hide && !object.approved){
             return true
         }
         return false

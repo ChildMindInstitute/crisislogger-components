@@ -25,8 +25,6 @@ export const GET_GALLERY_DATA_FAILED = '[Gallery] get data error'
 export const UPDATE_DATA = '[Update] data'
 export const UPDATE_DATA_SUCCESS = '[Update] data success'
 export const UPDATE_DATA_FAILED = '[Update] data error'
-export const SUCCESS_ALERT = "[update password/profile] alert";
-export const RESET_ERRORS = "reset errors or messages";
 
 export const CHANGE_INPUT = '[Questionnary] Change input'
 export const CHANGE_INPUT_MULTISELECT = '[Questionnary] Change input multiselect'

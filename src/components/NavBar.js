@@ -66,7 +66,6 @@ const NavBar = ({ isLoggedIn }) => {
 
 const mapStateToProps = state => ({
   user: userSelector(state),
-  successAlert: state.updateReducer.success,
 });
 
 const mapDispatchToProps = {

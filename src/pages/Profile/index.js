@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { withTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { useTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col,Spinner } from 'react-bootstrap';
-import { getProfile, updateProfile, changePassword, closeMyAccount } from '../../../redux/thunks/data.thunk'
+import { getProfile, updateProfile, changePassword } from '../../redux/thunks/data.thunk'
 import Swal from 'sweetalert2'
 import './style.scss'
-import Utils from "../../../util/Utils";
 
 const Profile = (props) => {
     const { t } = useTranslation()
@@ -40,6 +39,7 @@ const Profile = (props) => {
         setLoaded(false)
     }
     const onCloseMyAccount = async () => {
+        // await props.changePassword({new_password: formState.new_password, old_password: formState.old_password})
         Swal.fire({
             text: 'Are you sure you want to close this account?',
             confirmButtonText: 'Yes',
@@ -48,7 +48,7 @@ const Profile = (props) => {
         })
         .then(async (result) => {
             if (result.value) {
-                await props.removeAccount()
+                // await props.removeUserRecords({type: type, upload_id: id})
                 setLoaded(false)
             }
         })
@@ -76,22 +76,22 @@ const Profile = (props) => {
     return (
         <div>
             <Row style={{marginTop: 30, textAlign: 'center'}} >
-            { props.error || props.updateError &&  <Alert variant={'danger'} style={{width: '100%'}}> {props.error ||  props.updateError}</Alert>}
+            { props.error &&  <Alert variant={'danger'} style={{width: '100%'}}> {props.error}</Alert>}
             </Row>
             <Row>
             <Col  xs={12} sm={6} md={6} lg={6}>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t(new Utils().getsubDomain()+".register.emailLabel")}</Form.Label>
-                        <Form.Control required type="email" name="email" placeholder={t(new Utils().getsubDomain()+".register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
+                    <Form.Label>{t("register.emailLabel")}</Form.Label>
+                        <Form.Control required type="email" name="email" placeholder={t("register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>{t(new Utils().getsubDomain()+".register.usernameLabel")}</Form.Label>
-                        <Form.Control required type="text" name="name" placeholder={t(new Utils().getsubDomain()+".register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
+                        <Form.Label>{t("register.usernameLabel")}</Form.Label>
+                        <Form.Control required type="text" name="name" placeholder={t("register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Col >
                         <Button onClick={onSubmitProfile} variant={'primary'}  > 
-                        {( props.loading? <Spinner animation="border" />: '') } { t(new Utils().getsubDomain()+".register.update_profile")}
+                        {( props.loading? <Spinner animation="border" />: '') } { t("Update Profile")}
                         </Button>
                     </Col >
                 </Form>
@@ -165,13 +165,11 @@ const mapStateToProps = state => {
       loading: state.recordData.loading,
       loaded: state.recordData.loaded,
       error: state.recordData.error,
-      updateError: state.updateReducer.error
     }
   }
   const mapDispatchToProps = dispatch => ({
     getProfileData: bindActionCreators(getProfile, dispatch),
     updateAccount: bindActionCreators(updateProfile, dispatch),
-    changePassword: bindActionCreators(changePassword, dispatch),
-    removeAccount: bindActionCreators(closeMyAccount, dispatch)
+    changePassword: bindActionCreators(changePassword, dispatch)
   });
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

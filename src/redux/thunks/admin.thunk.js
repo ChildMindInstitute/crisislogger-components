@@ -51,14 +51,14 @@ export const updateRecordPublish = (id) => dispatch => {
     })
     .catch(err => console.log(err))
 }
-export const getRecordById=(id,type)=>dispatch=>{
+export const getRecordsById=(ids,type)=>dispatch=>{
     dispatch(getDataById)
     let token  = localStorage.getItem('token')
     let url = ""
     if(type === "media"){
-        url = config.crisisloggerAPIHost+'/users/upload/'+id
+        url = config.crisisloggerAPIHost+'/users/uploads?ids='+ids
     }else if(type === "text"){
-        url = config.crisisloggerAPIHost+'/users/text/'+id
+        url = config.crisisloggerAPIHost+'/users/texts?ids='+ids
     }
     fetch((url), {
         method: "GET",
@@ -72,7 +72,6 @@ export const getRecordById=(id,type)=>dispatch=>{
         return response.json()
     })
     .then((data) => {
-        console.log(data)
         if(data.data !=undefined)
         {
             dispatch(getDataById_success(data.data))

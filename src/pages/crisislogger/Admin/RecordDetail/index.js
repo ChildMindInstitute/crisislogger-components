@@ -1,22 +1,33 @@
 import React,{useState} from 'react'
 import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Alert, Spinner,InputGroup,FormControl,Button } from 'react-bootstrap'
+import WordCloudComponent from '../../../../components/wordCloudComponent';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getRecordById, updateRecordApprove,updateRecordPublish } from '../../../../redux/thunks/admin.thunk'
+import { getRecordsById, updateRecordApprove,updateRecordPublish } from '../../../../redux/thunks/admin.thunk'
 import Utils from '../../../../util/Utils'
+import Swal from 'sweetalert2'
 import config from '../../../../config'
 import "./style.scss"
+import { Table } from 'react-bootstrap';
+import { prop } from 'ramda';
 import Moment from 'react-moment';
+import queryString from 'querystring'
 import * as QueryString from 'query-string'
+import { useParams } from 'react-router-dom';
+import {ApproveCheck} from "../../../../components/ApproveCheck";
+import {PublishCheck} from "../../../../components/PublishCheck";
+// import {PublishCheck} from "../../../../components/PublicCheck";
+
 const RecordDetails = (props) => {
     const { t } = useTranslation();
     const subDomainStr = new Utils().getsubDomain()+ '.adminDetails'
     const [dataLoading, setDataLoading] = React.useState(true)
-    const {id,type} = QueryString.parse(props.location.search)
+    const {ids,type} = QueryString.parse(props.location.search)
+    console.log(ids)
     React.useEffect(() => {
-        props.getRecord(id,type)
+        props.getRecord(ids,type)
         setDataLoading(true)
     }, [dataLoading]);
     const [form,setForm] = useState({
@@ -28,14 +39,10 @@ const RecordDetails = (props) => {
         setForm({...form,[e.target.name]:e.target.value})
         // this.setState({ [e.target.name]: e.target.value })
     }   
-    const handleApproveChange = (e)=>{
+    const handleApproveChange = (id)=>{
         props.updateRecordApprove(id,type)
-        setForm({
-            ...form,
-            approveCheck:!form.approveCheck,
-        })
     }
-    const handlePublishChange = (e)=>{
+    const handlePublishChange = (id)=>{
         props.updateRecordPublish(id)
         setForm({
             ...form,
@@ -43,19 +50,19 @@ const RecordDetails = (props) => {
         })
     }
     function isVideo(record){
-        if(record.name !== undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4')){
+        if(record.name != undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4')){
             return true
         }
         return false
     }
     function isAudio(record){
-        if(record.name !== undefined && (record.name.split(".")[1] === 'wav')){
+        if(record.name != undefined && (record.name.split(".")[1] === 'wav')){
             return true
         }
         return false
     }
     function isText(record){
-        if(record.text !== undefined){
+        if(record.text != undefined){
             return true
         }
         return false
@@ -71,19 +78,42 @@ const RecordDetails = (props) => {
             }
         }
     }
+    function renderTextHeader(record){
+        console.log(record)
+        if(record.text || (record.transcripts != undefined)){
+            return  <th>{"Text"}</th>
+        }
+        return null
+    }
+
+    function renderText(record){
+        if(record.text){
+            return (<td>{record.text}</td>)
+        }else if(record.transcripts){
+            return <td>
+                <div>
+                    {record.transcripts.text}
+                </div>
+                <div>
+                    <PublishCheck
+                        initialValue={record.published}
+                        onPublishChange={handlePublishChange}
+                        id={record._id}
+                    />
+                </div>
+            </td>
+        }
+        return <td></td>
+    }
+
     function renderUpload(object){
-        if(isAudio(object) || isVideo(object)){
             if(isVideo(object)){
                 return(
+                    <td>
                     <div>
-                    <Row className="detail-row">
-                        <Col lg={2}>
-                            <div className={"subheading"}>{t(subDomainStr + ".body.uploadLabel")}</div>
-                        </Col>
-                        <Col>
                         <ReactPlayer
-                            width={'60%'}
-                            height={205}
+                            width={150}
+                            height={150}
                             style={{ margin: 0 }}
                             controls={true}
                             muted={false}
@@ -91,119 +121,21 @@ const RecordDetails = (props) => {
                                 { src: config.googleBucketURL + object.name, type: 'video/' + object.name.split(".")[1] },
                             ]}
                         />
-                        </Col>
-                    </Row>
-                    <Row className="detail-row">
-                        <Col lg={2}>
-                            <div className={"subheading"}></div>
-                        </Col>
-                        <Col>
-                            <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
-                            <InputGroup.Checkbox checked={form.approveCheck} onChange={(e)=>handleApproveChange(e)} />
-                                </InputGroup.Prepend>
-                                <div style={{marginLeft:'20px'}}>{form.approveCheck?"Approved":"Approve"} for public gallery</div>
-                            </InputGroup>
-                        </Col>
-                    </Row>
-                    {object.transcripts!=undefined?(
-                        <div>
-                            <Row className="detail-row">
-                                <Col lg={2}>
-                                    <div className={"subheading"}>Text</div>
-                                </Col>
-                                <Col>
-                                    <div>{object.transcripts.text}</div>
-                                </Col>
-                            </Row>
-                            <Row className="detail-row">
-                                <Col lg={2}>
-                                    <div className={"subheading"}></div>
-                                </Col>
-                                <Col>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Prepend>
-                                    <InputGroup.Checkbox checked={form.publishedCheck} onChange={(e)=>handlePublishChange(e)}/>
-                                    </InputGroup.Prepend>
-                    <div style={{marginLeft:"10px"}}>{form.publishedCheck?"Published":"Not Published"}</div>
-                                </InputGroup>
-                                </Col>
-                            </Row>
-                        </div>
-                    ):null}
-                    
                 </div>
+                    </td>
                 )
                 
             }else{
                 return(
-                    <div>
-                    <Row className="detail-row">
-                        <Col lg={2}>
-                            <div className={"subheading"}>{t(subDomainStr + ".body.uploadLabel")}</div>
-                        </Col>
-                        <Col>
-                        <ReactPlayer height={50} width={'100%'} url={config.googleBucketURL + object.name} controls={true} />
-                        </Col>
-                    </Row>
-                    <Row className="detail-row">
-                        <Col lg={2}>
-                            <div className={"subheading"}></div>
-                        </Col>
-                        <Col>
-                            <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
-                            <InputGroup.Checkbox checked={form.approveCheck} onChange={(e)=>handleApproveChange(e)} aria-label="Checkbox for following text input" />
-                                </InputGroup.Prepend>
-                                <div style={{marginLeft:'20px'}}>{form.approveCheck?"Approved":"Approve"} for public gallery</div>
-                            </InputGroup>
-                        </Col>
-                    </Row>
-                    {
-                       object.transcripts!=undefined?(
+                    <td>
                         <div>
-                        <Row className="detail-row">
-                            <Col lg={2}>
-                                <div className={"subheading"}>Text</div>
-                            </Col>
-                            <Col>
-                                <div>{object.transcripts.text}</div>
-                            </Col>
-                        </Row>
-                        <Row className="detail-row">
-                                <Col lg={2}>
-                                    <div className={"subheading"}></div>
-                                </Col>
-                                <Col>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Prepend>
-                                    <InputGroup.Checkbox checked={form.publishedCheck} onChange={(e)=>handlePublishChange(e)}/>
-                                    </InputGroup.Prepend>
-                                    <div style={{marginLeft:"10px"}}>{form.publishedCheck?"Published":"Publish"}</div>
-                                </InputGroup>
-                                </Col>
-                            </Row>
+                            <ReactPlayer height={50} width={300} url={config.googleBucketURL + object.name} controls={true} />
                         </div>
-                       ):null 
-                    }
-                    
-                </div>
+                    </td>
                 )
             }
-        }else{
-            return(
-                <Row className="detail-row">
-                    <Col lg={2}>
-                        <div className={"subheading"}>Text</div>
-                    </Col>
-                    <Col>
-            <div>{object.text}</div>
-                    </Col>
-                </Row>
-            )
-        }
     }
-    let record = props.singleRecord
+    let record = props.records
     if(record == null){
         return <div>Record loading...</div>
     }
@@ -215,68 +147,78 @@ const RecordDetails = (props) => {
         })
         setFirstLoad(true)
     }
+    function renderNameOrEmail(record,attr){
+        if(isVideo(record) || isAudio(record)) {
+            if(record.user){
+                return record.user[attr]
+            }
+        }else {
+            if(record.user_id){
+                return  record.user_id[attr]
+            }
+        }
+    }
+
     return (
-        <div className="upload-detail-container">
-            <div>
-            <Row className="detail-row">
-                <Col lg={2}>
-                    <div className={"subheading"}>{t(subDomainStr + ".body.idLabel")}</div>
-                </Col>
-                <Col>
-    <div>{record._id}</div>
-                </Col>
-            </Row>
-            <Row className="detail-row">
-                <Col lg={2}>
-                    <div className={"subheading"}>{t(subDomainStr + ".body.dateLabel")}</div>
-                </Col>
-                <Col>
-    <div>{<Moment format="YYYY-MM-DD">{record.created_at}</Moment>}</div>
-                </Col>
-            </Row>
-            
-            {renderUpload(record)}
-            
-            <Row className="detail-row">
-                <Col lg={2}>
-                    <div className={"subheading"}>{t(subDomainStr + ".body.usernameLabel")}</div>
-                </Col>
-                <Col>
-    <div>{renderUserProperty(record,"name")}</div>
-                </Col>
-            </Row>
-            <Row className="detail-row">
-                <Col lg={2}>
-                    <div className={"subheading"}>{t(subDomainStr + ".body.emailLabel")}</div>
-                </Col>
-                <Col>
-                <div>{renderUserProperty(record,"email")}</div>
-                </Col>
-            </Row>
-            <Row className="detail-row">
-                <Col lg={2}>
-                    <div className={"subheading"}>{t(subDomainStr + ".body.domainLabel")}</div>
-                </Col>
-                <Col>
-    <div>{record.where_from}</div>
-                </Col>
-            </Row>
+            <div className="upload-detail-container">
+                <div>
+                    <Table style={{textAlign:'center'}}  bordered >
+                        <thead>
+                        <tr>
+                            <th>{t(subDomainStr + ".body.idLabel")}</th>
+                            <th>{t(subDomainStr + ".body.dateLabel")}</th>
+                            {props.records.length > 0 && (isVideo(props.records[0]) || isAudio(props.records[0]))?(<th>{t(subDomainStr + ".body.uploadLabel")}</th>):null }
+                            <th>{"Text"}</th>
+                            <th>{t(subDomainStr + ".body.usernameLabel")}</th>
+                            <th>{t(subDomainStr + ".body.emailLabel")}</th>
+                            <th>{t(subDomainStr + ".body.domainLabel")}</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {props.records.map(record=>(
+                            <tr>
+                                <td>{record._id}
+                                    <ApproveCheck
+                                        intialValue={record.approved}
+                                        onApproveChange={handleApproveChange}
+                                        id={record._id}
+                                    />
+                                </td>
+                                <td><Moment format="YYYY-MM-DD">{record.created_at}</Moment></td>
+                                {
+                                    isVideo(props.records[0]) || isAudio(props.records[0])?renderUpload(record):null
+                                }
+                                {
+                                    renderText(record)
+                                }
+                                <td>{renderNameOrEmail(record,"name")}</td>
+                                <td>{renderNameOrEmail(record,"email")}</td>
+                                <td>{record.where_from}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </Table>
+
+
+                </div>
             </div>
-        </div>
     )
     
 }
 const mapDispatchToProps = (dispatch) => ({
-    getRecord: bindActionCreators(getRecordById, dispatch),
+    getRecord: bindActionCreators(getRecordsById, dispatch),
     updateRecordApprove:bindActionCreators(updateRecordApprove,dispatch),
     updateRecordPublish:bindActionCreators(updateRecordPublish,dispatch)
 })
 const mapStateToProps = state => {
+    console.log("Admin Data>>>",state.adminData)
     return {
-        singleRecord: state.adminData.singleRecord,
+        records: state.adminData.singleRecord,
         loading: state.adminData.loading,
         loaded: state.adminData.loaded,
         error: state.adminData.error,
+
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(RecordDetails)

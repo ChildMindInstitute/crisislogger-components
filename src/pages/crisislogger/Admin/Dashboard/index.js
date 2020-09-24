@@ -1,22 +1,17 @@
 import React,{useState} from 'react'
 import { useTranslation } from 'react-i18next'
-import { Row, Col, Form, Alert, Spinner,InputGroup,FormControl,Button } from 'react-bootstrap'
-import WordCloudComponent from '../../../../components/wordCloudComponent';
-import ReactPlayer from 'react-player'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import Utils from '../../../../util/Utils'
-import Swal from 'sweetalert2'
-import config from '../../../../config'
-import "./style.scss"
+import { Row, Col, InputGroup,FormControl,Button } from 'react-bootstrap'
 import { Table } from 'react-bootstrap';
-import { prop } from 'ramda';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
-import { getAllUploads,downloadCsv } from '../../../../redux/thunks/admin.thunk';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import queryString from 'query-string'
-import api from '../../../../services/api';
+
+import { getAllUploads,downloadCsv } from '../../../../redux/thunks/admin.thunk';
+import Utils from '../../../../util/Utils'
+import "./style.scss"
+
 const AdminDashboard = (props) => {
     const { t } = useTranslation();
     const subDomainStr = new Utils().getsubDomain()+ '.adminDashboard'
@@ -42,36 +37,36 @@ const AdminDashboard = (props) => {
     }
     const handleApplyPress=()=>{
         let data = {}
-        if(form.usersIncluded.trim() != ""){
+        if(form.usersIncluded.trim() !== ""){
             data = {
                 usersIncluded:form.usersIncluded
             }
         }
-        if(form.usersExcluded.trim() != ""){
+        if(form.usersExcluded.trim() !== ""){
             data = {
                 ...data,
                 usersExcluded:form.usersExcluded
             }
         }
-        if(form.searchText.trim() != ""){
+        if(form.searchText.trim() !== ""){
             data = {
                 ...data,
                 searchText:form.searchText
             }
         }
-        if(form.refferalCode.trim() != ""){
+        if(form.refferalCode.trim() !== ""){
             data = {
                 ...data,
                 refferalCode:form.refferalCode
             }
         }
-        if(form.dateStart.trim() != ""){
+        if(form.dateStart.trim() !== ""){
             data = {
                 ...data,
                 dateStart:form.dateStart
             }
         }
-        if(form.dateEnd.trim() != ""){
+        if(form.dateEnd.trim() !== ""){
             data = {
                 ...data,
                 dateEnd:form.dateEnd
@@ -84,22 +79,16 @@ const AdminDashboard = (props) => {
         props.loadAllData(queryString.stringify(data))
     }
     function isVideo(record){
-        if(record.name != undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4')){
-            return true
-        }
-        return false
+        return record.name !== undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4');
+
     }
     function isAudio(record){
-        if(record.name != undefined && (record.name.split(".")[1] === 'wav')){
-            return true
-        }
-        return false
+        return record.name !== undefined && (record.name.split(".")[1] === 'wav');
+
     }
     function isText(record){
-        if(record.text != undefined){
-            return true
-        }
-        return false
+        return record.text !== undefined;
+
     }
     const mapRows=(object)=>{
         let data = {
@@ -125,7 +114,7 @@ const AdminDashboard = (props) => {
                     data.video.publicApproved.push(el._id)
                 }else if (isPublicAndRejectApproved(el)){
                     data.video.publicRejected.push(el._id)
-                }else if(el.hide){
+                }else if(!el.share){
                     data.video.private.push((el._id))
                 }
             }else if(isAudio(el)){
@@ -133,7 +122,7 @@ const AdminDashboard = (props) => {
                     data.audio.publicApproved.push(el._id)
                 }else if (isPublicAndRejectApproved(el)){
                     data.audio.publicRejected.push(el._id)
-                }else if(el.hide){
+                }else if(!el.share){
                     data.audio.private.push((el._id))
                 }
             }else if(isText(el)){
@@ -141,7 +130,7 @@ const AdminDashboard = (props) => {
                     data.text.publicApproved.push(el._id)
                 }else if (isPublicAndRejectApproved(el)){
                     data.text.publicRejected.push(el._id)
-                }else if(el.hide){
+                }else if(!el.share){
                     data.text.private.push((el._id))
                 }
             }
@@ -192,16 +181,12 @@ const AdminDashboard = (props) => {
 
     }
     const isPublicAndApproved=(object)=>{
-        if(!object.hide && object.approved){
-            return true
-        }
-        return false
+        return !!(object.share && object.approved);
+
     }
     const isPublicAndRejectApproved = (object)=>{
-        if(!object.hide && !object.approved){
-            return true
-        }
-        return false
+        return object.share && !object.approved;
+
     }
     const getCsvData = ()=>{
         downloadCsv(queryString.stringify({domain}))
@@ -336,8 +321,7 @@ const AdminDashboard = (props) => {
             <div className={"table-container"}>
                 <div className="row">
                     <Col>
-                    <Button onClick={getCsvData}>Download Csv</Button>
-                    {/* <CSVLink onClick={downloadCsv}>Export Data</CSVLink> */}
+                    <Button onClick={getCsvData}>Export Data</Button>
                     <div className="csv-text">- The export options is public + accepted + "contributed to science"</div>
                     </Col>
                     
@@ -367,7 +351,6 @@ const mapDispatchToProps = (dispatch) => ({
     loadAllData: bindActionCreators(getAllUploads, dispatch),
 })
 const mapStateToProps = state => {
-    console.log("Admin Data>>>",state.adminData)
     return {
         data: state.adminData.data,
         loading: state.adminData.loading,

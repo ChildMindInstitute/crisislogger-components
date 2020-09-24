@@ -25,7 +25,6 @@ const RecordDetails = (props) => {
     const subDomainStr = new Utils().getsubDomain()+ '.adminDetails'
     const [dataLoading, setDataLoading] = React.useState(true)
     const {ids,type} = QueryString.parse(props.location.search)
-    console.log(ids)
     React.useEffect(() => {
         props.getRecord(ids,type)
         setDataLoading(true)
@@ -50,22 +49,16 @@ const RecordDetails = (props) => {
         })
     }
     function isVideo(record){
-        if(record.name != undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4')){
-            return true
-        }
-        return false
+        return record.name !== undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4');
+
     }
     function isAudio(record){
-        if(record.name != undefined && (record.name.split(".")[1] === 'wav')){
-            return true
-        }
-        return false
+        return record.name !== undefined && (record.name.split(".")[1] === 'wav');
+
     }
     function isText(record){
-        if(record.text != undefined){
-            return true
-        }
-        return false
+        return record.text !== undefined;
+
     }
     function renderUserProperty(object,property){
         if(isVideo(object) || isAudio(object)){
@@ -80,7 +73,7 @@ const RecordDetails = (props) => {
     }
     function renderTextHeader(record){
         console.log(record)
-        if(record.text || (record.transcripts != undefined)){
+        if(record.text || (record.transcripts !== undefined)){
             return  <th>{"Text"}</th>
         }
         return null
@@ -94,6 +87,7 @@ const RecordDetails = (props) => {
                 <div>
                     {record.transcripts.text}
                 </div>
+                <br/>
                 <div>
                     <PublishCheck
                         initialValue={record.published}
@@ -112,7 +106,7 @@ const RecordDetails = (props) => {
                     <td>
                     <div>
                         <ReactPlayer
-                            width={150}
+                            width={250}
                             height={150}
                             style={{ margin: 0 }}
                             controls={true}
@@ -179,6 +173,7 @@ const RecordDetails = (props) => {
                         {props.records.map(record=>(
                             <tr>
                                 <td>{record._id}
+                                    <br/>
                                     <ApproveCheck
                                         intialValue={record.approved}
                                         onApproveChange={handleApproveChange}

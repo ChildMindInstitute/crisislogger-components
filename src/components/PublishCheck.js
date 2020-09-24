@@ -16,7 +16,7 @@ export const PublishCheck =(props)=>{
             <InputGroup.Prepend>
                 <InputGroup.Checkbox checked={publishCheck} onChange={(e)=>handleOnChange(e)} />
             </InputGroup.Prepend>
-            <div >{publishCheck?"Published":"Publish"}</div>
+            <div style={{marginLeft: 10}}>{publishCheck?"Published":"Publish"}</div>
         </InputGroup>
     )
 }

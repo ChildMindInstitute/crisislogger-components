@@ -205,6 +205,40 @@
                 "thirdQuestionTitle": "What country and state do you live in?",
                 "fourthQuestionTitle": "I am at least 16 years old"
             }
+        },
+        "adminDashboard":{
+            "form":{
+                "includeUserLabel":"Include Users",
+                "includeUserPlaceHodler":"Speify names seperated by ,",
+                "excludeUserLabel":"Exclude Users",
+                "excludeUserPlaceHolder":"Speify names seperated by ,",
+                "searchTextLabel":"Search Text",
+                "searchTextPlaceHolder":"Search text here",
+                "referralCodeText":"Refferal code here",
+                "referralCodePlaceholder":"Refferal code here",
+                "queryLabel":"Query used to collect the below data",
+                "dateRangeLabel":"Date Range",
+                "applyBtn":"Apply"
+            },
+            "table":{
+                "thead":{
+                    "date":"Date",
+                    "video":"Video",
+                    "audio":"Audio",
+                    "text":"Text"
+                }
+            }
+        },
+        "adminDetails":{
+            "body":{
+                "idLabel":"Id",
+                "dateLabel":"Date",
+                "uploadLabel":"Upload",
+                "textLabel":"Text",
+                "usernameLabel":"Username",
+                "emailLabel":"Email Address",
+                "domainLabel":"Domain"
+            }
         }
     }
 }

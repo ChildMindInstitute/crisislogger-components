@@ -122,7 +122,7 @@ export const downloadCsv = (filter) => {
         b.then(bb=>{
             const url= window.URL.createObjectURL(bb);
             link.href=url;
-            link.download="download.csv";
+            link.download="submission-reports.csv";
             link.click();
             window.URL.revokeObjectURL(url);
         })

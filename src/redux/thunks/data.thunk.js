@@ -16,7 +16,8 @@ export const getRecordData = () => dispatch => {
         method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -40,6 +41,7 @@ export const getGalleries = (page, searchText) => dispatch => {
         method: "GET",
         headers: {
             'Content-type': 'application/json',
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -64,7 +66,8 @@ export const changeContributeShare = (data) => dispatch => {
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -90,7 +93,8 @@ export const removeRecords = (data) => dispatch => {
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -116,7 +120,8 @@ export const getProfile = () => dispatch => {
         method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -142,7 +147,8 @@ export const updateProfile = (data) => dispatch => {
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -170,7 +176,8 @@ export const closeMyAccount = (data) => dispatch => {
         body: JSON.stringify(data),
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
         .then(response => {
@@ -189,7 +196,8 @@ export const changePassword = (data) => dispatch => {
         method: 'PUT',
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         },
         body: JSON.stringify(data)
     })

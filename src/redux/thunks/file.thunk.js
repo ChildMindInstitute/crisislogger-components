@@ -21,7 +21,8 @@ export const uploadText = (data) => dispatch => {
     fetch(config.crisisloggerAPIHost+'/file/text', {
         method: "POST",
         headers: {
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         },
         body: formdata
     })
@@ -53,7 +54,8 @@ export const fileUploadThunk = (file, formData) => dispatch => {
     fetch(config.crisisloggerAPIHost+'/file/upload', {
         method: "POST",
         headers: {
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         },
         body: data
     })

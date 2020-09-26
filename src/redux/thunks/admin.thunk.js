@@ -8,7 +8,8 @@ export const updateRecordApprove = (id) => dispatch => {
         method: "PUT",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         },
     })
     .then(response => {
@@ -16,7 +17,7 @@ export const updateRecordApprove = (id) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !=undefined)
+        if(data.records !== undefined)
         {
             dispatch(updateApprove_success(data.data))
         }
@@ -33,7 +34,8 @@ export const updateRecordPublish = (id) => dispatch => {
         method: "PUT",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         },
     })
     .then(response => {
@@ -41,7 +43,7 @@ export const updateRecordPublish = (id) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !=undefined)
+        if(data.records !== undefined)
         {
             dispatch(updatePublish_success(data.data))
         }
@@ -64,7 +66,8 @@ export const getRecordsById=(ids,type)=>dispatch=>{
         method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -72,7 +75,7 @@ export const getRecordsById=(ids,type)=>dispatch=>{
         return response.json()
     })
     .then((data) => {
-        if(data.data !=undefined)
+        if(data.data !== undefined)
         {
             dispatch(getDataById_success(data.data))
         }
@@ -83,14 +86,13 @@ export const getRecordsById=(ids,type)=>dispatch=>{
     .catch(err => console.log(err))
 }
 export const getAllUploads = (filter) => dispatch => {
-    console.log("Filters>>",filter)
-    dispatch(getAllData())
     let token  = localStorage.getItem('token')
     fetch(config.crisisloggerAPIHost+'/users/getAllRecords?'+filter, {
         method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {
@@ -98,7 +100,7 @@ export const getAllUploads = (filter) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !=undefined)
+        if(data.records !== undefined)
         {
             dispatch(getAllData_success(data))
         }
@@ -113,7 +115,8 @@ export const downloadCsv = (filter) => {
     fetch(config.crisisloggerAPIHost+'/file/downloadCsv?'+filter, {
         method: "GET",
         headers: {
-            'Authorization' : 'Bearer ' + token
+            'Authorization' : 'Bearer ' + token,
+            'referral_from' : window.location.host
         }
     })
     .then(response => {

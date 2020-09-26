@@ -14,7 +14,8 @@ export const sumbitQuestionnaryDataThunk = (data) => dispatch => {
         method: "POST",
         headers: {
             'Content-type': 'application/json', 
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'referral_from' : window.location.host
         },
         body: JSON.stringify({
             questionnaryData: data

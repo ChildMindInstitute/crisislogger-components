@@ -106,10 +106,13 @@ class RegisterForm extends React.Component {
                         The password confirmation does not match
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="formBasicEmail">
+                {
+                  !new Utils().isSubdomain() &&
+                  <Form.Group controlId="formBasicEmail">
                     <Form.Label >{'Referral Code (if you were given one)'}</Form.Label>
                     <Form.Control  type="text" name="referral_code" placeholder={'Referral code'} onChange={this.changeValue} />
-                </Form.Group>
+                  </Form.Group>
+                }
                 <Form.Group>
                     <Form.Check type="checkbox" label={t(new Utils().getsubDomain()+".register.rememberMe")} />
                 </Form.Group>

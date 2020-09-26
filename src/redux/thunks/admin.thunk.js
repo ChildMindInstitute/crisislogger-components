@@ -8,8 +8,7 @@ export const updateRecordApprove = (id) => dispatch => {
         method: "PUT",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token,
-            'referral_from' : window.location.host
+            'Authorization' : 'Bearer ' + token
         },
     })
     .then(response => {
@@ -17,7 +16,7 @@ export const updateRecordApprove = (id) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !== undefined)
+        if(data.records !==undefined)
         {
             dispatch(updateApprove_success(data.data))
         }
@@ -34,8 +33,7 @@ export const updateRecordPublish = (id) => dispatch => {
         method: "PUT",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token,
-            'referral_from' : window.location.host
+            'Authorization' : 'Bearer ' + token
         },
     })
     .then(response => {
@@ -43,7 +41,7 @@ export const updateRecordPublish = (id) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !== undefined)
+        if(data.records !==undefined)
         {
             dispatch(updatePublish_success(data.data))
         }
@@ -66,8 +64,7 @@ export const getRecordsById=(ids,type)=>dispatch=>{
         method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token,
-            'referral_from' : window.location.host
+            'Authorization' : 'Bearer ' + token
         }
     })
     .then(response => {
@@ -75,7 +72,7 @@ export const getRecordsById=(ids,type)=>dispatch=>{
         return response.json()
     })
     .then((data) => {
-        if(data.data !== undefined)
+        if(data.data !==undefined)
         {
             dispatch(getDataById_success(data.data))
         }
@@ -91,8 +88,7 @@ export const getAllUploads = (filter) => dispatch => {
         method: "GET",
         headers: {
             'Content-type': 'application/json',
-            'Authorization' : 'Bearer ' + token,
-            'referral_from' : window.location.host
+            'Authorization' : 'Bearer ' + token
         }
     })
     .then(response => {
@@ -100,7 +96,7 @@ export const getAllUploads = (filter) => dispatch => {
         return response.json()
     })
     .then((data) => {
-        if(data.records !== undefined)
+        if(data.records !==undefined)
         {
             dispatch(getAllData_success(data))
         }
@@ -115,8 +111,7 @@ export const downloadCsv = (filter) => {
     fetch(config.crisisloggerAPIHost+'/file/downloadCsv?'+filter, {
         method: "GET",
         headers: {
-            'Authorization' : 'Bearer ' + token,
-            'referral_from' : window.location.host
+            'Authorization' : 'Bearer ' + token
         }
     })
     .then(response => {

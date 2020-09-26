@@ -78,6 +78,12 @@ class Utils {
 		}
 		return 'main' // if not subdomain, then it will show the default contents.
 	}
+	isSubdomain()
+	{
+		let host = window.location.host;
+		let parts = host.split(".");
+		return parts.length >= 3
+	}
 	getCurrentDomain()
 	{
 		return window.location.host

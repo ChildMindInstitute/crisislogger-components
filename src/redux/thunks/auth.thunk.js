@@ -12,8 +12,7 @@ export const Login = (email, password) => dispatch => {
     fetch(config.crisisloggerAPIHost + '/users/signin', {
         method: "POST",
         headers: {
-            'Content-type': 'application/json',
-            'referral_from' : window.location.host
+            'Content-type': 'application/json'
         },
         body: JSON.stringify({
             email,
@@ -45,7 +44,6 @@ export const Register = (registerBody) => dispatch => {
         method: 'POST',
         headers: {
             'Content-type': 'application/json',
-            'referral_from' : window.location.host
         },
         body: JSON.stringify(registerBody)
     })

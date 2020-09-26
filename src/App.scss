@@ -25,7 +25,12 @@ body {
     max-width: 100% !important;
   }
 }
-
+.safari-info{
+  font-size: 18px;
+  color: red;
+  margin-top: 30px;
+  text-align: left;
+}
 .outline-primary {
   border: 1px solid #0067a0;
   padding: 20px;
@@ -67,6 +72,9 @@ body {
   padding-bottom: 100px; /* height of your footer */
  }
  @media only screen and (max-width: 600px){
+   #public {
+     display: block !important;
+   }
   .footer-row {
       display: inline-grid;
   }

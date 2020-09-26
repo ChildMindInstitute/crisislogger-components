@@ -39,12 +39,17 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
             country: event.target.value
         })
     }
-
+    const titleFontStyle = {
+        fontSize: '20px'
+    }
+    const contentFontStyle = {
+        fontSize: '15px;'
+    }
     return (
         <Form>
             <fieldset>
                 <Form.Label as="legend" sm={2}>
-                    <h4>{t(new Utils().getsubDomain()+'.sharedMessage.modal.firstQuestionTitle')}</h4>
+                    <h4 style={titleFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.firstQuestionTitle')}</h4>
                 </Form.Label>
                 <Form.Group as={Row} style={{ width: '100%', display: 'flex' }} id={'contribute'}>
                     <Form.Check
@@ -71,13 +76,13 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
                 <Form.Control.Feedback type="invalid">
                     {formState.errors['contribute_to_science']}
                 </Form.Control.Feedback>
-                <p>{t(new Utils().getsubDomain()+'.sharedMessage.modal.firstQuestionNote')}</p>
+                <p style={contentFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.firstQuestionNote')}</p>
             </fieldset>
             {
                 type !== 'text' ?
                     <fieldset>
                         <Form.Label as="legend" sm={2}>
-                            <h4>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionTitle')}</h4>
+                            <h4 style={titleFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionTitle')}</h4>
                         </Form.Label>
                         <Form.Group as={Row} style={{ width: '100%', marginLeft: 0, display: 'flex' }} id={'public'} >
                             <Form.Check
@@ -113,12 +118,12 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
                             style={{ display: (formState.errors['publicly'] ? 'block' : 'none') }}
                         >{formState.errors['publicly']}
                         </Form.Control.Feedback>
-                        <p>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionNote')}</p>
+                        <p style={contentFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionNote')}</p>
                     </fieldset>
                     :
                     <fieldset>
                         <Form.Label as="legend" sm={2}>
-                            <h4>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionTitle')}</h4>
+                            <h4 style={titleFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionTitle')}</h4>
                         </Form.Label>
                         <Form.Group as={Row} style={{ width: '100%', marginLeft: 0, display: 'flex' }} id={'public'} >
                             <Form.Check
@@ -145,13 +150,13 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
                             style={{ display: (formState.errors['publicly'] ? 'block' : 'none') }}
                         >{formState.errors['publicly']}
                         </Form.Control.Feedback>
-                        <p>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionNote')}</p>
+                        <p style={contentFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.secondQuestionNote')}</p>
                     </fieldset>
 
             }
 
             <Form.Group>
-                <Form.Label><h4>{t(new Utils().getsubDomain()+'.sharedMessage.modal.thirdQuestionTitle')}</h4></Form.Label>
+                <Form.Label><h4 style={titleFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.thirdQuestionTitle')}</h4></Form.Label>
                 <Form.Control as="select" onChange={handleCountry} name="country">
                     {option.map((item, index) => (
                         <option key={index} value={item.value}>{item.label}</option>

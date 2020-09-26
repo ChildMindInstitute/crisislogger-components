@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Row, Form, Button, Spinner } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import {detect} from 'detect-browser'
 import { fileUploadThunk, uploadText } from '../../../redux/thunks/file.thunk'
 import Record from '../../../components/Record'
 import CustomModal from '../../../components/CustomModal'
@@ -13,6 +14,7 @@ import Utils from '../../../util/Utils'
 import "./style.scss"
 const SharedMessage = (props) => {
     const { t } = useTranslation()
+    const browser = detect();
     const [shareText, setShareText] = React.useState('')
     const [secondModal, setSecondModal] = React.useState(false)
     const [formState, setFormState] = React.useState({
@@ -111,6 +113,7 @@ const SharedMessage = (props) => {
     const setRecordingType  = (type) => {
         changeType(type);
     }
+    let isSafari = browser.name === "safari"
     return (
         <div className="shared-message-container">
             <Row style={{ justifyContent: 'center', marginTop: '110px' }}>
@@ -118,7 +121,13 @@ const SharedMessage = (props) => {
                     <h1 className="grey-title">{t(new Utils().getsubDomain()+'.sharedMessage.title')}</h1>
                     <div className={'row'}>
                         <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
-                            <Record type={'video'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
+                            {isSafari?(
+                              <div className={"safari-info"}>
+                                  The Safari browser allows you to type text and record audio, but not video, please use a different browser like Chorme or Firefox
+                              </div>
+                            ):(
+                              <Record type={'video'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
+                            )}
                         </div>
                         <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
                             <Record type={'audio'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />

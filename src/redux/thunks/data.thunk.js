@@ -36,7 +36,7 @@ export const getRecordData = () => dispatch => {
 }
 export const getGalleries = (page, searchText) => dispatch => {
     dispatch(getGalleryData())
-    fetch(`${config.crisisloggerAPIHost}/file/transcriptions?page=${page}&searchTxt=${searchText}`, {
+    fetch(`${config.crisisloggerAPIHost}/file/transcriptions?page=${page}&searchTxt=${searchText}&domain=${window.location.host}`, {
         method: "GET",
         headers: {
             'Content-type': 'application/json',

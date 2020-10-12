@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux';
 import {  Form, Row, Button, Alert, Col,Spinner } from 'react-bootstrap';
-import { getProfile, updateProfile, changePassword, closeMyAccount } from '../../../redux/thunks/data.thunk'
+import { getProfile, updateProfile, changePassword, closeMyAccount } from '../../../redux/crisislogger/thunks/data.thunk'
 import Swal from 'sweetalert2'
 import './style.scss'
 import Utils from "../../../util/Utils";
 
 const Profile = (props) => {
     const { t } = useTranslation()
+    const utils = new Utils();
     const [loaded, setLoaded] = React.useState(false)
     const [passwordConfirmError, setPasswordConfirmError] = React.useState(false)
     const [passwordLength, setPasswordLength] = React.useState(false)
@@ -82,16 +83,16 @@ const Profile = (props) => {
             <Col  xs={12} sm={6} md={6} lg={6}>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t(new Utils().getsubDomain()+".register.emailLabel")}</Form.Label>
-                        <Form.Control required type="email" name="email" placeholder={t(new Utils().getsubDomain()+".register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
+                    <Form.Label>{t(utils.getsubDomain()+".register.emailLabel")}</Form.Label>
+                        <Form.Control required type="email" name="email" placeholder={t(utils.getsubDomain()+".register.emailLabel")} value={formState.email} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>{t(new Utils().getsubDomain()+".register.usernameLabel")}</Form.Label>
-                        <Form.Control required type="text" name="name" placeholder={t(new Utils().getsubDomain()+".register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
+                        <Form.Label>{t(utils.getsubDomain()+".register.usernameLabel")}</Form.Label>
+                        <Form.Control required type="text" name="name" placeholder={t(utils.getsubDomain()+".register.usernameLabel")} value={formState.name} onChange={(e) => changeValue(e)} />
                     </Form.Group>
                     <Col >
                         <Button onClick={onSubmitProfile} variant={'primary'}  > 
-                        {( props.loading? <Spinner animation="border" />: '') } { t(new Utils().getsubDomain()+".register.update_profile")}
+                        {( props.loading? <Spinner animation="border" />: '') } { t(utils.getsubDomain()+".register.update_profile")}
                         </Button>
                     </Col >
                 </Form>

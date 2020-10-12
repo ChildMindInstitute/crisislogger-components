@@ -26,14 +26,6 @@ class Utils {
 		}
 
 		let words = [];
-
-		//check if words list is empty if so then insert the first word into the array
-
-		// if (!words.length) {
-		// 	let word = str.split(" ")[0];
-		// 	words.push({"text": word, "value": 1});
-		// }
-
 		//convert string to array so you can iterate through it
 		str = str.split(" ");
 
@@ -108,8 +100,16 @@ class Utils {
 		}
 		return date.toDateString();
 	}
+	isVideo(record) {
+		return record.name !== undefined
+			&& (record.name.split(".")[1] === 'webm'
+				|| record.name.split(".")[1] === 'mkv'
+				|| record.name.split(".")[1] === 'mp4');
+	}
+
+	isAudio (record) {
+		return record.name !== undefined && (record.name.split(".")[1] === 'wav');
+	}
+
 }
-
-
-
 export default Utils;

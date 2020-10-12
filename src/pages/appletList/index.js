@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import AppletListItem from '../../components/AppletListItem';
+import AppletListItem from '../../components/mindlogger/AppletListItem';
 import { appletSelector } from '../../state/user/user.selectors';
 import { setCurrentApplet } from '../../state/app/app.actions';
 

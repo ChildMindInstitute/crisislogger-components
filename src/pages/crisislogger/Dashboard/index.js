@@ -1,11 +1,11 @@
 import React from 'react'
 // import { useTranslation } from 'react-i18next'
 import { Row, Col, Form, Alert, Spinner } from 'react-bootstrap'
-import WordCloudComponent from '../../../components/wordCloudComponent';
+import WordCloudComponent from '../../../components/common/wordCloudComponent';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getRecordData, changeContributeShare, removeRecords } from '../../../redux/thunks/data.thunk'
+import { getRecordData, changeContributeShare, removeRecords } from '../../../redux/crisislogger/thunks/data.thunk'
 import Utils from '../../../util/Utils'
 import Swal from 'sweetalert2'
 import config from '../../../config'
@@ -17,6 +17,7 @@ const Dashboard = (props) => {
         props.loadData()
         setDataLoading(true)
     }, [dataLoading]);
+    const utils = new Utils();
     const { loading, error, data } = props
     const { uploads, texts } = data
     const bottomBtnStyle = {
@@ -166,7 +167,7 @@ const Dashboard = (props) => {
                                         </div>
                                     }
                                     <div style={{ flex: 1, marginTop: 10, textAlign: 'center' }}>
-                                        <p>{new Utils().getDate(value.created_at)}</p>
+                                        <p>{utils.getDate(value.created_at)}</p>
                                     </div>
                                     <div style={bottomBtnStyle}>
                                         <Form.Check
@@ -217,7 +218,7 @@ const Dashboard = (props) => {
                                         <WordCloudComponent text={value.text} words={[]} type={'text'} />
                                     </div>
                                     <div style={{ flex: 1, marginTop: 10, textAlign: 'center' }}>
-                                        <p>{new Utils().getDate(value.created_at)}</p>
+                                        <p>{utils.getDate(value.created_at)}</p>
                                     </div>
                                     <div style={bottomBtnStyle}>
                                         <Form.Check

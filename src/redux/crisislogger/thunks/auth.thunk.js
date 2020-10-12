@@ -6,7 +6,7 @@ import {
     register_success,
     register_error,
 } from '../action/auth.action'
-import config from '../../config'
+import config from '../../../config'
 export const Login = (email, password) => dispatch => {
     dispatch(login())
     fetch(config.crisisloggerAPIHost + '/users/signin', {

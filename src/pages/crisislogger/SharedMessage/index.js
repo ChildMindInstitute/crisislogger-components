@@ -4,16 +4,17 @@ import { Row, Form, Button, Spinner } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {detect} from 'detect-browser'
-import { fileUploadThunk, uploadText } from '../../../redux/thunks/file.thunk'
-import Record from '../../../components/Record'
-import CustomModal from '../../../components/CustomModal'
+import { fileUploadThunk, uploadText } from '../../../redux/crisislogger/thunks/file.thunk'
+import Record from '../../../components/common/Record'
+import CustomModal from '../../../components/crisislogger/CustomModal'
 import Swal from 'sweetalert2'
-import UploadQuestionnaire from '../../../components/Record/uploadQuestionnaire'
+import UploadQuestionnaire from '../../../components/common/Record/uploadQuestionnaire'
 import Utils from '../../../util/Utils'
-
 import "./style.scss"
+
 const SharedMessage = (props) => {
     const { t } = useTranslation()
+    const utils  = new Utils();
     const browser = detect();
     const [shareText, setShareText] = React.useState('')
     const [secondModal, setSecondModal] = React.useState(false)
@@ -21,7 +22,7 @@ const SharedMessage = (props) => {
         contribute_to_science: true,
         publicly: null,
         country: '',
-        where_from:  new Utils().getCurrentDomain(),
+        where_from:  utils.getCurrentDomain(),
         checkAge: false,
         errors: {},
     })
@@ -118,7 +119,7 @@ const SharedMessage = (props) => {
         <div className="shared-message-container">
             <Row style={{ justifyContent: 'center', marginTop: '110px' }}>
                 <div className="text-align-center">
-                    <h1 className="grey-title">{t(new Utils().getsubDomain()+'.sharedMessage.title')}</h1>
+                    <h1 className="grey-title">{t(utils.getsubDomain()+'.sharedMessage.title')}</h1>
                     <div className={'row'}>
                         <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
                             {isSafari?(
@@ -133,12 +134,12 @@ const SharedMessage = (props) => {
                             <Record type={'audio'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
                         </div>
                         <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
-                            <Form.Control as="textarea" style={{height: '100%'}} row="10" cols={20} onChange={handleTextChange} placeholder={t(new Utils().getsubDomain()+'.sharedMessage.message')} />
+                            <Form.Control as="textarea" style={{height: '100%'}} row="10" cols={20} onChange={handleTextChange} placeholder={t(utils.getsubDomain()+'.sharedMessage.message')} />
                             {shareText.length > 1 && <Button style={{ marginTop: 10 }} onClick={submitText}>Submit</Button>}
                         </div>
                     </div>
                     <div className={'row'}>
-                        <div className="grey-text" dangerouslySetInnerHTML={{ __html: t(new Utils().getsubDomain()+'.sharedMessage.text') }}></div>
+                        <div className="grey-text" dangerouslySetInnerHTML={{ __html: t(utils.getsubDomain()+'.sharedMessage.text') }}></div>
                     </div>
                 </div>
             </Row>

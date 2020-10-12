@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Form, Row, Button, Alert, Col } from 'react-bootstrap';
-import { Register } from '../../../redux/thunks/auth.thunk'
+import { Register } from '../../../redux/crisislogger/thunks/auth.thunk'
 import Utils from "../../../util/Utils";
 
-
+const utils  = new Utils();
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props)
@@ -36,7 +36,7 @@ class RegisterForm extends React.Component {
                 email, role: 1,
                 upload_id: upload_id,
                 referral_code: referral_code,
-                where_from: new Utils().getCurrentDomain()
+                where_from: utils.getCurrentDomain()
             })
         }
     }
@@ -69,21 +69,21 @@ class RegisterForm extends React.Component {
             <Form onSubmit={this.onSubmit}>
                  { this.props.error &&  <Alert variant={'danger'}> {this.props.error}</Alert>}
                 <Form.Group controlId="formBasicEmail">
-                <Form.Label>{t(new Utils().getsubDomain()+".register.emailLabel")}</Form.Label>
-                    <Form.Control required type="email" name="email" placeholder={t(new Utils().getsubDomain()+".register.emailLabel")} onChange={this.changeValue} />
+                <Form.Label>{t(utils.getsubDomain()+".register.emailLabel")}</Form.Label>
+                    <Form.Control required type="email" name="email" placeholder={t(utils.getsubDomain()+".register.emailLabel")} onChange={this.changeValue} />
                 </Form.Group>
                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t(new Utils().getsubDomain()+".register.usernameLabel")}</Form.Label>
-                    <Form.Control required type="text" name="username" placeholder={t(new Utils().getsubDomain()+".register.usernameLabel")} onChange={this.changeValue} />
+                    <Form.Label>{t(utils.getsubDomain()+".register.usernameLabel")}</Form.Label>
+                    <Form.Control required type="text" name="username" placeholder={t(utils.getsubDomain()+".register.usernameLabel")} onChange={this.changeValue} />
                 </Form.Group>
                
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>{t(new Utils().getsubDomain()+".register.passwordLabel")}</Form.Label>
+                    <Form.Label>{t(utils.getsubDomain()+".register.passwordLabel")}</Form.Label>
                     <Form.Control 
                         required 
                         type="password" 
                         name="password" 
-                        placeholder={t(new Utils().getsubDomain()+".register.passwordLabel")}
+                        placeholder={t(utils.getsubDomain()+".register.passwordLabel")}
                         onChange={this.onChangePassword}
                         isInvalid={this.state.passwordLength}
                     />
@@ -92,13 +92,13 @@ class RegisterForm extends React.Component {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label >{t(new Utils().getsubDomain()+".register.passwordConfirmLabel")}</Form.Label>
+                    <Form.Label >{t(utils.getsubDomain()+".register.passwordConfirmLabel")}</Form.Label>
                     <Form.Control 
                         required 
                         type="password" 
                         name="confirmPassword"
                         onBlur={this.validationConfirmPassword}
-                        placeholder={t(new Utils().getsubDomain()+".register.passwordConfirmLabel")}
+                        placeholder={t(utils.getsubDomain()+".register.passwordConfirmLabel")}
                         onChange={this.changeValue}
                         isInvalid={!!this.state.passwordConfirmError}
                     />
@@ -107,18 +107,18 @@ class RegisterForm extends React.Component {
                     </Form.Control.Feedback>
                 </Form.Group>
                 {
-                  !new Utils().isSubdomain() &&
+                  !utils.isSubdomain() &&
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label >{'Referral Code (if you were given one)'}</Form.Label>
                     <Form.Control  type="text" name="referral_code" placeholder={'Referral code'} onChange={this.changeValue} />
                   </Form.Group>
                 }
                 <Form.Group>
-                    <Form.Check type="checkbox" label={t(new Utils().getsubDomain()+".register.rememberMe")} />
+                    <Form.Check type="checkbox" label={t(utils.getsubDomain()+".register.rememberMe")} />
                 </Form.Group>
                 <Row>
                     <Col >
-                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t(new Utils().getsubDomain()+".register.button")}</Button>
+                        <Button type="submit" variant={'success'} disabled={passwordConfirmError || passwordLength} >{t(utils.getsubDomain()+".register.button")}</Button>
                      
                     </Col >
                     <Col >

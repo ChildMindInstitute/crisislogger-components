@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { withTranslation } from "react-i18next";
 import { bindActionCreators } from "redux";
 import { Form, Row, Button, Alert, Col } from "react-bootstrap";
-import { Login } from "../../../redux/thunks/auth.thunk";
+import { Login } from "../../../redux/crisislogger/thunks/auth.thunk";
 import Utils from "../../../util/Utils";
 import "./style.scss";
 
+const utils  = new Utils();
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class LoginForm extends React.Component {
           <Form.Control
             type="email"
             name="email"
-            placeholder={t(new Utils().getsubDomain() + ".login.emailLabel")}
+            placeholder={t(utils.getsubDomain() + ".login.emailLabel")}
             onChange={this.changeValue}
           />
         </Form.Group>
@@ -44,20 +45,20 @@ class LoginForm extends React.Component {
           <Form.Control
             type="password"
             name="password"
-            placeholder={t(new Utils().getsubDomain() + ".login.passwordLabel")}
+            placeholder={t(utils.getsubDomain() + ".login.passwordLabel")}
             onChange={this.changeValue}
           />
         </Form.Group>
         <Form.Group>
           <Form.Check
             type="checkbox"
-            label={t(new Utils().getsubDomain() + ".login.rememberMe")}
+            label={t(utils.getsubDomain() + ".login.rememberMe")}
           />
         </Form.Group>
         <Row>
           <Col xl={{ span: 4, offset: 4 }}>
             <Button type="submit">
-              {t(new Utils().getsubDomain() + ".login.button")}
+              {t(utils.getsubDomain() + ".login.button")}
             </Button>
           </Col>
         </Row>

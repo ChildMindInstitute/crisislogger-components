@@ -11,13 +11,13 @@ import {
 } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import WordCloudComponent from "../../../components/wordCloudComponent";
+import WordCloudComponent from "../../../components/common/wordCloudComponent";
 import ReactPlayer from 'react-player'
 import config from '../../../config'
 import Utils from '../../../util/Utils'
 import LeftImage from '../../../assets/left-arrow.png'
 import RightImage from '../../../assets/next.png'
-import { getGalleries } from '../../../redux/thunks/data.thunk'
+import { getGalleries } from '../../../redux/crisislogger/thunks/data.thunk'
 import "./style.scss"
 
 const Explore = (props) => {
@@ -26,7 +26,6 @@ const Explore = (props) => {
     const [searchText, setSearchText] = React.useState('')
     const [limit, setLimit] = useState(8);
     const [skip, setSkip] = useState(1);
-
     const utils = new Utils();
     React.useEffect(() => {
         props.loadData(skip, searchText)
@@ -47,13 +46,13 @@ const Explore = (props) => {
         <div className={'user-dashboard-container'}>
             <div style={{ display: 'flex', flexDirection: 'row', flex: 1, marginTop: 30 }}>
                 <span style={{ color: '#6e6e6e', fontSize: 30, flex: 1 }} className={'mobile-show'}>
-                    {t(new Utils().getsubDomain()+".explore.header")}
+                    {t(utils.getsubDomain()+".explore.header")}
                 </span>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', flex: 1, marginBottom: 30 }}>
 
                 <span style={{ color: '#6e6e6e', fontSize: 14, flex: 1 }}>
-                    --- {t(new Utils().getsubDomain()+".explore.description")} ---
+                    --- {t(utils.getsubDomain()+".explore.description")} ---
                 </span>
             </div>
             <div style={{ display: 'flex', flex: 1, flexWrap: 'wrap', justifyContent: 'center' }}>

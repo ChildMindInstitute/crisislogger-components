@@ -1,5 +1,5 @@
 import { CHANGE_INPUT, CHANGE_INPUT_MULTISELECT } from '../actionType';
-import { multiSelectChecked } from '../../utisl/multiselect'
+import { multiSelectChecked } from '../../../util/multiselect'
 
 
 const initialState = {

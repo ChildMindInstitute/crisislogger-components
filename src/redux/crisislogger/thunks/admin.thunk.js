@@ -1,5 +1,5 @@
- import config from '../../config'
-import Utils from '../../util/Utils'
+ import config from '../../../config'
+import Utils from '../../../util/Utils'
 import {getDataById,getDataById_success,getDataById_error,getAllData,getAllData_error,getAllData_success,updateApprove, updateApprove_error, updateApprove_success, updatePublish, updatePublish_faield, updatePublish_success } from '../action/admin.action'
 export const updateRecordApprove = (id) => dispatch => {
     dispatch(updateApprove())

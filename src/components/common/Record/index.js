@@ -2,10 +2,10 @@ import React from "react";
 import {Row, Button, Alert, Spinner} from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal'
 import UploadQuestionnaire from './uploadQuestionnaire'
-import micro from '../../assets/mic-24px.svg'
-import video from '../../assets/videocam-24px.svg'
-import stopIcon from '../../assets/stop.svg'
-import Utils from '../../util/Utils'
+import micro from '../../../assets/mic-24px.svg'
+import video from '../../../assets/videocam-24px.svg'
+import stopIcon from '../../../assets/stop.svg'
+import Utils from '../../../util/Utils'
 import './style.scss'
 
 

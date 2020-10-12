@@ -4,10 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { clearUser } from '../state/user/user.actions';
-import { userSelector } from '../state/user/user.selectors';
+import { clearUser } from '../../state/user/user.actions';
+import { userSelector } from '../../state/user/user.selectors';
 import FontAwesome from 'react-fontawesome';
-import { ROLES } from '../util/Constants';
+import { ROLES } from '../../util/Constants';
 const NavBar = ({ isLoggedIn }) => {
   const gotoPath = (path) => {
     if(String(path).includes('login'))

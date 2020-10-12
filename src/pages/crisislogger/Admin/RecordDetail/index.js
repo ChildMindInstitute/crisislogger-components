@@ -4,18 +4,19 @@ import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap';
 import ReactPlayer from 'react-player'
 import {bindActionCreators} from 'redux'
-import {getRecordsById, updateRecordApprove, updateRecordPublish} from '../../../../redux/thunks/admin.thunk'
-import Utils from '../../../../util/Utils'
-import config from '../../../../config'
+import {getRecordsById, updateRecordApprove, updateRecordPublish} from '../../../../redux/crisislogger/thunks/admin.thunk'
 import Moment from 'react-moment';
 import * as QueryString from 'query-string'
-import {ApproveCheck} from "../../../../components/ApproveCheck";
-import {PublishCheck} from "../../../../components/PublishCheck";
+import {ApproveCheck} from "../../../../components/crisislogger/ApproveCheck";
+import {PublishCheck} from "../../../../components/crisislogger/PublishCheck";
+import Utils from '../../../../util/Utils'
+import config from '../../../../config'
 import "./style.scss"
 
 const RecordDetails = (props) => {
   const {t} = useTranslation();
-  const subDomainStr = new Utils().getsubDomain() + '.adminDetails'
+  const utils = new Utils();
+  const subDomainStr = utils.getsubDomain() + '.adminDetails'
   const [dataLoading, setDataLoading] = React.useState(true)
   const {ids, type} = QueryString.parse(props.location.search)
   React.useEffect(() => {
@@ -42,16 +43,6 @@ const RecordDetails = (props) => {
     })
   }
 
-  const isVideo = (record) => {
-    return record.name !== undefined && (record.name.split(".")[1] === 'webm' || record.name.split(".")[1] === 'mkv' || record.name.split(".")[1] === 'mp4');
-
-  }
-
-  const isAudio = (record) => {
-    return record.name !== undefined && (record.name.split(".")[1] === 'wav');
-
-  }
-
   const renderText = (record) => {
     if (record.text) {
       return (<td>{record.text}</td>)
@@ -74,7 +65,7 @@ const RecordDetails = (props) => {
   }
 
   const renderUpload = (object) => {
-    if (isVideo(object)) {
+    if (utils.isVideo(object)) {
       return (
         <td>
           <div>
@@ -117,7 +108,7 @@ const RecordDetails = (props) => {
   }
 
   const renderNameOrEmail = (record, attr) => {
-    if (isVideo(record) || isAudio(record)) {
+    if (utils.isVideo(record) || utils.isVideo(record)) {
       if (record.user) {
         return record.user[attr]
       }
@@ -136,7 +127,7 @@ const RecordDetails = (props) => {
           <tr>
             <th>{t(subDomainStr + ".body.idLabel")}</th>
             <th>{t(subDomainStr + ".body.dateLabel")}</th>
-            {props.records.length > 0 && (isVideo(props.records[0]) || isAudio(props.records[0])) ? (
+            {props.records.length > 0 && (utils.isVideo(props.records[0]) || utils.isAudio(props.records[0])) ? (
               <th>{t(subDomainStr + ".body.uploadLabel")}</th>) : null}
             <th>{"Text"}</th>
             <th>{t(subDomainStr + ".body.usernameLabel")}</th>
@@ -158,7 +149,7 @@ const RecordDetails = (props) => {
               </td>
               <td><Moment format="YYYY-MM-DD">{record.created_at}</Moment></td>
               {
-                isVideo(props.records[0]) || isAudio(props.records[0]) ? renderUpload(record) : null
+                utils.isVideo(props.records[0]) || utils.isAudio(props.records[0]) ? renderUpload(record) : null
               }
               {
                 renderText(record)

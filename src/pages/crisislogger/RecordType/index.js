@@ -6,6 +6,7 @@ import Utils from "../../../util/Utils";
 
 const RecordType = (props) => {
     const { t } = useTranslation()
+    const utils = new Utils();
     const space = {
         marginRight: 5,
         marginLeft: 5,
@@ -21,7 +22,7 @@ const RecordType = (props) => {
         <div className="record-type-container">
             <Row>
                 <div className="title-container" style={{ width: '100%', marginTop: '100px', marginBottom: '50px' }}>
-                    <h1 className="text-align-center grey-title">{t(new Utils().getsubDomain()+'.recordType.title')}</h1>
+                    <h1 className="text-align-center grey-title">{t(utils.getsubDomain()+'.recordType.title')}</h1>
                 </div>
                 <Row className="button-container"  style={{ width: '100%', justifyContent: 'space-around' }}>
                     <Col className="button-col">
@@ -29,21 +30,21 @@ const RecordType = (props) => {
                             onClick={selectType('audio')}
                             size={'lg'} 
                             style={space}
-                        >{t(new Utils().getsubDomain()+'.recordType.audioButton')}</Button>
+                        >{t(utils.getsubDomain()+'.recordType.audioButton')}</Button>
                     </Col>
                     <Col className="button-col">
                         <Button 
                             onClick={selectType('video')} 
                             size={'lg'} 
                             style={space}
-                        >{t(new Utils().getsubDomain()+'.recordType.videoButton')}</Button>
+                        >{t(utils.getsubDomain()+'.recordType.videoButton')}</Button>
                     </Col>
                     <Col className="button-col">
                         <Button 
                             onClick={selectType('text')} 
                             size={'lg'} 
                             style={space}
-                        >{t(new Utils().getsubDomain()+'.recordType.textButton')}</Button>
+                        >{t(utils.getsubDomain()+'.recordType.textButton')}</Button>
                     </Col>
                 </Row>
             </Row>

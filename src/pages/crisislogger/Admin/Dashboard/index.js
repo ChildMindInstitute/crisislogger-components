@@ -8,13 +8,14 @@ import {bindActionCreators} from 'redux'
 import queryString from 'query-string'
 import Moment from 'react-moment';
 
-import {getAllUploads, downloadCsv} from '../../../../redux/thunks/admin.thunk';
+import {getAllUploads, downloadCsv} from '../../../../redux/crisislogger/thunks/admin.thunk';
 import Utils from '../../../../util/Utils'
 import "./style.scss"
 
 const AdminDashboard = (props) => {
   const {t} = useTranslation();
-  const subDomainStr = new Utils().getsubDomain() + '.adminDashboard'
+  const utils = new Utils();
+  const subDomainStr = utils.getsubDomain() + '.adminDashboard'
   const domain = window.location.host
   const [dataLoading, setDataLoading] = React.useState(true)
 
@@ -79,20 +80,6 @@ const AdminDashboard = (props) => {
     props.loadAllData(queryString.stringify(data))
   }
 
-  const isVideo = (record) => {
-    return record.name !== undefined
-      && (record.name.split(".")[1] === 'webm'
-      || record.name.split(".")[1] === 'mkv'
-      || record.name.split(".")[1] === 'mp4');
-  }
-
-  const isAudio = (record) => {
-    return record.name !== undefined && (record.name.split(".")[1] === 'wav');
-  }
-
-  const isText = (record) => {
-    return record.text !== undefined;
-  }
 
   const mapRows = (object) => {
     let data = {
@@ -113,7 +100,7 @@ const AdminDashboard = (props) => {
       }
     }
     object.forEach(el => {
-      if (isVideo(el)) {
+      if (utils.isVideo(el)) {
         if (isPublicAndApproved(el)) {
           data.video.publicApproved.push(el._id)
         } else if (isPublicAndRejectApproved(el)) {
@@ -121,7 +108,7 @@ const AdminDashboard = (props) => {
         } else if (!el.share) {
           data.video.private.push((el._id))
         }
-      } else if (isAudio(el)) {
+      } else if (utils.isAudio(el)) {
         if (isPublicAndApproved(el)) {
           data.audio.publicApproved.push(el._id)
         } else if (isPublicAndRejectApproved(el)) {
@@ -129,7 +116,7 @@ const AdminDashboard = (props) => {
         } else if (!el.share) {
           data.audio.private.push((el._id))
         }
-      } else if (isText(el)) {
+      } else {
         if (isPublicAndApproved(el)) {
           data.text.publicApproved.push(el._id)
         } else if (isPublicAndRejectApproved(el)) {
@@ -277,7 +264,7 @@ const AdminDashboard = (props) => {
                 placeholder={t(subDomainStr + ".form.referralCodePlaceholder")}
                 aria-label="Username"
                 aria-describedby="basic-addon1"
-                name={"refferalCode"}
+                name={"referralCode"}
               />
             </InputGroup>
 

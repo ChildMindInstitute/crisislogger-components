@@ -6,8 +6,8 @@ import {
     textUploadSuccess,
     textUploadError
 } from '../action/file.action'
-import config from '../../config'
-import Utils from "../../util/Utils";
+import config from '../../../config'
+import Utils from "../../../util/Utils";
 export const uploadText = (data) => dispatch => {
     dispatch(textUpload())
     let formdata = new FormData()

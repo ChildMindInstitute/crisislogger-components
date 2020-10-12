@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router'
-import { history } from './redux/reducer'
+import { history } from './redux/crisislogger/reducer'
 import {Switch, Route} from 'react-router-dom';
-import NavBar from './components/NavBar';
+import NavBar from './components/crisislogger/NavBar';
 import { Container } from 'react-bootstrap'
 import Login from './pages/crisislogger/Login';
 import Home from './pages/crisislogger/Home';
@@ -16,13 +16,12 @@ import Profile from './pages/crisislogger/Profile'
 import Privacy from './pages/crisislogger/Privacy'
 import AppletList from './pages/appletList';
 import Activities from './pages/activities';
-import PrivateRoute from './components/PrivateRouter'
+import PrivateRoute from './components/crisislogger/PrivateRouter'
 import Questionnaire from './pages/crisislogger/Questionnaire'
 import Explore from './pages/crisislogger/Explore';
 import AdminDashboard from './pages/crisislogger/Admin/Dashboard'
 import RecordDetails from './pages/crisislogger/Admin/RecordDetail'
 import { userSelector } from './state/user/user.selectors';
-// import {Redirect  } from 'react-router-dom'
 import CMILogo from './assets/CMI_spot_logo.jpg'
 import ParentsLogo from './assets/parents_magazine_logo.png'
 import NMILogo from './assets/nimh-logo.png'

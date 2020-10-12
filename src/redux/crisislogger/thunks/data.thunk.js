@@ -6,9 +6,9 @@ import {
     getGalleryData_Error,
     getGalleryData,
  } from '../action/data.action'
- import config from '../../config'
+ import config from '../../../config'
 import { updateData, updateDataSuccess, updateDataFailed } from '../action/update.action'
-import Utils from '../../util/Utils'
+import Utils from '../../../util/Utils'
 export const getRecordData = () => dispatch => {
     dispatch(getData())
     let token  = localStorage.getItem('token')

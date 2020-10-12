@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ActivityListItem from '../../components/ActivityListItem';
+import ActivityListItem from '../../components/mindlogger/ActivityListItem';
 import { appletSelector } from '../../state/user/user.selectors';
 
 const Activities = ({ applets }) => {

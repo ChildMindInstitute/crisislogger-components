@@ -7,4 +7,4 @@ import { history } from './reducer'
 
 const middleware = routerMiddleware(history);
 
-export const Store = createStore(reducer, composeWithDevTools(applyMiddleware(middleware, thunk)));
+export const CLStore = createStore(reducer, composeWithDevTools(applyMiddleware(middleware, thunk)));

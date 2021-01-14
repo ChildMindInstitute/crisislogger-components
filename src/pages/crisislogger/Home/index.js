@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Row,  Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import homePageBanner from '../../../assets/homePageBanner.png'
+import appConfig from "../../../appConfig.json";
 import './style.scss'
 import Utils from "../../../util/Utils";
 const Home = (props, context) => {
@@ -22,7 +23,7 @@ const Home = (props, context) => {
   return (
     <div className="home-page-container">
         <Row style={{justifyContent: 'center', margin:'unset'}}>
-            <img src={homePageBanner} alt={'Home'} />
+            <img src={require('../../../assets/' + appConfig.APP_HOME_PAGE)} alt={'Home'} />
             <div className="login-link">
                 <Link to="/login">{t(utils.getsubDomain()+'.home.login')}</Link>
             </div>

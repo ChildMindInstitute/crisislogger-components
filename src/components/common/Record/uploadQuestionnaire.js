@@ -4,6 +4,7 @@ import { Form, Row} from 'react-bootstrap'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import contryList from 'react-select-country-list'
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import Utils from "../../../util/Utils";
 const UploadQuestionnaire = ({ setFormState, formState, type }) => {
     const { t } = useTranslation()
@@ -43,8 +44,25 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
         fontSize: '20px'
     }
     const contentFontStyle = {
-        fontSize: '15px;'
+        fontSize: '15px'
     }
+
+ 
+    const selectCountry = (val) => {
+        console.log(val);
+        setFormState({
+            ...formState,
+            country: val
+        })
+    }
+
+    const selectRegion = (val) => {
+         setFormState({
+            ...formState,
+            region: val
+        })
+    }
+
     return (
         <Form>
             <fieldset>
@@ -157,12 +175,19 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
 
             <Form.Group>
                 <Form.Label><h4 style={titleFontStyle}>{t(new Utils().getsubDomain()+'.sharedMessage.modal.thirdQuestionTitle')}</h4></Form.Label>
-                <Form.Control as="select" onChange={handleCountry} name="country">
-                    {option.map((item, index) => (
-                        <option key={index} value={item.value}>{item.label}</option>
-                    ))}
-                </Form.Control>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <CountryDropdown value={formState.country}  onChange={selectCountry} class="form-control" />
+                    </div>
+                    {formState.country && (
+                        <div class="col-lg-6 col-sm-12">
+                            <RegionDropdown country={formState.country} value={formState.region} onChange={selectRegion} class="form-control" />
+                        </div>
+                    )}
+                    
+                </div>
             </Form.Group>
+
             <Form.Group>
                 <Form.Check
                     required

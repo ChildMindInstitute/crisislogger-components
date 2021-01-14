@@ -32,11 +32,15 @@ const Profile = (props) => {
     }, [props.user])
     const onSubmitProfile = async () => {
         console.log(formState)
-
+        if (!formState.email && !formState.name) return ;
         await props.updateAccount({email: formState.email, name: formState.name})
         setLoaded(false)
     }
     const onUpdatePassword = async () => {
+        var passwordFieldsAreInvalid =!formState.old_password && !formState.new_password;
+        if (passwordFieldsAreInvalid) return;
+
+        console.log("Updating password", formState.new_password, formState.old_password);
         await props.changePassword({new_password: formState.new_password, old_password: formState.old_password})
         setLoaded(false)
     }

@@ -2455,8 +2455,8 @@
             "ariaLabel": "military",
             "options": [
               {
-                "label": "Not at alls",
-                "value": "Not at alls"
+                "label": "Not at all",
+                "value": "Not at all"
               },
               {
                 "label": "Rarely",
@@ -2491,8 +2491,8 @@
             "ariaLabel": "military",
             "options": [
               {
-                "label": "Not at alls",
-                "value": "Not at alls"
+                "label": "Not at all",
+                "value": "Not at all"
               },
               {
                 "label": "Rarely",
@@ -2529,8 +2529,8 @@
             "ariaLabel": "military",
             "options": [
               {
-                "label": "Not at alls",
-                "value": "Not at alls"
+                "label": "Not at all",
+                "value": "Not at all"
               },
               {
                 "label": "Rarely",
@@ -2567,8 +2567,8 @@
             "ariaLabel": "military",
             "options": [
               {
-                "label": "Not at alls",
-                "value": "Not at alls"
+                "label": "Not at all",
+                "value": "Not at all"
               },
               {
                 "label": "Rarely",
@@ -2605,8 +2605,8 @@
             "ariaLabel": "military",
             "options": [
               {
-                "label": "Not at alls",
-                "value": "Not at alls"
+                "label": "Not at all",
+                "value": "Not at all"
               },
               {
                 "label": "Rarely",

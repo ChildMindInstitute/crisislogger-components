@@ -181,7 +181,7 @@ const UploadQuestionnaire = ({ setFormState, formState, type }) => {
                     </div>
                     {formState.country && (
                         <div class="col-lg-6 col-sm-12">
-                            <RegionDropdown country={formState.country} value={formState.region} onChange={selectRegion} class="form-control" />
+                            <RegionDropdown country={formState.country} value={formState.region} defaultOptionLabel={"Select State"} onChange={selectRegion} class="form-control" />
                         </div>
                     )}
                     

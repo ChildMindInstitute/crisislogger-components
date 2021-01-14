@@ -31,7 +31,6 @@ const Profile = (props) => {
             name:  (props.user !== undefined? props.user.name: null)})
     }, [props.user])
     const onSubmitProfile = async () => {
-        console.log(formState)
         if (!formState.email && !formState.name) return ;
         await props.updateAccount({email: formState.email, name: formState.name})
         setLoaded(false)
@@ -40,7 +39,6 @@ const Profile = (props) => {
         var passwordFieldsAreInvalid =!formState.old_password && !formState.new_password;
         if (passwordFieldsAreInvalid) return;
 
-        console.log("Updating password", formState.new_password, formState.old_password);
         await props.changePassword({new_password: formState.new_password, old_password: formState.old_password})
         setLoaded(false)
     }
@@ -62,7 +60,7 @@ const Profile = (props) => {
         setFormState({ ...formState, [e.target.name]: e.target.value})
     }
     const onChangePassword  = (e) => {
-        if(e.target.value.length <= 6) {
+        if(e.target.value.length <= 5) {
             setPasswordLength(true)
         } else {
             setPasswordLength(false) 
@@ -77,11 +75,11 @@ const Profile = (props) => {
             setPasswordConfirmError(false)
         }
     }
-    
     return (
         <div>
             <Row style={{marginTop: 30, textAlign: 'center'}} >
             { props.error || props.updateError &&  <Alert variant={'danger'} style={{width: '100%'}}> {props.error ||  props.updateError}</Alert>}
+            { props.success  &&  <Alert variant={'success'} style={{width: '100%'}}> {'Successfully updated.'}</Alert>}
             </Row>
             <Row>
             <Col  xs={12} sm={6} md={6} lg={6}>
@@ -169,6 +167,7 @@ const mapStateToProps = state => {
       user: state.recordData.data,
       loading: state.recordData.loading,
       loaded: state.recordData.loaded,
+      success: state.updateReducer.success,
       error: state.recordData.error,
       updateError: state.updateReducer.error
     }

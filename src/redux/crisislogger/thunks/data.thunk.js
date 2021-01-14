@@ -68,7 +68,6 @@ export const changeContributeShare = (data) => dispatch => {
         }
     })
     .then(response => {
-        console.log(response)
         return response.json()
     })
     .then((data) => {
@@ -111,7 +110,6 @@ export const removeRecords = (data) => dispatch => {
 export const getProfile = () => dispatch => {
     dispatch(getData())
     let token  = localStorage.getItem('token')
-    console.log(token)
     fetch(config.crisisloggerAPIHost+'/users/me', {
         method: "GET",
         headers: {
@@ -154,7 +152,7 @@ export const updateProfile = (data) => dispatch => {
         {
             localStorage.setItem('token', data.result.token)
             localStorage.setItem('user_name', data.result.name)
-            window.location.reload();
+            dispatch(updateDataSuccess())
         }
         else {
             dispatch(updateDataFailed(data.message? data.message: 'Something went wrong, please try to refresh the page'))

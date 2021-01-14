@@ -5,6 +5,7 @@ import WordCloudComponent from '../../../components/common/wordCloudComponent';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import DeleteIcon from '@material-ui/icons/Delete';
 import { getRecordData, changeContributeShare, removeRecords } from '../../../redux/crisislogger/thunks/data.thunk'
 import Utils from '../../../util/Utils'
 import Swal from 'sweetalert2'
@@ -186,14 +187,9 @@ const Dashboard = (props) => {
                                             onChange={(e) => handleContributeShare('upload', 'share', e, value._id, index)}
                                             id="check-share"
                                         />
-                                        <Form.Check
-                                            style={{ flex: 1 }}
-                                            name="delete"
-                                            checked={false}
-                                            label="Delete"
-                                            onChange={() => handleDelete('upload', value._id, index)}
-                                            id="check-delete"
-                                        />
+                                         <span style={{cursor: 'pointer'}} onClick={() => handleDelete('text', value._id, index)} >
+                                            <DeleteIcon style={{fontSize: 18}} /> Delete
+                                        </span>
                                     </div>
                                 </div>
                             </Col>
@@ -237,14 +233,9 @@ const Dashboard = (props) => {
                                             onChange={(e) => handleContributeShare('text', 'share' ,e, value._id, index)}
                                             id="check-share"
                                         />
-                                        <Form.Check
-                                            style={{ flex: 1 }}
-                                            name="delete"
-                                            label="Delete"
-                                            checked={false}
-                                            onChange={() => handleDelete('text', value._id, index)}
-                                            id="check-delete"
-                                        />
+                                        <span>
+                                            <DeleteIcon onClick={() => handleDelete('text', value._id, index)} />
+                                        </span>
                                     </div>
                                 </Col>
                             )

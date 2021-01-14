@@ -7,6 +7,7 @@ import {
 const initialState = {
     loading: false,
     loaded: false,
+    success: false,
     error: '',
     result: ''
 }
@@ -24,6 +25,7 @@ export default (state = initialState, { type, payload }) => {
                 ...state,
                 loading: false,
                 loaded: true,
+                success: true,
                 result: payload
             }
         case UPDATE_DATA_FAILED:

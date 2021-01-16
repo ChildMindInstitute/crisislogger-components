@@ -134,7 +134,7 @@ const Dashboard = (props) => {
                     </Alert>
                     : null
             }
-            <h3>My Recordings</h3>
+            <h3 className="text-left">My Recordings</h3>
             <br></br>
             <Row>
                 {uploads.length > 0 ?
@@ -148,7 +148,7 @@ const Dashboard = (props) => {
                                     {
                                       (value.transcripts !== undefined && value.transcripts !== null) &&  value.transcripts.text !== undefined? 
                                         <WordCloudComponent text={value.transcripts.text} words={Utils.getWords(value.transcripts.text)} type={'uploads'} />
-                                      : <h4 style={{textAlign: 'center'}}>No transcriptions</h4>
+                                      : <h4 style={{textAlign: 'center'}}>{value.share && value.contribute_to_science ? 'Video conversion in progress': 'No transcription'}</h4>
                                     }
                                     <div style={{ flexGrow: 1 }} />
                                     {isVideo ?
@@ -187,7 +187,7 @@ const Dashboard = (props) => {
                                             onChange={(e) => handleContributeShare('upload', 'share', e, value._id, index)}
                                             id="check-share"
                                         />
-                                         <span style={{cursor: 'pointer'}} onClick={() => handleDelete('text', value._id, index)} >
+                                         <span style={{cursor: 'pointer'}} onClick={() => handleDelete('upload', value._id, index)} >
                                             <DeleteIcon style={{fontSize: 18}} /> Delete
                                         </span>
                                     </div>
@@ -202,7 +202,7 @@ const Dashboard = (props) => {
                 }
             </Row>
             <br></br>
-            <h3>Texts</h3>
+            <h3 className="text-left">Texts</h3>
             <br></br>
             <Row>
                 {

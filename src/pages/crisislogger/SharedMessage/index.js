@@ -70,8 +70,8 @@ const SharedMessage = (props) => {
         if(props.success )
         {
             Swal.fire({
-                title: "",
-                text: "Saved, Thank you",
+                title: "Success!",
+                text: "File uploaded successfully.",
                 type: "Success",
                 // showCancelButton: true,
                 confirmButtonColor: "#3085d6",

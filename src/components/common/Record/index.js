@@ -280,8 +280,8 @@ const Record = ({type, onFinished, loading, onStartRecording}) => {
                 }
                 buttons={
                     [
-                        <Button variant={'secondary'} onClick={() => deleteRecord()}>Delete Record</Button>,
-                        <Button variant={'primary'} onClick={() => showSecondPageModal()}>Upload Record</Button>
+                        <Button variant={'danger'} onClick={() => deleteRecord()}>Delete Recording</Button>,
+                        <Button variant={'success'} onClick={() => showSecondPageModal()}>Upload Recording</Button>
                     ]
                 }
             />
@@ -294,7 +294,7 @@ const Record = ({type, onFinished, loading, onStartRecording}) => {
                     [
                         <Button variant={'secondary'} onClick={() => deleteRecord()}>Cancel</Button>,
                         <Button variant={'primary'} onClick={() => uploadRecord()} disabled={loading}>
-                            {loading ? <Spinner animation="border"/> : ''}Upload</Button>
+                            {loading ? <Spinner animation="border"/> : ''}Continue</Button>
                     ]
                 }
             />

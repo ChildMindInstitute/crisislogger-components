@@ -21,6 +21,7 @@ const Dashboard = (props) => {
     const utils = new Utils();
     const { loading, error, data } = props
     const { uploads, texts } = data
+
     const bottomBtnStyle = {
         display: 'flex',
         textAlign: 'center',
@@ -119,6 +120,7 @@ const Dashboard = (props) => {
         })
     }
     return (
+
         <div className={'user-dashboard-container'}>
             <div style={{ display: 'flex', flex: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
                 <div>
@@ -141,12 +143,13 @@ const Dashboard = (props) => {
                     uploads.map((value, index) => {
                         let isVideo = value.name.split(".")[1] === 'webm' || value.name.split(".")[1] === 'mkv' || value.name.split(".")[1] === 'mp4';
                         let videoExtension = value.name.split(".")[1];
+
                         return (
                             <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px' }} key={index}>
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                     
                                     {
-                                      (value.transcripts !== undefined && value.transcripts !== null) &&  value.transcripts.text !== undefined? 
+                                      (value.transcripts &&  value.transcripts.text)?
                                         <WordCloudComponent text={value.transcripts.text} words={Utils.getWords(value.transcripts.text)} type={'uploads'} />
                                       : <h4 style={{textAlign: 'center'}}>{value.share && value.contribute_to_science ? 'Video conversion in progress': 'No transcription'}</h4>
                                     }
@@ -233,8 +236,8 @@ const Dashboard = (props) => {
                                             onChange={(e) => handleContributeShare('text', 'share' ,e, value._id, index)}
                                             id="check-share"
                                         />
-                                        <span>
-                                            <DeleteIcon onClick={() => handleDelete('text', value._id, index)} />
+                                        <span style={{cursor: 'pointer'}} onClick={() => handleDelete('text', value._id, index)} >
+                                            <DeleteIcon style={{fontSize: 18}} /> Delete
                                         </span>
                                     </div>
                                 </Col>

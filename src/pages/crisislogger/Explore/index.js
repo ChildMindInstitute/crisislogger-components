@@ -93,12 +93,13 @@ const Explore = (props) => {
                     data.map((value, index) => {
                         let isVideo = value.name && (value.name.split(".")[1] === 'webm' || value.name.split(".")[1] === 'mkv' || value.name.split(".")[1] === 'mp4');
                         let videoExtension = value.name && value.name.split(".")[1];
+                        console.log(value.transcripts.text)
                         return (
                             <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px' }} key={index}>
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                     {
-                                        value.text ?
-                                            <WordCloudComponent text={value.text} words={Utils.getWords(value.text)} type={'uploads'} />
+                                        value.transcripts.text !== undefined ?
+                                            <WordCloudComponent text={value.text} words={Utils.getWords( value.transcripts.text)} type={'uploads'} />
                                             : <h4 style={{ textAlign: 'center' }}>No transcriptions</h4>
                                     }
                                     <div style={{ flexGrow: 1 }} />

@@ -30,6 +30,7 @@ const Explore = (props) => {
     React.useEffect(() => {
         props.loadData(skip, searchText)
         setDataLoading(true)
+        window.scrollTo(0, 0)
     }, [skip, limit, dataLoading]);
     const search = () => {
         setDataLoading(false)

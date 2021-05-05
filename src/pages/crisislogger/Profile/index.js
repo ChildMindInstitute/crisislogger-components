@@ -13,6 +13,7 @@ const Profile = (props) => {
     const { t } = useTranslation()
     const utils = new Utils();
     const [loaded, setLoaded] = React.useState(false)
+    const [formInvalid, setFormInvalid] = React.useState(false)
     const [passwordConfirmError, setPasswordConfirmError] = React.useState(false)
     const [passwordLength, setPasswordLength] = React.useState(false)
     const [formState, setFormState] = React.useState({
@@ -31,9 +32,20 @@ const Profile = (props) => {
             name:  (props.user !== undefined? props.user.name: null)})
     }, [props.user])
     const onSubmitProfile = async () => {
-        if (!formState.email && !formState.name) return ;
+        let emailPattern =  new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+        if (!formState.email || !formState.name)
+        {
+            setFormInvalid(true)
+            return ;
+        }
+        if (!emailPattern.test(formState.email)) {
+            setFormInvalid(true)
+            return ;
+        }
         await props.updateAccount({email: formState.email, name: formState.name})
         setLoaded(false)
+        setFormInvalid(false)
     }
     const onUpdatePassword = async () => {
         var passwordFieldsAreInvalid =!formState.old_password && !formState.new_password;
@@ -78,7 +90,7 @@ const Profile = (props) => {
     return (
         <div>
             <Row style={{marginTop: 30, textAlign: 'center'}} >
-            { props.error || props.updateError &&  <Alert variant={'danger'} style={{width: '100%'}}> {props.error ||  props.updateError}</Alert>}
+            { props.error || props.updateError || formInvalid &&  <Alert variant={'danger'} style={{width: '100%'}}> {props.error ||  props.updateError || 'Please complete the input form'}</Alert>}
             { props.success  &&  <Alert variant={'success'} style={{width: '100%'}}> {'Successfully updated.'}</Alert>}
             </Row>
             <Row>

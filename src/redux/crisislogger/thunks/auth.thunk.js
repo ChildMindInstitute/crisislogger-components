@@ -53,6 +53,7 @@ export const Register = (registerBody) => dispatch => {
                 if (localStorage.getItem('upload_id')) {
                     localStorage.removeItem('upload_id')
                 }
+                localStorage.setItem('role',data.user.role)
                 localStorage.setItem('token', data.user.token)
                 localStorage.setItem('user_name', data.user.name)
                 dispatch(register_success(data.user.token))

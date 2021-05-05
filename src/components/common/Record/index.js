@@ -294,7 +294,7 @@ const Record = ({type, onFinished, loading, onStartRecording}) => {
                     [
                         <Button variant={'secondary'} onClick={() => deleteRecord()}>Cancel</Button>,
                         <Button variant={'primary'} onClick={() => uploadRecord()} disabled={loading}>
-                            {loading ? <Spinner animation="border"/> : ''}Continue</Button>
+                            {loading ? <Spinner animation="border"/> : ''} Upload</Button>
                     ]
                 }
             />

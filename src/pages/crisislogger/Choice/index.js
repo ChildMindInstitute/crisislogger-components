@@ -8,12 +8,12 @@ const Choice = (props) => {
     const { t } = useTranslation()
     const utils  = new Utils();
     const blockNames = [
-        {i18nName: 'parent', role: 1},
-        {i18nName: 'teacher', role: 2},
-        {i18nName: 'student', role: 3},
-        {i18nName: 'healthWorker', role: 4},
-        {i18nName: 'patient', role: 5},
-        {i18nName: 'other', role: 6}
+        {i18nName: 'parent', choise_role: 1},
+        {i18nName: 'teacher', choise_role: 2},
+        {i18nName: 'student', choise_role: 3},
+        {i18nName: 'healthWorker', choise_role: 4},
+        {i18nName: 'patient', choise_role: 5},
+        {i18nName: 'other', choise_role: 6}
     ]
     const space = {
         marginRight: 5,
@@ -22,7 +22,7 @@ const Choice = (props) => {
     }
 
     const choiceRole = (role) => () => {
-        localStorage.setItem('role', role)
+        localStorage.setItem('choise_role', role)
         props.history.push('/record')
     }
     return (
@@ -40,7 +40,7 @@ const Choice = (props) => {
                             <div className={'outline-primary'}>
                                 <div className={'text-center'}>
                                 <Button 
-                                    onClick={choiceRole(block.role)} 
+                                    onClick={choiceRole(block.choise_role)}
                                     title={t(`${utils.getsubDomain()}.choice.${block.i18nName}.button`)}
                                     size={'lg'}
                                     className="choice-button"

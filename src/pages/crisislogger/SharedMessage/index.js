@@ -153,7 +153,7 @@ const SharedMessage = (props) => {
                         <Button variant={'secondary'} onClick={cancelSubmit}>Cancel</Button>,
                         <Button variant={'primary'} onClick={continueSubmit} disabled={props.loading}>
                             {props.loading ? <Spinner animation="border" /> : ''}
-                        Continue</Button>
+                        Upload</Button>
                     ]
                 }
             />

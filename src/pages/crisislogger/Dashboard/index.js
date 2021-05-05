@@ -149,7 +149,7 @@ const Dashboard = (props) => {
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                     
                                     {
-                                      (text?
+                                        text?
                                         <WordCloudComponent text={text} words={Utils.getWords(text)} type={'uploads'} />
                                       : <h4 style={{textAlign: 'center'}}>{value.share && value.contribute_to_science ? 'Video conversion in progress': 'No transcription'}</h4>
                                     }

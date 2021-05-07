@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Row, Form, Button, Spinner } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {detect} from 'detect-browser'
 import { fileUploadThunk, uploadText } from '../../../redux/crisislogger/thunks/file.thunk'
 import Record from '../../../components/common/Record'
 import CustomModal from '../../../components/crisislogger/CustomModal'
@@ -15,7 +14,6 @@ import "./style.scss"
 const SharedMessage = (props) => {
     const { t } = useTranslation()
     const utils  = new Utils();
-    const browser = detect();
     const [shareText, setShareText] = React.useState('')
     const [secondModal, setSecondModal] = React.useState(false)
     const [formState, setFormState] = React.useState({
@@ -114,7 +112,7 @@ const SharedMessage = (props) => {
     const setRecordingType  = (type) => {
         changeType(type);
     }
-    let isSafari = browser.name === "safari"
+    let isSafari = navigator.userAgent.toLowerCase().match('safari')
     let iOSChromeFirefox = navigator.userAgent.match('CriOS') || navigator.userAgent.match("FxiOS");
     return (
         <div className="shared-message-container">

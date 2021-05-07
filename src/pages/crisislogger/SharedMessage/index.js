@@ -115,25 +115,33 @@ const SharedMessage = (props) => {
         changeType(type);
     }
     let isSafari = browser.name === "safari"
+    let iOSChromeFirefox = navigator.userAgent.match('CriOS') || navigator.userAgent.match("FxiOS");
     return (
         <div className="shared-message-container">
             <Row style={{ justifyContent: 'center', marginTop: '110px' }}>
                 <div className="text-align-center">
                     <h1 className="grey-title">{t(utils.getsubDomain()+'.sharedMessage.title')}</h1>
-                    <div className={'row'}>
-                        <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
-                            {isSafari?(
-                              <div className={"safari-info"}>
-                                  The Safari browser allows you to type text and record audio, but not video, please use a different browser like Chorme or Firefox
-                              </div>
-                            ):(
-                              <Record type={'video'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
+                    <div className={'row justify-content-md-center'}>
+                        {!iOSChromeFirefox && <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
+                            {isSafari ? (
+                                <div className={"safari-info"}>
+                                    The Safari browser allows you to type text and record audio, but not video, please
+                                    use a different browser like Chrome or Firefox
+                                </div>
+                            ) : (
+                                <Record type={'video'} onFinished={fileUpload} onStartRecording={setRecordingType}
+                                        loading={props.loading}/>
                             )}
-                        </div>
-                        <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
+                        </div>}
+                        {!iOSChromeFirefox && <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
                             <Record type={'audio'} onFinished={fileUpload} onStartRecording={setRecordingType} loading={props.loading} />
-                        </div>
-                        <div className={'col-lg-4 col-md-4 col-sm-12 mt-5'}>
+                        </div>}
+                        {iOSChromeFirefox &&
+                        <div className={"col-lg-12 safari-info text-center"}>
+                            The Chrome & Firefox browser  on iOS allows you to type text, but not video or  audio, please
+                            use a Safari browser on iOS  for audio <br/><br/>
+                        </div>}
+                        <div className={!iOSChromeFirefox? 'col-lg-4 col-md-4 col-sm-12 mt-5': 'col-lg-6 justify-content-center'}>
                             <Form.Control as="textarea" style={{height: '100%'}} row="10" cols={20} onChange={handleTextChange} placeholder={t(utils.getsubDomain()+'.sharedMessage.message')} />
                             {shareText.length > 1 && <Button style={{ marginTop: 10 }} onClick={submitText}>Submit</Button>}
                         </div>

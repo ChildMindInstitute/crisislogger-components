@@ -99,7 +99,7 @@ const Explore = (props) => {
                             <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px' }} key={index}>
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
                                     {
-                                        text ?
+                                        text !== undefined?
                                             <WordCloudComponent text={text} words={Utils.getWords( text)} type={'uploads'} />
                                             : isVideo && <h4 style={{ textAlign: 'center' }}>No transcriptions</h4>
                                     }

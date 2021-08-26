@@ -5,8 +5,8 @@ import {
     getGalleryData_Success,
     getGalleryData_Error,
     getGalleryData,
- } from '../action/data.action'
- import config from '../../../config'
+} from '../action/data.action'
+import config from '../../../config'
 import { updateData, updateDataSuccess, updateDataFailed } from '../action/update.action'
 import Utils from '../../../util/Utils'
 export const getRecordData = () => dispatch => {
@@ -19,20 +19,20 @@ export const getRecordData = () => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => {
-        Utils.forceLogout(response.status)
-        return response.json()
-    })
-    .then((data) => {
-        if(data.records !== undefined)
-        {
-            dispatch(getData_success(data.records))
-        }
-        else {
-            dispatch(getData_error('Something went wrong, please try to refresh the page'))
-        }
-    })
-    .catch(err => console.log(err))
+        .then(response => {
+            Utils.forceLogout(response.status)
+            return response.json()
+        })
+        .then((data) => {
+            if(data.records !== undefined)
+            {
+                dispatch(getData_success(data.records))
+            }
+            else {
+                dispatch(getData_error('Something went wrong, please try to refresh the page'))
+            }
+        })
+        .catch(err => console.log(err))
 }
 export const getGalleries = (page, searchText) => dispatch => {
     dispatch(getGalleryData())
@@ -42,19 +42,19 @@ export const getGalleries = (page, searchText) => dispatch => {
             'Content-type': 'application/json',
         }
     })
-    .then(response => {
-        return response.json()
-    })
-    .then((data) => {
-        if(data.uploads !== undefined)
-        {
-            dispatch(getGalleryData_Success({data: data.uploads, skip: page}))
-        }
-        else {
-            dispatch(getGalleryData_Error('Something went wrong, please try to refresh the page'))
-        }
-    })
-    .catch(err => dispatch(getGalleryData_Error('Network connection error')))
+        .then(response => {
+            return response.json()
+        })
+        .then((data) => {
+            if(data.uploads !== undefined)
+            {
+                dispatch(getGalleryData_Success({data: data.uploads, skip: page}))
+            }
+            else {
+                dispatch(getGalleryData_Error('Something went wrong, please try to refresh the page'))
+            }
+        })
+        .catch(err => dispatch(getGalleryData_Error('Network connection error')))
 }
 export const changeContributeShare = (data) => dispatch => {
     dispatch(updateData())
@@ -67,19 +67,19 @@ export const changeContributeShare = (data) => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => {
-        return response.json()
-    })
-    .then((data) => {
-        if(data.result !== undefined) 
-        {
-            dispatch(updateDataSuccess(data.result))
-        }
-        else {
-            dispatch(updateDataFailed('Something went wrong, please try to refresh the page'))
-        }
-    })
-    .catch(err => dispatch(updateDataFailed('Network connection error')))
+        .then(response => {
+            return response.json()
+        })
+        .then((data) => {
+            if(data.result !== undefined)
+            {
+                dispatch(updateDataSuccess(data.result))
+            }
+            else {
+                dispatch(updateDataFailed('Something went wrong, please try to refresh the page'))
+            }
+        })
+        .catch(err => dispatch(updateDataFailed('Network connection error')))
 }
 export const removeRecords = (data) => dispatch => {
     dispatch(updateData())
@@ -92,22 +92,22 @@ export const removeRecords = (data) => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => {
-        Utils.forceLogout(response.status)
-        return response.json()
-    })
-    .then((data) => {
-        if(data.result !== undefined) 
-        {
-            dispatch(updateDataSuccess(data.result))
-        }
-        else {
-            dispatch(updateDataFailed('Something went wrong, please try to refresh the page'))
-        }
-    })
-    .catch(err => dispatch(updateDataFailed('Network connection error')))
+        .then(response => {
+            Utils.forceLogout(response.status)
+            return response.json()
+        })
+        .then((data) => {
+            if(data.result !== undefined)
+            {
+                dispatch(updateDataSuccess(data.result))
+            }
+            else {
+                dispatch(updateDataFailed('Something went wrong, please try to refresh the page'))
+            }
+        })
+        .catch(err => dispatch(updateDataFailed('Network connection error')))
 }
-export const getProfile = () => dispatch => {
+export const getProfile = (set_data = true) => dispatch => {
     dispatch(getData())
     let token  = localStorage.getItem('token')
     fetch(config.crisisloggerAPIHost+'/users/me', {
@@ -117,20 +117,23 @@ export const getProfile = () => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => {
-        Utils.forceLogout(response.status)
-        return response.json()
-    })
-    .then((data) => {
-        if(data.result !== undefined) 
-        {
-            dispatch(getData_success(data.result))
-        }
-        else {
-            dispatch(getData_error('Something went wrong, please try to refresh the page'))
-        }
-    })
-    .catch(err => dispatch(getData_error('Network connection error')))
+        .then(response => {
+            Utils.forceLogout(response.status)
+            return response.json()
+        })
+        .then((data) => {
+            if(data.result !== undefined)
+            {
+                if (set_data)
+                {
+                    dispatch(getData_success(data.result))
+                }
+            }
+            else {
+                dispatch(getData_error('Something went wrong, please try to refresh the page'))
+            }
+        })
+        .catch(err => dispatch(getData_error('Network connection error')))
 }
 export const updateProfile = (data) => dispatch => {
     dispatch(updateData())
@@ -143,22 +146,22 @@ export const updateProfile = (data) => dispatch => {
             'Authorization' : 'Bearer ' + token
         }
     })
-    .then(response => {
-        Utils.forceLogout(  response.status)
-        return response.json()
-    })
-    .then((data) => {
-        if(data.result !== undefined)
-        {
-            localStorage.setItem('token', data.result.token)
-            localStorage.setItem('user_name', data.result.name)
-            dispatch(updateDataSuccess())
-        }
-        else {
-            dispatch(updateDataFailed(data.message? data.message: 'Something went wrong, please try to refresh the page'))
-        }
-    })
-    .catch(err => dispatch(updateDataFailed('Network connection error')))
+        .then(response => {
+            Utils.forceLogout(  response.status)
+            return response.json()
+        })
+        .then((data) => {
+            if(data.result !== undefined)
+            {
+                localStorage.setItem('token', data.result.token)
+                localStorage.setItem('user_name', data.result.name)
+                dispatch(updateDataSuccess())
+            }
+            else {
+                dispatch(updateDataFailed(data.message? data.message: 'Something went wrong, please try to refresh the page'))
+            }
+        })
+        .catch(err => dispatch(updateDataFailed('Network connection error')))
 }
 export const closeMyAccount = (data) => dispatch => {
     dispatch(updateData())
@@ -212,4 +215,4 @@ export const changePassword = (data) => dispatch => {
 
         })
         .catch(err => console.log(err))
-} 
+}

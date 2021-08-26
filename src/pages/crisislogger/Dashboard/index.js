@@ -21,7 +21,6 @@ const Dashboard = (props) => {
     const utils = new Utils();
     const { loading, error, data } = props
     const { uploads, texts } = data
-
     const bottomBtnStyle = {
         display: 'flex',
         textAlign: 'center',
@@ -34,27 +33,27 @@ const Dashboard = (props) => {
             Swal.fire({
                 title: (contentType ==='contribute'? 'Are you sure you want to contribute this for science?': 'Are you sure you want to share this publicly?'),
                 text: (contentType === 'contribute'?' If Yes, you are only giving permission for (1) your data to be stored by our team, and (2) to be contacted before its use in future research.':
-                        'If Public, the Child Mind Institute and its partners may share your text or recording through their websites and social media channels. If Private, your story will not be publicly shared in any form.'),
+                    'If Public, the Child Mind Institute and its partners may share your text or recording through their websites and social media channels. If Private, your story will not be publicly shared in any form.'),
                 showCancelButton: true,
                 confirmButtonText:  contentType === 'contribute' ? 'Contribute to science' : 'Public',
                 cancelButtonText:  contentType === 'contribute' ? 'Do not contribute' : 'Private',
             })
-            .then(async (result) => {
-                if (result.value)
-                {
-                    const data = {
-                        type: type,
-                        contentType: contentType,
-                        upload_id: id,
-                        status: status * 2
+                .then(async (result) => {
+                    if (result.value)
+                    {
+                        const data = {
+                            type: type,
+                            contentType: contentType,
+                            upload_id: id,
+                            status: status * 2
+                        }
+                        await props.changeStatus(data)
+                        setDataLoading(false)
                     }
-                    await props.changeStatus(data)
-                    setDataLoading(false)
-                }
-                else {
-                    setDataLoading(false)
-                }
-            })
+                    else {
+                        setDataLoading(false)
+                    }
+                })
         }
         else {
             Swal.fire({
@@ -65,22 +64,22 @@ const Dashboard = (props) => {
                 showCancelButton: true,
                 cancelButtonText:  contentType === 'contribute' ? 'Contribute to science' : 'Public',
             })
-            .then( async (result) => {
-                if (result.value)
-                {
-                    const data = {
-                        type: type,
-                        contentType: contentType,
-                        upload_id: id,
-                        status: status * 2
+                .then( async (result) => {
+                    if (result.value)
+                    {
+                        const data = {
+                            type: type,
+                            contentType: contentType,
+                            upload_id: id,
+                            status: status * 2
+                        }
+                        await props.changeStatus(data)
+                        setDataLoading(false)
                     }
-                    await props.changeStatus(data)
-                    setDataLoading(false)
-                }
-                else {
-                    setDataLoading(false)
-                }
-            })
+                    else {
+                        setDataLoading(false)
+                    }
+                })
         }
         if(type ==='text')
         {
@@ -109,15 +108,15 @@ const Dashboard = (props) => {
             showCancelButton: true,
             cancelButtonText:  'Cancel',
         })
-        .then(async (result) => {
-            if (result.value) {
-                await props.removeUserRecords({type: type, upload_id: id})
-                setDataLoading(false)
-            }
-            else {
-                setDataLoading(false)
-            }
-        })
+            .then(async (result) => {
+                if (result.value) {
+                    await props.removeUserRecords({type: type, upload_id: id})
+                    setDataLoading(false)
+                }
+                else {
+                    setDataLoading(false)
+                }
+            })
     }
     return (
 
@@ -148,11 +147,11 @@ const Dashboard = (props) => {
                         return (
                             <Col xs={12} sm={6} md={4} lg={3} xl={3} style={{ marginTop: 20, padding: '0 10px' }} key={index}>
                                 <div style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: '#fafafa', boxShadow: '0px 0px 1px 0px rgba(0,0,0,0.35)', }}>
-                                    
+
                                     {
                                         text !== undefined?
-                                        <WordCloudComponent text={text} words={Utils.getWords(text)} type={'uploads'} />
-                                      : <h4 style={{textAlign: 'center'}}>{'No transcription'}</h4>
+                                            <WordCloudComponent text={text} words={Utils.getWords(text)} type={'uploads'} />
+                                            : <h4 style={{textAlign: 'center'}}>{'No transcription'}</h4>
                                     }
                                     <div style={{ flexGrow: 1 }} />
                                     {isVideo ?
@@ -191,7 +190,7 @@ const Dashboard = (props) => {
                                             onChange={(e) => handleContributeShare('upload', 'share', e, value._id, index)}
                                             id="check-share"
                                         />
-                                         <span style={{cursor: 'pointer'}} onClick={() => handleDelete('upload', value._id, index)} >
+                                        <span style={{cursor: 'pointer'}} onClick={() => handleDelete('upload', value._id, index)} >
                                             <DeleteIcon style={{fontSize: 18}} /> Delete
                                         </span>
                                     </div>

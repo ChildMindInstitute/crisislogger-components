@@ -80,18 +80,17 @@ const Record = ({type, onFinished, loading, onStartRecording}) => {
                     });
                     return true;
                 }
-                recorder = new window.Recorder(audioInput, {
-                    numChannels: 1,
-                    onAnalysed: data => console.log(data),
-                })
+
                 navigator.mediaDevices.getUserMedia(audioConstraints).then(function (stream) {
                     /* assign to gumStream for later use */
                     gumStream = stream;
                     /* use the stream */
                     audioInput = audioContext.createMediaStreamSource(stream);
-                    /* Create the Recorder object and configure to record mono sound (1 channel) Recording 2 channels will double the file size */
-
-                    //start the recording process 
+                    recorder = new window.Recorder(audioInput, {
+                        numChannels: 1,
+                        onAnalysed: data => console.log(data),
+                    })
+                    //start the recording process
                     recorder.record()
                     if (navigator.vibrate) navigator.vibrate(150);
                 }).catch(function (err) {

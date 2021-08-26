@@ -16,17 +16,17 @@ const Login = () => {
       return (<Redirect to={"/dashboard"}/>)
     }else if(localStorage.getItem('role') === ROLES.admin){
       return (<Redirect to={"/admin"}/>)
-    }  
+    }
   }
   return (
-    <div className="sign-form-page">
-      <h3 className="sign-form-title">{t(utils.getsubDomain()+'.login.title')}</h3>
-      <Row className="sign-form-container">
-        <Col xl={{span: 4, offset: 0}}>
-          <LoginForm/>
-        </Col>
-      </Row>
-    </div>
+      <div className="sign-form-page">
+        <h3 className="sign-form-title">{t(utils.getsubDomain()+'.login.title')}</h3>
+        <Row className="sign-form-container">
+          <Col xl={{span: 4, offset: 0}}>
+            <LoginForm/>
+          </Col>
+        </Row>
+      </div>
   );
 }
 

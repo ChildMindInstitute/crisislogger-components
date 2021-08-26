@@ -112,7 +112,7 @@ const SharedMessage = (props) => {
     const setRecordingType  = (type) => {
         changeType(type);
     }
-    let isSafari = navigator.userAgent.toLowerCase().match('safari')
+    let isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
     let iOSChromeFirefox = navigator.userAgent.match('CriOS') || navigator.userAgent.match("FxiOS");
     return (
         <div className="shared-message-container">
@@ -159,7 +159,7 @@ const SharedMessage = (props) => {
                         <Button variant={'secondary'} onClick={cancelSubmit}>Cancel</Button>,
                         <Button variant={'primary'} onClick={continueSubmit} disabled={props.loading}>
                             {props.loading ? <Spinner animation="border" /> : ''}
-                        Upload</Button>
+                            Upload</Button>
                     ]
                 }
             />
